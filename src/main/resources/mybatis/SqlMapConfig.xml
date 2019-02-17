@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--1.配置别名：批量扫描别名xxx.User默认别名：user
+	        换别名：在配置了这个批量扫描别名的基础在类上加注解@Alias("别名") -->
+	<typeAliases>
+		<!--批量扫描别名 -->
+		<package name="com.fly.jks.domain" />
+	</typeAliases>
+	<!--2.全局参数settings开启缓存 延迟加载等 根据需要加 -->
+
+	<!--下面这些不用配置的整合到spring了 -->
+	<!--3.SqlSession也整合不用配置了 -->
+	<!--4.配置mapper:由于整合了进行扫描，不需要配置了 -->
+
+</configuration>

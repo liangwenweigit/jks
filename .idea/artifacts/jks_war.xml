@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jks:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="jk.war">
+      <element id="artifact" artifact-name="jks:war exploded" />
+    </root>
+  </artifact>
+</component>
