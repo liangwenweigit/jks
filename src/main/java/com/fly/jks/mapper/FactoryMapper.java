@@ -1,6 +1,8 @@
 package com.fly.jks.mapper;
 import com.fly.jks.domain.Factory;
+import com.fly.jks.mapper.provider.FactoryMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import java.io.Serializable;
@@ -41,6 +43,7 @@ public interface FactoryMapper{
      * 插入，用实体作为参数
      * @param factory
      */
+    @InsertProvider(type = FactoryMapperDynaSQLCreater.class,method = "insertSQL")
     public void insert(Factory factory)throws Exception;
 
     /**

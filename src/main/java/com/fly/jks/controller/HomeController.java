@@ -8,65 +8,80 @@ public class HomeController {
 
 	//系统首页模块
 	
-	@RequestMapping(value={"/home.action"})		//配合web下<url-pattern>/</url-pattern>
+	@RequestMapping(value={"/home"})		//配合web下<url-pattern>/</url-pattern>
 	public String login(){
 		
 		return "/WEB-INF/pages/index.jsp";			//首页，删除根目录下index.jsp，否则上面url将被拦截进不来
 	}
-	
-	@RequestMapping(value="/fmain.action")
+
+    /**
+	 * 01
+     * 防止表单重复提交，这里要在提交表单后,进行重定向到另一个action
+     * @return
+     */
+	@RequestMapping(value="/fmain")
 	public String fmain(){
-		return "/home/fmain.jsp";
+		return "redirect:/fmains";
 	}
-	
-	@RequestMapping(value="/title.action")
+
+	/**
+	 * 02
+	 * 重定向后转跳到主页
+	 * @return
+	 */
+	@RequestMapping(value="/fmains")
+	public String fmains(){
+		return "/WEB-INF/pages/home/fmain.jsp";
+	}
+
+	@RequestMapping(value="/title")
 	public String title(){
-		return "/home/title.jsp";
+		return "/WEB-INF/pages/home/title.jsp";
 	}
 	
-	@RequestMapping(value="/left.action")
+	@RequestMapping(value="/left")
 	public String left(){
-		return "/home/left.jsp";
+		return "/WEB-INF/pages/home/left.jsp";
 	}
 	
-	@RequestMapping(value="/main.action")
+	@RequestMapping(value="/main")
 	public String main(){
-		return "/home/olmsgList.jsp";			//首页转向留言板
+		return "/WEB-INF/pages/home/olmsgList.jsp";			//首页转向留言板
 	}
 	
 	//系统管理模块
 	
-	@RequestMapping("/sysadminMain.action")
+	@RequestMapping("/sysadminMain")
 	public String sysadminMain(){
-		return "/sysadmin/main.jsp";
+		return "/WEB-INF/pages/sysadmin/main.jsp";
 	}
 	
-	@RequestMapping("/sysadminLeft.action")
+	@RequestMapping("/sysadminLeft")
 	public String sysadminLeft(){
-		return "/sysadmin/left.jsp";
+		return "/WEB-INF/pages/sysadmin/left.jsp";
 	}
 	
 	//基础信息模块
 	
-	@RequestMapping("/baseinfoMain.action")
+	@RequestMapping("/baseinfoMain")
 	public String baseinfoMain(){
-		return "/baseinfo/main.jsp";
+		return "/WEB-INF/pages/baseinfo/main.jsp";
 	}
 	
-	@RequestMapping("/baseinfoLeft.action")
+	@RequestMapping("/baseinfoLeft")
 	public String baseinfoLeft(){
-		return "/baseinfo/left.jsp";
+		return "/WEB-INF/pages/baseinfo/left.jsp";
 	}
 	
 	//货运管理模块
 	
-	@RequestMapping("/cargoMain.action")
+	@RequestMapping("/cargoMain")
 	public String cargoMain(){
-		return "/cargo/main.jsp";
+		return "/WEB-INF/pages/cargo/main.jsp";
 	}
 	
-	@RequestMapping("/cargoLeft.action")
+	@RequestMapping("/cargoLeft")
 	public String cargoLeft(){
-		return "/cargo/left.jsp";
+		return "/WEB-INF/pages/cargo/left.jsp";
 	}
 }

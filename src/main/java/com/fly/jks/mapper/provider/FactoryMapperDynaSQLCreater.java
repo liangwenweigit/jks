@@ -10,4 +10,12 @@ import org.apache.ibatis.jdbc.SQL;
  * @date 2019/2/18 - 12:01
  */
 public class FactoryMapperDynaSQLCreater {
+
+    public String insertSQL(){
+        return new SQL(){{
+            INSERT_INTO("factory");
+            VALUES("factory_id, full_name, factory_name, contacts, phone, mobile, fax, cnote, inspector, order_no, order_by, create_dep, create_time",
+                    "#{factory_id}, #{full_name}, #{factory_name}, #{contacts}, #{phone}, #{mobile}, #{fax}, #{cnote}, #{inspector}, #{order_no}, #{order_by}, #{create_dep}, #{create_time}");
+        }}.toString();
+    }
 }

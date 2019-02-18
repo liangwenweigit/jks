@@ -26,7 +26,7 @@
 					<li>
 						<a href="#" id="aa_1" onclick="linkHighlighted(this)">系统代码</a>
 					</li>					
-					<li><a href="${ctx}/basicinfo/factory/list.action" onclick="linkHighlighted(this)" target="main" id="aa_1">厂家信息</a></li>
+					<li><a href="${ctx}/api/factory/find_page" onclick="linkHighlighted(this)" target="main" id="aa_1">厂家信息</a></li>
 			</ul>
         </div>
         </div>

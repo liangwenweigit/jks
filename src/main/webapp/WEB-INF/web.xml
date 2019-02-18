@@ -24,7 +24,7 @@
   
   <servlet-mapping>
   	<servlet-name>springmvc</servlet-name>
-  	<url-pattern>*.action</url-pattern>
+  	<url-pattern>/</url-pattern>
   </servlet-mapping>
   
 	
@@ -45,7 +45,7 @@
 
 	<!--4.阿里巴巴数据源-->
 	<!-- 阿里数据源 BENGIN -->
-    <!--1、配置一个管理后台的servlet-->
+    <!--1)配置一个管理后台的servlet-->
 	<servlet>
 		<servlet-name>DruidStatView</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
@@ -63,7 +63,7 @@
 		<servlet-name>DruidStatView</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
-    <!--2、配置一个web监控的filter-->
+    <!--2)配置一个web监控的filter-->
     <filter>
         <filter-name>WebStatFilter</filter-name>
         <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>

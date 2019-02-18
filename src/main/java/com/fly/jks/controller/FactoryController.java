@@ -3,6 +3,7 @@ package com.fly.jks.controller;
 import com.fly.jks.domain.Factory;
 import com.fly.jks.pagination.Page;
 import com.fly.jks.service.FactoryService;
+import com.fly.jks.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class FactoryController {
     private FactoryService factoryService;
 
     /**
-     * http://localhost:8080/jks/api/factory/get_by_id.action?factory_id=111
+     * http://localhost:8080/jks/api/factory/get_by_id?factory_id=111
      * @param factory_id
      * @return
      * @throws Exception
@@ -45,7 +46,7 @@ public class FactoryController {
     }
 
     /**
-     * http://localhost:8080/jks/api/factory/find_page.action?pageNo=1&pageSize=10
+     * http://localhost:8080/jks/api/factory/find_page?pageNo=1&pageSize=10
      * @param page
      * @return
      * @throws Exception
@@ -54,8 +55,30 @@ public class FactoryController {
     public String findPage(Page<Factory> page, Model model) throws Exception {
         logger.info("查询分页接口被调用了");
         List<Factory> factorys = factoryService.findPage(page);
-        model.addAttribute("factorys",factorys);
+        model.addAttribute("dataList",factorys);
         System.out.println(factorys);
-        return "/pages/base/factory/j_factory_list.jsp";
+        return "/WEB-INF/pages/base/factory/j_factory_list.jsp";
     }
+
+    /**
+     * 新增页面
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/insert_page")
+    public String insertPage() throws Exception {
+        logger.info("返回新增页面接口被调用了");
+        return "/WEB-INF/pages/base/factory/j_factory_create.jsp";
+    }
+
+    @RequestMapping("/insert")
+    public String insert(Factory factory)throws Exception{
+        logger.info("新增厂家接口被调用了");
+        //设置UUID（通常这些是业务，应该写在业务层）
+        factory.setFactory_id(CommonUtils.getUUID());
+        factoryService.insert(factory);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/factory/find_page";
+    }
+
 }

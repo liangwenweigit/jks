@@ -101,7 +101,7 @@
 		<!--7.配置事务的属性 -->
 		<tx:attributes>
 			<tx:method name="*" propagation="REQUIRED" read-only="false" /><!--读写 -->
-			<tx:method name="select*" propagation="SUPPORTS" read-only="true" /><!--只读 -->
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" /><!--只读 -->
 		</tx:attributes>
 	</tx:advice>
 	<!-- 8.配置aop ：切入点表达式、通知和切入点表达式的关联 -->

@@ -50,9 +50,15 @@
 
 	<c:forEach items="${dataList}" var="o" varStatus="status">
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
-		<td><input type="checkbox" name="id" value="${o.id}"/></td>
+		<td><input type="checkbox" name="id" value="${o.factory_id}"/></td>
 		<td>${status.index+1}</td>
-		<td><a href="toview.action?id=${o.id}">${o.fullName}</a></td>
+		<td><a href="toview.action?id=${o.factory_id}">${o.full_name}</a></td>
+		<td>${o.factory_name}</td>
+		<td>${o.contacts}</td>
+		<td>${o.phone}</td>
+		<td>${o.mobile}</td>
+		<td>${o.fax}</td>
+		<td>${o.cnote}</td>
 	</tr>
 	</c:forEach>
 	
