@@ -13,6 +13,9 @@
   <component name="ProjectPlainTextFileTypeManager">
     <file url="file://$PROJECT_DIR$/src/main/resources/log4j.properties" />
   </component>
+  <component name="ProjectResources">
+    <resource url="http://java.sun.com/jsp/jstl/core" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

@@ -9,12 +9,23 @@ import java.util.Map;
  */
 public class Page<T> {
     private int pageNo = 1;			//页码，默认是第一页
+    private int pageIndex;          //当前页的第一个index、通过算法算出来的
     private int pageSize = 10;		//每页显示的记录数，默认是10
     private int totalRecord;		//总记录数
     private int totalPage;			//总页数
     private List<T> results;		//对应的当前页记录
     private Map<String, Object> params = new HashMap<String, Object>();		//其他的参数我们把它分装成一个Map对象
- 
+
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = (pageNo-1)*pageSize;
+    }
+
+
     public int getPageNo() {
        return pageNo;
     }

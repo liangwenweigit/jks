@@ -39,12 +39,38 @@
 	<context:property-placeholder location="classpath:db.properties" />
 
 	<!-- 2.配置c3p0数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}"></property>
-		<property name="jdbcUrl" value="${jdbc.url}"></property>
-		<property name="user" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+	<!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+		<!--<property name="driverClass" value="${jdbc.driver}"></property>-->
+		<!--<property name="jdbcUrl" value="${jdbc.url}"></property>-->
+		<!--<property name="user" value="${jdbc.username}"></property>-->
+		<!--<property name="password" value="${jdbc.password}"></property>-->
+	<!--</bean>-->
+
+
+	<!-- 数据源  使用阿里Druid数据源  也可以用其它数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="20" />
+		<property name="initialSize" value="5" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="5" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<!-- 开启Druid的监控统计功能 -->
+		<property name="filters" value="stat,wall" />
+		<property name="connectProperties" value="druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500"/>
+		<property name="useGlobalDataSourceStat" value="true"/>
 	</bean>
+
+
 
 	<!--3.配置sqlSessinFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

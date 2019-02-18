@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="../../../../../../../项目/day74_杰信商贸-1/day74_杰信商贸-1/jk Maven Webapp/src/main/webapp/WEB-INF/pages/base.jsp" %>
+<%@ include file="base.jsp" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>陕西杰信商务综合管理平台</title>

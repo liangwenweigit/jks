@@ -8,10 +8,6 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>jk Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -59,10 +55,16 @@
     </dependency>
 
     <!-- 整合数据库连接池 -->
+    <!--<dependency>-->
+      <!--<groupId>com.mchange</groupId>-->
+      <!--<artifactId>c3p0</artifactId>-->
+      <!--<version>0.9.5.2</version>-->
+    <!--</dependency>-->
+    <!-- 阿里数据库连接池 -->
     <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.2</version>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>1.1.5</version>
     </dependency>
 
     <!-- 数据库驱动 -->
@@ -79,16 +81,30 @@
           <version>2.8.8.1</version>
       </dependency>
 
-    <!-- 日志 -->
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.13</version>
-    </dependency>
+
+    <!-- 补全项目依赖 -->
+    <!-- 日志logback -->
+    <!--
+        java日志：slf4j, log4j, logback, common-logging
+        slf4j是规范、接口，编程方式
+        日志实现：log4j, logback, common-logging
+        使用slf4j+logback
+     -->
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.5</version>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.7</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <!-- 实现slf4j接口并整合 -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.1</version>
     </dependency>
 
     <!-- 第三方常用jar包 -->

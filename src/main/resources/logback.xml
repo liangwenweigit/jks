@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <!-- 定义日志的根目录 D:\app\log,就在当前项目磁盘的根路径下创建 -->
+    <!-- 比如我项目在桌面，则会在C盘下创建 -->
+    <property name="LOG_HOME" value="/log" />
+
+    <!-- 定义日志文件名称 可以自定义,就是前缀，一般用项目名-->
+    <property name="appName" value="jks"></property>
+    <!--控制台的输出-->
+    <appender name="consoleApp" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!--用于统计数据的输出到指定文件 INFO级别的 按照每天生成日志文件-->
+    <appender name="dataApp" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                `%date{yyyy-MM-dd HH:mm:ss.SSS}`%msg`%n
+            </pattern>
+        </encoder>
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 路径+文件名，都是拼接的上面的 -->
+            <fileNamePattern>${LOG_HOME}/app_log/${appName}.data.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--文件保存1个月-->
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--INFO级别的输出 按照每天生成日志文件-->
+    <appender name="fileInfoApp" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n
+            </pattern>
+        </encoder>
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 路径+文件名，都是拼接的上面的 -->
+            <fileNamePattern>${LOG_HOME}/app_log/${appName}.info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--文件保存1个月-->
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+
+    </appender>
+
+    <!--ERROR级别的输出 按照每天生成日志文件-->
+    <appender name="fileErrorApp" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n
+            </pattern>
+        </encoder>
+
+        <!-- 设置滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 路径+文件名，都是拼接的上面的 -->
+            <fileNamePattern>${LOG_HOME}/app_log/${appName}.err.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--文件保存1个月-->
+            <maxHistory>1</maxHistory>>
+        </rollingPolicy>
+    </appender>
+
+    <!--用于统计数据-->
+    <logger name="dataLogger">
+        <level value="INFO" />
+        <appender-ref ref="dataApp" />
+    </logger>
+
+
+    <root level="INFO">
+        <appender-ref ref="consoleApp"/>
+        <appender-ref ref="fileInfoApp"/>
+        <appender-ref ref="fileErrorApp"/>
+    </root>
+
+</configuration>

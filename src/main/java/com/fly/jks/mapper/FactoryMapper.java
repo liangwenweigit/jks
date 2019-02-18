@@ -18,6 +18,7 @@ public interface FactoryMapper{
      * @param page
      * @return
      */
+    @Select("select * from factory limit #{pageIndex},#{pageSize}")
     public List<Factory> findPage(Page page)throws Exception;
 
     /**
@@ -25,6 +26,7 @@ public interface FactoryMapper{
      * @param paraMap
      * @return
      */
+
     public List<Factory> find(HashMap<String, Object> paraMap)throws Exception;
 
     /**

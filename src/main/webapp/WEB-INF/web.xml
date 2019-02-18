@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>Archetype Created Web Application</display-name>
+
   
   <!-- 1.spring框架 -->
   <context-param>
@@ -24,7 +24,7 @@
   
   <servlet-mapping>
   	<servlet-name>springmvc</servlet-name>
-  	<url-pattern>/</url-pattern>
+  	<url-pattern>*.action</url-pattern>
   </servlet-mapping>
   
 	
@@ -41,4 +41,43 @@
 		<filter-name>SpringEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
+	<!--4.阿里巴巴数据源-->
+	<!-- 阿里数据源 BENGIN -->
+    <!--1、配置一个管理后台的servlet-->
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<!--配置登录druid的用户名密码-->
+		<init-param>
+			<param-name>loginUsername</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<param-name>loginPassword</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+    <!--2、配置一个web监控的filter-->
+    <filter>
+        <filter-name>WebStatFilter</filter-name>
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+        <init-param>
+			<!--排除那些路径-->
+            <param-name>exclusions</param-name>
+            <param-value>*.js,*.css,*.png,*.jpg,/druid/*,*.ico,*.gif,/static/*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>WebStatFilter</filter-name>
+		<!--过滤所有路径-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<!-- 阿里数据源 END -->
+
 </web-app>
