@@ -29,14 +29,14 @@ public class Factory implements Serializable{
     /**
      * 1表示启动，0表示停用
      */
-    private char status;
+    private String state;
 
-    public char getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(char status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public Factory() {

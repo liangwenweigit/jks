@@ -28,61 +28,56 @@
     </div>
     </div>
 <div>
-    <div>
-		<h3>
-			<table class="commonTable" cellspacing="1">
+	<div class="modelDiv">
+		<table class="modelTable" cellspacing="1">
 			<tr>
-				<td class="columnTitle">厂家名称：</td>
-				<td class="tableContent">${factory.full_name}</td>
+				<td class="columnTitle"><h6>厂家名称：</h6></td>
+				<td class="tableContent"><h6 style="color: #218c7e">${factory.full_name}</h6></td>
 			</tr>
 			<tr>
-				<td class="columnTitle">简称：</td>
-				<td class="tableContent">${factory.factory_name}</td>
+				<td class="columnTitle"><h6>简称：</h6></td>
+				<td class="tableContent"><h6 style="color: #218c7e">${factory.factory_name}</h6></td>
 			</tr>
 			<tr>
-				<td class="columnTitle">联系人：</td>
-				<td class="tableContent">${factory.contacts}</td>
+				<td class="model_intro_left"><h6>联系人：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.contacts}</h6></td>
+			</tr>
+			<tr>
+				<td class="model_intro_left"><h6>电话：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.phone}</h6></td>
+			</tr>
+			<tr>
+				<td class="model_intro_left"><h6>手机：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.mobile}</h6></td>
 
 			</tr>
 			<tr>
-				<td class="columnTitle">电话：</td>
-				<td class="tableContent">${factory.phone}</td>
+				<td class="model_intro_left"><h6>传真：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.fax}</h6></td>
 			</tr>
 			<tr>
-				<td class="columnTitle">手机：</td>
-				<td class="tableContent">${factory.mobile}</td>
-
+				<td class="model_intro_left"><h6>验货员：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.inspector}</h6></td>
 			</tr>
 			<tr>
-				<td class="columnTitle">传真：</td>
-				<td class="tableContent">${factory.fax}</td>
+				<td class="model_intro_left"><h6>排序号：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.order_no}</h6></td>
 			</tr>
 			<tr>
-				<td class="columnTitle">验货员：</td>
-				<td class="tableContent">${factory.inspector}</td>
+				<td class="model_intro_left"><h6>创建人：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.order_by}</h6></td>
 			</tr>
-				<tr>
-					<td class="columnTitle">排序号：</td>
-					<td class="tableContent">${factory.order_no}</td>
-				</tr>
 			<tr>
-				<td class="columnTitle">创建人：</td>
-				<td class="tableContent">${factory.order_by}</td>
+				<td class="model_intro_left"><h6>创建部门：</h6></td>
+				<td class="model_intro_right"><h6 style="color: #218c7e">${factory.create_dept}</h6></td>
 			</tr>
-				<tr>
-					<td class="columnTitle">创建部门：</td>
-					<td class="tableContent">${factory.create_dept}</td>
-				</tr>
 			<tr>
-				<td class="columnTitle">备注：</td>
-				<td class="tableContent"><pre>${factory.cnote}</pre></td>
+				<td class="model_intro_left"><h6>备注：</h6></td>
+				<td class="model_intro_right"><pre><h6 style="color: #218c7e">${factory.cnote}</h6></pre></td>
 			</tr>
-		    </table>
-		</h3>
+		</table>
 	</div>
 </div>
- 
- 
 </form>
 </body>
 </html>

@@ -85,6 +85,8 @@ public class FactoryController {
         logger.info("新增厂家接口被调用了");
         //设置UUID（通常这些是业务，应该写在业务层）
         factory.setFactory_id(CommonUtils.getUUID());
+        //设置可用状态为1
+        factory.setState("1");
         factoryService.insert(factory);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/factory/find_page";

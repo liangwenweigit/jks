@@ -20,9 +20,9 @@ public class FactoryMapperDynaSQLCreater {
         return new SQL(){{
             INSERT_INTO("factory");
             VALUES("factory_id, full_name, factory_name, contacts, phone, mobile, fax, cnote, " +
-                            "inspector, order_no, order_by, create_dept, create_time",
+                            "inspector, order_no, order_by, create_dept, create_time, state",
                     "#{factory_id}, #{full_name}, #{factory_name}, #{contacts}, #{phone}, #{mobile}, " +
-                            "#{fax}, #{cnote}, #{inspector}, #{order_no}, #{order_by}, #{create_dept}, #{create_time}");
+                            "#{fax}, #{cnote}, #{inspector}, #{order_no}, #{order_by}, #{create_dept}, #{create_time}, #{state}");
         }}.toString();
     }
 
