@@ -866,6 +866,8 @@ menu a:hover,menu a:active{
 #navMenubar #save_edit {margin:0 3px;width:95px;height:25px;color:#00554a;padding-left:18px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/save_edit.gif") no-repeat;}
 #navMenubar #delete { margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:16px;padding-top:5px; letter-spacing:1.2px;background:url("../images/button/del.gif") no-repeat;}
 
+
+
 /*定义工具栏结束*/
 .input{border:0;}
 .input_nobox{border:0;}

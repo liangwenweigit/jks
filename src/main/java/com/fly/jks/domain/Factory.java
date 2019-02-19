@@ -26,6 +26,18 @@ public class Factory implements Serializable{
     private String order_by;
     private String create_dept;
     private java.util.Date create_time;
+    /**
+     * 1表示启动，0表示停用
+     */
+    private char status;
+
+    public char getStatus() {
+        return status;
+    }
+
+    public void setStatus(char status) {
+        this.status = status;
+    }
 
     public Factory() {
     }

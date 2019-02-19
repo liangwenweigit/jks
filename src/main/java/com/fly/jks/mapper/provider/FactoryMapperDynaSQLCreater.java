@@ -1,7 +1,7 @@
 package com.fly.jks.mapper.provider;
 
 import com.fly.jks.domain.Factory;
-import com.fly.jks.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
@@ -11,14 +11,26 @@ import org.apache.ibatis.jdbc.SQL;
  */
 public class FactoryMapperDynaSQLCreater {
 
+    /**
+     * 插入
+     * @param factory
+     * @return
+     */
     public String insertSQL(Factory factory){
         return new SQL(){{
             INSERT_INTO("factory");
-            VALUES("factory_id, full_name, factory_name, contacts, phone, mobile, fax, cnote, inspector, order_no, order_by, create_dept, create_time",
-                    "#{factory_id}, #{full_name}, #{factory_name}, #{contacts}, #{phone}, #{mobile}, #{fax}, #{cnote}, #{inspector}, #{order_no}, #{order_by}, #{create_dept}, #{create_time}");
+            VALUES("factory_id, full_name, factory_name, contacts, phone, mobile, fax, cnote, " +
+                            "inspector, order_no, order_by, create_dept, create_time",
+                    "#{factory_id}, #{full_name}, #{factory_name}, #{contacts}, #{phone}, #{mobile}, " +
+                            "#{fax}, #{cnote}, #{inspector}, #{order_no}, #{order_by}, #{create_dept}, #{create_time}");
         }}.toString();
     }
 
+    /**
+     * 更新
+     * @param factory
+     * @return
+     */
     public String updateSQL(Factory factory){
         return new SQL(){{
             UPDATE("factory");
@@ -48,5 +60,13 @@ public class FactoryMapperDynaSQLCreater {
             }
             WHERE("factory_id = #{factory_id}");
         }}.toString();
+    }
+
+    /**
+     * 批量删除 sql 是在业务层通过数组拼接好的
+     * @return
+     */
+    public String deleteSQL(String sql){
+        return new String("DELETE FROM factory WHERE factory_id IN ("+sql+")");
     }
 }

@@ -1209,8 +1209,24 @@ function formSubmit (url,sTarget){
     document.forms[0].submit();
     return true;
 }
+/*删除操作+弹窗提示*/
+function formSubmitDelete(url,sTarget ){
+    var sure = window.confirm("确定删除吗？");
+    if(sure){
+        document.forms[0].target = sTarget
+        document.forms[0].action = url;
+        document.forms[0].submit();
+        return true;
+    }
+}
 
+/*新增提及按钮*/
 function commint() {
+    document.forms[0].submit();
+    return true;
+}
+/*更新提交按钮*/
+function updateSubmit() {
     document.forms[0].submit();
     return true;
 }

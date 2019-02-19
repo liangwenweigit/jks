@@ -61,12 +61,14 @@ public interface FactoryMapper{
      * 按id删除，删除一条；支持整数型和字符串类型ID
      * @param factory_id
      */
+    @Delete("delete from factory where factory_id = #{factory_id}")
     public void deleteById(Serializable factory_id)throws Exception;
 
     /**
      * 批量删除；支持整数型和字符串类型ID
-     * @param ids
+     * @param sql
      */
-    public void delete(Serializable[] ids)throws Exception;
+    @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "deleteSQL")
+    public void delete(String sql)throws Exception;
 
 }

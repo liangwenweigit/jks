@@ -61,8 +61,22 @@ public class FactoryServiceImpl implements FactoryService {
 		factoryMapper.deleteById(factory_id);
 	}
 
+    /**
+     * 批量删除 删除一个 拼接sql
+     * @param ids
+     * @throws Exception
+     */
 	@Override
 	public void delete(Serializable[] ids)throws Exception {
-		factoryMapper.delete(ids);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < ids.length; i++) {
+			if (i==(ids.length-1)){
+				sb.append("'"+ids[i]+"'");
+				break;//并且跳出当前循环
+			}
+			sb.append("'"+ids[i]+"'").append(", ");
+		}
+		System.out.println(sb.toString());
+		factoryMapper.delete(sb.toString());
 	}
 }
