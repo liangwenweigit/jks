@@ -13,8 +13,8 @@
 <div id="innerMenubar">
   <div id="navMenubar">
 <ul>
-<li id="view"><a href="#" onclick="formSubmit('toview.action','_self');this.blur();">查看</a></li>
- 
+<li id="view"><a href="#" onclick="formSubmit('toview','_self');this.blur();">查看</a></li>
+<li id="new"><a href="${pageContext.request.contextPath}/api/factory/insert_page">新增</a></li>
 </ul>
   </div>
 </div>
@@ -67,8 +67,6 @@
 </div>
  
 </div>
- 
- 
 </form>
 </body>
 </html>

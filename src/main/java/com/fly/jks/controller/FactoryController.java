@@ -81,4 +81,20 @@ public class FactoryController {
         return "redirect:/api/factory/find_page";
     }
 
+    /**
+     * http://localhost:8080/jks/api/factory/update?factory_id=111&phone=88888888
+     * 更新厂家信息
+     * @param factory
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(Factory factory)throws Exception{
+        logger.info("更新厂家接口被调用了");
+        //设置UUID（通常这些是业务，应该写在业务层）
+        factoryService.update(factory);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "OK";
+    }
 }

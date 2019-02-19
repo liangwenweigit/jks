@@ -5,14 +5,14 @@
     <title></title>
 </head>
 <body>
-<form method="post">
+<form id="insertForm" method="post" action="${pageContext.request.contextPath}/api/factory/insert">
 <div id="menubar">
 <div id="middleMenubar">
 <div id="innerMenubar">
     <div id="navMenubar">
 <ul>
-<li id="save"><a href="#" onclick="formSubmit('/api/factory/insert','_self');">确定</a></li>
-<li id="back"><a href="/api/factory/find_page">返回</a></li>
+<li id="save"><a href="#" onclick="commint();">确定</a></li>
+<li id="back"><a href="${pageContext.request.contextPath}/api/factory/find_page">返回</a></li>
 </ul>
     </div>
 </div>
@@ -24,18 +24,41 @@
     <div class="textbox-header">
     <div class="textbox-inner-header">
     <div class="textbox-title">
-		修改XXX信息
+		新增生产厂家
     </div> 
     </div>
     </div>
 <div>
     <div>
 		<table class="commonTable" cellspacing="1">
-	        <tr>
-	            <td class="columnTitle_mustbe">厂家名称：</td>
-	            <td class="columnTitle_mustbe">联系人：</td>
-	            <td class="tableContent"><input type="text" name="contractor" value="${obj.contractor}"/></td>
-	        </tr>
+            <tr>
+                <td class="columnTitle_mustbe">厂家名称：</td>
+                <td class="tableContent"><input type="text" name="full_name"/></td>
+                <td class="columnTitle_mustbe">简称：</td>
+                <td class="tableContent"><input type="text" name="factory_name"/></td>
+            </tr>
+            <tr>
+                <td class="columnTitle_mustbe">联系人：</td>
+                <td class="tableContent"><input type="text" name="contacts"/></td>
+                <td class="columnTitle_mustbe">电话：</td>
+                <td class="tableContent"><input type="text" name="phone"/></td>
+            </tr>
+            <tr>
+                <td class="columnTitle_mustbe">手机：</td>
+                <td class="tableContent"><input type="text" name="mobile"/></td>
+                <td class="columnTitle_mustbe">传真：</td>
+                <td class="tableContent"><input type="text" name="fax"/></td>
+            </tr>
+            <tr>
+                <td class="columnTitle_mustbe">验货员：</td>
+                <td class="tableContent"><input type="text" name="inspector"/></td>
+                <td class="columnTitle_mustbe">排序号：</td>
+                <td class="tableContent"><input type="text" name="order_no"/></td>
+            </tr>
+            <tr>
+                <td class="columnTitle_mustbe">备注：</td>
+                <td class="tableContent"><textarea name="cnote" style="height:120px;"></textarea></td>
+            </tr>
 		</table>
 	</div>
 </div>

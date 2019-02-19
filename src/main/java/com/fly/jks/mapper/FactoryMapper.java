@@ -1,10 +1,13 @@
 package com.fly.jks.mapper;
+import com.fly.jks.cache.RedisCache;
+import com.fly.jks.cache.RedisCacheTransfer;
 import com.fly.jks.domain.Factory;
 import com.fly.jks.mapper.provider.FactoryMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
  * @date 2019/2/17 - 20:54
  */
 @Mapper
+@CacheNamespace(implementation=com.fly.jks.cache.RedisCache.class)
 public interface FactoryMapper{
     /**
      * 分页查询
@@ -50,6 +54,7 @@ public interface FactoryMapper{
      * 修改，用实体作为参数
      * @param factory
      */
+    @UpdateProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateSQL")
     public void update(Factory factory)throws Exception;
 
     /**

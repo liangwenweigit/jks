@@ -85,6 +85,8 @@
         <appender-ref ref="dataApp" />
     </logger>
 
+    <!--后代打印sql语句 name是接口包名  后面的固定debug-->
+    <logger name="com.fly.jks.mapper" level="DEBUG" />
 
     <root level="INFO">
         <appender-ref ref="consoleApp"/>

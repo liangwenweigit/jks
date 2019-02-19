@@ -1210,6 +1210,11 @@ function formSubmit (url,sTarget){
     return true;
 }
 
+function commint() {
+    document.forms[0].submit();
+    return true;
+}
+
 function selectToInput(selectObj) {
 	var value = selectObj.options[selectObj.selectedIndex].value;
 //	alert(selectObj.parentElement.firstChild.tagName);

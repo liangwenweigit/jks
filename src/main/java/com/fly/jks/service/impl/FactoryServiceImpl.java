@@ -11,6 +11,7 @@ import com.fly.jks.service.FactoryService;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,7 +41,6 @@ public class FactoryServiceImpl implements FactoryService {
 	public List<Factory> find(HashMap<String, Object> paraMap)throws Exception{
 		return factoryMapper.find(paraMap);
 	}
-
 	@Override
 	public Factory get(Serializable factory_id)throws Exception {
 		return factoryMapper.get(factory_id);
