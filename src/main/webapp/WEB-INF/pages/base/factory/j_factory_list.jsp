@@ -57,7 +57,7 @@
 	<tr class="odd" onmouseover="this.className='highlight'" onmouseout="this.className='odd'" >
 		<td><input type="checkbox" name="factory_id" value="${o.factory_id}"/></td>
 		<td>${status.index+1}</td>
-		<td><a href="toview.action?id=${o.factory_id}">${o.full_name}</a></td>
+		<td><a href="${pageContext.request.contextPath}/api/factory/showview?factory_id=${o.factory_id}">${o.full_name}</a></td>
 		<td>${o.factory_name}</td>
 		<td>${o.contacts}</td>
 		<td>${o.phone}</td>
@@ -65,8 +65,10 @@
 		<td>${o.fax}</td>
 		<td>${o.cnote}</td>
 		<td>
-				<c:if test="${o.state eq 1}"><span style="color:green;">启用</span></c:if>
-			    <c:if test="${o.state eq 0}"><span>停用</span></c:if>
+				<a href="${pageContext.request.contextPath}/api/factory/update_state?factory_id=${o.factory_id}">
+					<c:if test="${o.state eq 1}"><span style="color:green;">启用</span></c:if>
+			        <c:if test="${o.state eq 0}"><span>停用</span></c:if>
+				</a>
 		</td>
 		<td><a href='${pageContext.request.contextPath}/api/factory/showview?factory_id=${o.factory_id}'><li style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:7px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">查看</li></a></td>
 	</tr>
@@ -74,10 +76,57 @@
 	
 	</tbody>
 </table>
+
 </div>
- 
 </div>
 </form>
+<center>
+    第${page.pageNo}页/共${page.totalPage}页
+    <a href="${pageContext.request.contextPath}/api/factory/find_page?pageNo=1">首页</a>
+    <c:if test="${page.pageNo>1}">
+        <a href="${pageContext.request.contextPath}/api/factory/find_page?pageNo=${page.pageNo-1}">上一页</a>
+    </c:if>
+
+    <c:choose>
+        <%-- 如果总页数不足10页，那么把所有的页数都显示出来！ --%>
+        <c:when test="${page.totalPage<=10}">
+            <c:set var="begin" value="1"/>
+            <c:set var="end" value="${page.totalPage}"/>
+        </c:when>
+
+        <%-- 当总页数>10时，通过公式计算出begin和end --%>
+        <c:otherwise>
+            <c:set var="begin" value="${page.pageNo-5}"/>
+            <c:set var="end" value="${page.pageNo+4}"/>
+
+            <c:if test="${begin<1}">
+                <c:set var="begin" value="1"/>
+                <c:set var="end" value="10"/>
+            </c:if>
+            <c:if test="${end>page.totalPage}">
+                <c:set var="begin" value="${page.totalPage-9}"/>
+                <c:set var="end" value="${page.totalPage}"/>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- 循环显示 -->
+    <c:forEach var="i" begin="${begin}" end="${end}">
+        <c:choose>
+            <c:when test="${i eq page.pageNo}">
+                [${i}]
+            </c:when>
+            <c:otherwise>
+                <a href="${pageContext.request.contextPath}/api/factory/find_page?pageNo=${i}">[${i}]</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+
+    <c:if test="${page.pageNo<page.totalPage}">
+        <a href="${pageContext.request.contextPath}/api/factory/find_page?pageNo=${page.pageNo+1}">下一页</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/api/factory/find_page?pageNo=${page.totalPage}">尾页</a>
+</center>
 </body>
 </html>
 

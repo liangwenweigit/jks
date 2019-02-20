@@ -1,13 +1,8 @@
 package com.fly.jks.mapper;
-import com.fly.jks.cache.RedisCache;
-import com.fly.jks.cache.RedisCacheTransfer;
 import com.fly.jks.domain.Factory;
 import com.fly.jks.mapper.provider.FactoryMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -85,4 +80,19 @@ public interface FactoryMapper{
     @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStartStateSQL")
     public void updateStartState(String sql)throws Exception;
 
+    /**
+     * 更新 启用/停用
+     * @param factory
+     * @throws Exception
+     */
+    @Update("UPDATE factory SET state = #{state} WHERE factory_id = #{factory_id}")
+    public void updateState(Factory factory) throws Exception;
+
+    /**
+     * 查询总条数
+     * @return
+     * @throws Exception
+     */
+    @Select("select count(*) from factory")
+    public Integer selectCount() throws Exception;
 }

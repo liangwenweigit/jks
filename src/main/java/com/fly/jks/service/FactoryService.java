@@ -1,11 +1,6 @@
 package com.fly.jks.service;
 
 import com.fly.jks.domain.Factory;
-import com.fly.jks.pagination.Page;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * 生产厂家业务层接口
  * @author liang

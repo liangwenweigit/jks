@@ -22,7 +22,7 @@ public class Factory implements Serializable{
     private String fax;
     private String cnote;
     private String inspector;
-    private Integer order_no;
+    private Integer order_no;//这个是integer,使用字符串类型传进来会爆错，页面输入位置设置只能输入数字
     private String order_by;
     private String create_dept;
     private java.util.Date create_time;

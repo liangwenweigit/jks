@@ -9,81 +9,79 @@ import java.util.Map;
  */
 public class Page<T> {
     private int pageNo = 1;			//页码，默认是第一页
-    private int pageIndex;          //当前页的第一个index、通过算法算出来的
+    private int pageIndex;          //查询数据库的下标 limit pageIndex,pageSize
     private int pageSize = 10;		//每页显示的记录数，默认是10
-    private int totalRecord;		//总记录数
-    private int totalPage;			//总页数
+    private int totalRecord;		//总记录数，通过数据库查询，然后放进去
+    private int totalPage;			//总页数,也是在这通过计算出来
     private List<T> results;		//对应的当前页记录
-    private Map<String, Object> params = new HashMap<String, Object>();		//其他的参数我们把它分装成一个Map对象
+    private Map<String, Object> params = new HashMap<String, Object>(0);		//其他的参数我们把它分装成一个Map对象
 
 
     public int getPageIndex() {
         return pageIndex;
     }
 
+    /**
+     * 计算pageIndex:用于查询数据库的下标 limit pageIndex,pageSize
+     * @param
+     */
     public void setPageIndex(int pageIndex) {
-        this.pageIndex = (pageNo-1)*pageSize;
+        this.pageIndex = pageIndex;
     }
-
 
     public int getPageNo() {
-       return pageNo;
+        return pageNo;
     }
- 
+
     public void setPageNo(int pageNo) {
-       this.pageNo = pageNo;
+        this.pageNo = pageNo;
     }
- 
+
     public int getPageSize() {
-       return pageSize;
+        return pageSize;
     }
- 
+
     public void setPageSize(int pageSize) {
-       this.pageSize = pageSize;
+        this.pageSize = pageSize;
     }
- 
+
     public int getTotalRecord() {
-       return totalRecord;
+        return totalRecord;
     }
- 
+
     public void setTotalRecord(int totalRecord) {
-       this.totalRecord = totalRecord;
-       //在设置总页数的时候计算出对应的总页数，在下面的三目运算中加法拥有更高的优先级，所以最后可以不加括号。
-       int totalPage = totalRecord%pageSize==0 ? totalRecord/pageSize : totalRecord/pageSize + 1;
-       this.setTotalPage(totalPage);
+        this.totalRecord = totalRecord;
     }
- 
+
     public int getTotalPage() {
-       return totalPage;
+        return totalPage;
     }
- 
+
+    /**
+     * 计算总页数
+     * @return
+     */
     public void setTotalPage(int totalPage) {
-       this.totalPage = totalPage;
+        this.totalPage = totalPage;
     }
- 
+
     public List<T> getResults() {
-       return results;
+        return results;
     }
- 
+
     public void setResults(List<T> results) {
-       this.results = results;
+        this.results = results;
     }
-   
+
     public Map<String, Object> getParams() {
-       return params;
+        return params;
     }
-   
+
     public void setParams(Map<String, Object> params) {
-       this.params = params;
+        this.params = params;
     }
- 
-    public String toString() {
-       StringBuilder builder = new StringBuilder();
-       builder.append("Page [pageNo=").append(pageNo).append(", pageSize=").append(pageSize).append(", results=").append(results).append(", totalPage=").append(totalPage).append(", totalRecord=").append(totalRecord).append("]");
-       return builder.toString();
-    }
- 
-	/* 页面链接 */
+
+    /* 页面链接 */
 	public String pageLinks(String url) {
 		int endPage = this.totalRecord/pageSize +1;
 		

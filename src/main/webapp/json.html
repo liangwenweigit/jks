@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+<center>
+<div id="showinfo"></div>
+<div class="digg" id="showpage"></div>
+</center>
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+<script type="text/javascript">
+        //加载数据
+        function getData(pageNo) {
+            //请求的方法传过来的是map的json数据
+            $.ajax({
+                url:'/jks/api/factory/find_page_html?pageNo='+pageNo+"&time="+new Date(),
+                type:'get',
+                dataType: 'json',
+                success:function (str) {
+                    var data = eval(str);
+                    //获取了数据 先处理页面数据
+                    var s = "<table><tr><td class='tableHeader'>厂家全称</td><td class='tableHeader'>简称</td><td class='tableHeader'>联系人</td><td class='tableHeader'>电话</td><td class='tableHeader'>手机</td><td class='tableHeader'>传真</td><td class='tableHeader'>验货员</td><td class='tableHeader'>状态</td><td class='tableHeader'>其他操作</td></tr>";
+                    for (var i = 0; i < data.factorys.length; i++) {
+                        s += "<tr><td>"+data.factorys[i].full_name+"</td><td>"+data.factorys[i].factory_name+"</td><td>"+data.factorys[i].contacts+"</td><td>"+data.factorys[i].phone+"</td><td>"+data.factorys[i].mobile+"</td><td>"+data.factorys[i].fax+"</td><td>"+data.factorys[i].cnote+"</td><td>";
+                           if(data.factorys[i].state=='1'){
+                               s+= "启用";
+                           }else{
+                               s+= "停用";
+                           }
+                        s+= "</td><td><a href='#'>查看</a></td></tr>";
+                    }
+                    s += "</table>"
+                    //放进div显示
+                    $("#showinfo").html(s);
+
+                    //这里处理页码显示
+                    //当前页/第几页 首页
+                    var s2 =  "第"+data.page.pageNo+"页/共"+data.page.totalPage+"页"+"<a href='javascript:;' onclick='getData("+1+")'>"+"首页"+"</a>";
+
+                    //上一页：当当前页大于1 则进入循环显示上一页。。小于/等于1则不显示==这里让他显示，但是没有点击函数
+                    if (data.page.pageNo>1){
+                        s2 += "<a href='javascript:;' onclick='getData("+(data.page.pageNo-1)+")'>"+"上一页"+"</a>";
+                    }else{
+                        //这里的样式是把 它变成灰色 就好像不可用差不多
+                        s2 += "<a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascrip:void(0);'>"+"上一页"+"</a>";
+                    }
+
+                    //下一页：当当前页小于总页数，则进入循环显示下一页。。。大于/等于总页数则不显示==这里让他显示，但是没有点击函数
+                    if(data.page.pageNo<data.page.totalPage){
+                        s2 += "<a href='javascript:;' onclick='getData("+(data.page.pageNo+1)+")'>"+"下一页"+"</a>";
+                    }else{
+                        //这里的样式是把 它变成灰色 就好像不可用差不多
+                        s2 += "<a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascript:;'  href='javascrip:void(0);'>"+"下一页"+"</a>";
+                    }
+
+                    //尾页
+                    s2 += "<a href='javascript:;' onclick='getData("+data.page.totalPage+")'>"+"尾页"+"</a>";
+
+                    //转到 xx 页 确定 ,用正则，只能输入数字并且不是输入小数点，并且后端要处理BUG，传过来的页数不能小于或者等于0或者大于总页数。。并且长度不能大于9位数 integer最大21亿10位数
+                    s2 += "  转到"+"<input id='go' maxlength='9' onkeyup="+"value=value.replace(/[^\\d]/g,'')"+" style='width:36px;height:18px;line-height:18px;' />"+"页 "+"<a href='javascript:;' onclick='goPage()'>"+"确定"+"</a>";
+                    //共多少条记录
+                    s2 += " 共"+data.page.totalRecord+"条记录";
+                    //放进div显示
+                    $("#showpage").html(s2);
+
+                },
+                error:function () {
+                    alert("网络连接错误");
+                }
+            })
+        }
+
+        //每次页面加载调一次用加载数据函数
+        getData(1);
+
+    //转到那一页 函数
+    function goPage() {
+        var str = $("#go").val();
+        //alert(str);
+        //直接把参数传进去 调用上面的函数即可
+        getData(str);
+    }
+
+</script>
+</body>
+</html>

@@ -8,13 +8,9 @@ import com.fly.jks.domain.Factory;
 import com.fly.jks.mapper.FactoryMapper;
 import com.fly.jks.pagination.Page;
 import com.fly.jks.service.FactoryService;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 
 
 /**
@@ -114,4 +110,19 @@ public class FactoryServiceImpl implements FactoryService {
 		}
 		factoryMapper.updateStartState(sb.toString());
 	}
+
+    @Override
+    public void updateState(Factory factory) throws Exception {
+	    if ("1".equals(factory.getState())){
+	        factory.setState("0");//停用
+        }else{
+            factory.setState("1");//启用
+        }
+        factoryMapper.updateState(factory);
+    }
+
+    @Override
+    public Integer selectCount() throws Exception {
+        return factoryMapper.selectCount();
+    }
 }

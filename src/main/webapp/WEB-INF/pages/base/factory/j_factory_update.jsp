@@ -36,7 +36,7 @@
 				<td class="columnTitle_mustbe">厂家名称：</td>
 				<td class="tableContent"><input type="text" name="full_name" value="${factory.full_name}"/></td>
 				<td class="columnTitle_mustbe">简称：</td>
-				<td class="tableContent"><input type="text" name="factory_name" value="${factory.full_name}"/></td>
+				<td class="tableContent"><input type="text" name="factory_name" value="${factory.factory_name}"/></td>
 			</tr>
 			<tr>
 				<td class="columnTitle_mustbe">联系人：</td>
@@ -54,7 +54,7 @@
 				<td class="columnTitle_mustbe">验货员：</td>
 				<td class="tableContent"><input type="text" name="inspector" value="${factory.inspector}"/></td>
 				<td class="columnTitle_mustbe">排序号：</td>
-				<td class="tableContent"><input type="text" name="order_no" value="${factory.order_no}"/></td>
+				<td class="tableContent"><input maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" type="text" name="order_no" value="${factory.order_no}"/></td>
 			</tr>
 			<tr>
 				<td class="columnTitle_mustbe">备注：</td>

@@ -12,12 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 /**
  * 生成厂家controller层
  * @author liang
@@ -56,10 +54,31 @@ public class FactoryController {
      */
     @RequestMapping("/find_page")
     public String findPage(Page<Factory> page, Model model) throws Exception {
+        //分页资料
+        Integer totalRecord = factoryService.selectCount();
+        //设置总记录数
+        page.setTotalRecord(totalRecord);
+        //设置总页数
+        page.setTotalPage(page.getTotalRecord()%page.getPageSize()==0?page.getTotalRecord()/page.getPageSize():page.getTotalRecord()/page.getPageSize()+1);
+        //处理分页bug，当数据少于10  或者没有数据的时候 或者等于10(每页大小)
+        if (page.getTotalRecord()<=page.getPageSize()){
+            page.setTotalPage(1);
+        }
+        //处理传过来的 页数 BUG 当页数小于0时设置成1，当页数大于 总页数时 设置为总页数
+        if (page.getPageNo()<=0){
+            page.setPageNo(1);
+        }
+        if (page.getPageNo()>page.getTotalPage()){
+            page.setPageNo(page.getTotalPage());
+        }
+        //设置查询数据库的下标 limit pageIndex,pageSize
+        page.setPageIndex((page.getPageNo()-1)*page.getPageSize());
+        model.addAttribute("page",page);
+
+        //其他资料
         logger.info("查询分页接口被调用了");
         List<Factory> factorys = factoryService.findPage(page);
         model.addAttribute("dataList",factorys);
-        System.out.println(factorys);
         return "/WEB-INF/pages/base/factory/j_factory_list.jsp";
     }
 
@@ -82,12 +101,12 @@ public class FactoryController {
      */
     @RequestMapping("/insert")
     public String insert(Factory factory)throws Exception{
-        logger.info("新增厂家接口被调用了");
-        //设置UUID（通常这些是业务，应该写在业务层）
-        factory.setFactory_id(CommonUtils.getUUID());
-        //设置可用状态为1
-        factory.setState("1");
-        factoryService.insert(factory);
+            logger.info("新增厂家接口被调用了");
+            //设置UUID（通常这些是业务，应该写在业务层）
+            factory.setFactory_id(CommonUtils.getUUID());
+            //设置可用状态为1
+            factory.setState("1");
+            factoryService.insert(factory);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/factory/find_page";
     }
@@ -180,5 +199,71 @@ public class FactoryController {
         factoryService.updateStartState(ids);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/factory/find_page";
+    }
+
+    /**
+     * 批量/单个 启用
+     * @return
+     */
+    @RequestMapping("/update_state")
+    public String updateState(@RequestParam(value = "factory_id",required=false)String factory_id)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "factory_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        Factory factory = factoryService.get(factory_id);
+        if (factory==null){
+            return "redirect:/api/factory/find_page";
+        }
+        factoryService.updateState(factory);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/factory/find_page";
+    }
+
+
+
+
+    /**
+     * 分页查询 json数据
+     * http://localhost:8080/jks/api/factory/find_page_html?pageNo=1&pageSize=10
+     * @param page
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/find_page_html")
+    @ResponseBody
+    public Object findPageHtml(Page<Factory> page) throws Exception {
+        Map<String, Object> data = new HashMap<String, Object>(0);
+
+        //分页资料
+        Integer totalRecord = factoryService.selectCount();
+        //设置总记录数
+        page.setTotalRecord(totalRecord);
+        System.out.println(totalRecord);
+        //设置总页数
+        page.setTotalPage(page.getTotalRecord()%page.getPageSize()==0?page.getTotalRecord()/page.getPageSize():page.getTotalRecord()/page.getPageSize()+1);
+        System.out.println(page.getTotalPage());
+        //处理分页bug，当数据少于10  或者没有数据的时候 或者等于10(每页大小)
+        if (page.getTotalRecord()<=page.getPageSize()){
+            page.setTotalPage(1);
+        }
+        //处理传过来的 页数 BUG 当页数小于0时设置成1，当页数大于 总页数时 设置为总页数
+        if (page.getPageNo()<=0){
+            page.setPageNo(1);
+        }
+        if (page.getPageNo()>page.getTotalPage()){
+            page.setPageNo(page.getTotalPage());
+        }
+
+        //设置查询数据库的下标 limit pageIndex,pageSize
+        page.setPageIndex((page.getPageNo()-1)*page.getPageSize());
+        System.out.println(page.getPageIndex());
+
+        //其他资料
+        logger.info("查询分页接口被调用了");
+        List<Factory> factorys = factoryService.findPage(page);
+
+        //存进map
+        data.put("page",page);
+        data.put("factorys",factorys);
+        return data;//json格式返回出去
+        //return "/WEB-INF/pages/base/factory/j_factory_list.jsp";
     }
 }

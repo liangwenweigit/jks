@@ -1,7 +1,6 @@
 package com.fly.jks.mapper.provider;
 
 import com.fly.jks.domain.Factory;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
