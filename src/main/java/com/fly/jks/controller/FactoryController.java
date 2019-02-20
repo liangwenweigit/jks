@@ -99,6 +99,7 @@ public class FactoryController {
     @RequestMapping("/update_page")
     public String updatePage(String factory_id,Model model)throws Exception{
         logger.info("转向修改页面接口被调用了");
+        System.out.println(factory_id);//如果前端选择多个ID会直接拼接成字符串，到数据库查找是没有数据的Parameters: 1,11(String)
         Factory factory = factoryService.get(factory_id);
         model.addAttribute("factory",factory);
         System.out.println(factory);
@@ -116,6 +117,7 @@ public class FactoryController {
         logger.info("更新厂家接口被调用了");
         //id为空 转跳主列表页面
         if (factory.getFactory_id()==null || "".equals(factory.getFactory_id())){
+            logger.info("更新厂家失败，id为空");
             return "redirect:/api/factory/find_page";
         }
         factoryService.update(factory);
@@ -134,7 +136,6 @@ public class FactoryController {
         if (ids==null || ids.length==0){
             return "redirect:/api/factory/find_page";
         }
-        System.out.println(ids);
         factoryService.delete(ids);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/factory/find_page";
@@ -149,5 +150,35 @@ public class FactoryController {
         Factory factory = factoryService.get(factory_id);
         model.addAttribute("factory",factory);
         return "/WEB-INF/pages/base/factory/j_factory_view.jsp";
+    }
+
+    /**
+     * 批量/单个 停用
+     * @return
+     */
+    @RequestMapping("/stop")
+    public String stop(@RequestParam(value = "factory_id",required=false) Serializable[] ids)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "factory_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        if (ids==null || ids.length==0){
+            return "redirect:/api/factory/find_page";
+        }
+        factoryService.updateStopState(ids);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/factory/find_page";
+    }
+
+    /**
+     * 批量/单个 启用
+     * @return
+     */
+    @RequestMapping("/start")
+    public String start(@RequestParam(value = "factory_id",required=false) Serializable[] ids)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "factory_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        if (ids==null || ids.length==0){
+            return "redirect:/api/factory/find_page";
+        }
+        factoryService.updateStartState(ids);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/factory/find_page";
     }
 }

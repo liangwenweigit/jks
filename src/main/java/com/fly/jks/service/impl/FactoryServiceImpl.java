@@ -76,7 +76,42 @@ public class FactoryServiceImpl implements FactoryService {
 			}
 			sb.append("'"+ids[i]+"'").append(", ");
 		}
-		System.out.println(sb.toString());
 		factoryMapper.delete(sb.toString());
+	}
+
+	/**
+	 *批量/单个停用，类似假删除，业务删除
+	 * @param ids
+	 * @throws Exception
+	 */
+	@Override
+	public void updateStopState(Serializable[] ids) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < ids.length; i++) {
+			if (i==(ids.length-1)){
+				sb.append("'"+ids[i]+"'");
+				break;//并且跳出当前循环
+			}
+			sb.append("'"+ids[i]+"'").append(", ");
+		}
+		factoryMapper.updateStopState(sb.toString());
+	}
+
+	/**
+	 *批量/单个启用
+	 * @param ids
+	 * @throws Exception
+	 */
+	@Override
+	public void updateStartState(Serializable[] ids) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < ids.length; i++) {
+			if (i==(ids.length-1)){
+				sb.append("'"+ids[i]+"'");
+				break;//并且跳出当前循环
+			}
+			sb.append("'"+ids[i]+"'").append(", ");
+		}
+		factoryMapper.updateStartState(sb.toString());
 	}
 }

@@ -13,9 +13,11 @@
 <div id="innerMenubar">
   <div id="navMenubar">
 <ul>
-<li id="new"><a href="${pageContext.request.contextPath}/api/factory/insert_page">新增</a></li>
-<li id="update"><a href="#" onclick="formSubmit('${pageContext.request.contextPath}/api/factory/update_page','_self');this.blur();">修改</a></li>
-<li id="delete"><a href="#" onclick="formSubmitDelete('${pageContext.request.contextPath}/api/factory/delete','_self');this.blur();">删除</a></li>
+    <li id="new"><a href="${pageContext.request.contextPath}/api/factory/insert_page">新增</a></li>
+    <li id="update"><a href="#" onclick="formSubmit('${pageContext.request.contextPath}/api/factory/update_page','_self');this.blur();">修改</a></li>
+    <li id="delete"><a href="#" onclick="formSubmitDelete('${pageContext.request.contextPath}/api/factory/delete','_self');this.blur();">删除</a></li>
+	<li id="new"><a href="#" onclick="formSubmitStart('${pageContext.request.contextPath}/api/factory/start','_self');this.blur();">启用</a></li>
+	<li id="new"><a href="#" onclick="formSubmitStop('${pageContext.request.contextPath}/api/factory/stop','_self');this.blur();">停用</a></li>
 </ul>
   </div>
 </div>
@@ -45,6 +47,7 @@
 		<td class="tableHeader">手机</td>
 		<td class="tableHeader">传真</td>
 		<td class="tableHeader">验货员</td>
+		<td class="tableHeader">状态</td>
 		<td class="tableHeader">其他操作</td>
 	</tr>
 	</thead>
@@ -61,6 +64,10 @@
 		<td>${o.mobile}</td>
 		<td>${o.fax}</td>
 		<td>${o.cnote}</td>
+		<td>
+				<c:if test="${o.state eq 1}"><span style="color:green;">启用</span></c:if>
+			    <c:if test="${o.state eq 0}"><span>停用</span></c:if>
+		</td>
 		<td><a href='${pageContext.request.contextPath}/api/factory/showview?factory_id=${o.factory_id}'><li style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:7px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">查看</li></a></td>
 	</tr>
 	</c:forEach>

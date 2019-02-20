@@ -74,6 +74,7 @@ public class Factory implements Serializable{
                 ", order_by='" + order_by + '\'' +
                 ", create_dept='" + create_dept + '\'' +
                 ", create_time=" + create_time +
+                ", state='" + state + '\'' +
                 '}';
     }
 

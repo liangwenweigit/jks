@@ -1220,6 +1220,27 @@ function formSubmitDelete(url,sTarget ){
     }
 }
 
+/*启用操作+弹窗提示*/
+function formSubmitStart(url,sTarget ){
+    var sure = window.confirm("确定启用吗？");
+    if(sure){
+        document.forms[0].target = sTarget
+        document.forms[0].action = url;
+        document.forms[0].submit();
+        return true;
+    }
+}
+/*停用操作+弹窗提示*/
+function formSubmitStop(url,sTarget ){
+    var sure = window.confirm("确定停用吗？");
+    if(sure){
+        document.forms[0].target = sTarget
+        document.forms[0].action = url;
+        document.forms[0].submit();
+        return true;
+    }
+}
+
 /*新增提及按钮*/
 function commint() {
     document.forms[0].submit();

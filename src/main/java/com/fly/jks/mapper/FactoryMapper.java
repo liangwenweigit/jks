@@ -71,4 +71,18 @@ public interface FactoryMapper{
     @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "deleteSQL")
     public void delete(String sql)throws Exception;
 
+    /**
+     *批量/单个停用，类似假删除，业务删除
+     * @throws Exception
+     */
+    @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStopStateSQL")
+    public void updateStopState(String sql)throws Exception;
+
+    /**
+     *批量/单个启用
+     * @throws Exception
+     */
+    @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStartStateSQL")
+    public void updateStartState(String sql)throws Exception;
+
 }
