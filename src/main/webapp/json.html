@@ -50,6 +50,37 @@
                         s2 += "<a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascrip:void(0);'>"+"上一页"+"</a>";
                     }
 
+                    //中间显示5页
+                    //当总页数小于/等于5 直接显示出来全部
+                    if(data.page.totalPage<=5){
+                        for(var i = 1; i <= data.page.totalPage; i++){
+                            s2 += "<a href='javascript:;' onclick='getData("+(i)+")'>"+i+"</a>";
+                        }
+                    }else{//来到这里 肯定大于5页
+                        //判断 总页数 减去 当前页 是否小于/等于5，是的话就显示最后5页
+                        if((data.page.totalPage-data.page.pageNo)<=5){
+                            for(var i = (data.page.totalPage-5); i <= data.page.totalPage ; i++){
+                                s2 += "<a href='javascript:;' onclick='getData("+(i)+")'>"+i+"</a>";
+                            }
+                        }else{//来到这里 就是在中间了 直接显示中间5页
+                            if (data.page.pageNo==1) {//当pageNO 为1的时候 直接显示5页
+                                for (var i = 1; i <= 5; i++) {
+                                    s2 += "<a href='javascript:;' onclick='getData(" + (i) + ")'>" + i + "</a>";
+                                }
+                            }else if (data.page.pageNo==2) {//当pageNO 为2的时候 直接显示5页
+                                for (var i = 1; i <= 5; i++) {
+                                    s2 += "<a href='javascript:;' onclick='getData(" + (i) + ")'>" + (i) + "</a>";
+                                }
+                            }else{//其他情况 直接显示5页
+                                for (var i = 1; i <= 5; i++) {
+                                    s2 += "<a href='javascript:;' onclick='getData(" + (i+data.page.pageNo-3) + ")'>" + (i+data.page.pageNo-3) + "</a>";
+                                }
+
+                            }
+                        }
+
+                    }
+
                     //下一页：当当前页小于总页数，则进入循环显示下一页。。。大于/等于总页数则不显示==这里让他显示，但是没有点击函数
                     if(data.page.pageNo<data.page.totalPage){
                         s2 += "<a href='javascript:;' onclick='getData("+(data.page.pageNo+1)+")'>"+"下一页"+"</a>";
@@ -62,9 +93,9 @@
                     s2 += "<a href='javascript:;' onclick='getData("+data.page.totalPage+")'>"+"尾页"+"</a>";
 
                     //转到 xx 页 确定 ,用正则，只能输入数字并且不是输入小数点，并且后端要处理BUG，传过来的页数不能小于或者等于0或者大于总页数。。并且长度不能大于9位数 integer最大21亿10位数
-                    s2 += "  转到"+"<input id='go' maxlength='9' onkeyup="+"value=value.replace(/[^\\d]/g,'')"+" style='width:36px;height:18px;line-height:18px;' />"+"页 "+"<a href='javascript:;' onclick='goPage()'>"+"确定"+"</a>";
+                    s2 += "  转到"+"<input id='go' maxlength='9' onkeyup="+"value=value.replace(/[^\\d]/g,'')"+" style='width:33px;height:17px;line-height:17px;' />"+"页 "+"<a href='javascript:;' onclick='goPage()'>"+"确定"+"</a>";
                     //共多少条记录
-                    s2 += " 共"+data.page.totalRecord+"条记录";
+                    //s2 += " 共"+data.page.totalRecord+"条记录";
                     //放进div显示
                     $("#showpage").html(s2);
 
