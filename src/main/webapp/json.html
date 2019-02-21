@@ -54,25 +54,45 @@
                     //当总页数小于/等于5 直接显示出来全部
                     if(data.page.totalPage<=5){
                         for(var i = 1; i <= data.page.totalPage; i++){
+                            if (i==data.page.pageNo){//style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' 被选中变灰色
+                                s2 += "<a  style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascript:;' onclick='getData("+(i)+")'>"+i+"</a>";
+                                continue;
+                            }
                             s2 += "<a href='javascript:;' onclick='getData("+(i)+")'>"+i+"</a>";
                         }
                     }else{//来到这里 肯定大于5页
                         //判断 总页数 减去 当前页 是否小于/等于5，是的话就显示最后5页
                         if((data.page.totalPage-data.page.pageNo)<=5){
                             for(var i = (data.page.totalPage-5); i <= data.page.totalPage ; i++){
+                                if (i==data.page.pageNo){//style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' 被选中变灰色
+                                    s2 += "<a  style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascript:;' onclick='getData("+(i)+")'>"+i+"</a>";
+                                    continue;
+                                }
                                 s2 += "<a href='javascript:;' onclick='getData("+(i)+")'>"+i+"</a>";
                             }
                         }else{//来到这里 就是在中间了 直接显示中间5页
                             if (data.page.pageNo==1) {//当pageNO 为1的时候 直接显示5页
                                 for (var i = 1; i <= 5; i++) {
+                                    if(i==1){//style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' 被选中变灰色
+                                        s2 += "<a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascript:;' onclick='getData(" + (i) + ")'>" + i + "</a>";
+                                        continue;
+                                    }
                                     s2 += "<a href='javascript:;' onclick='getData(" + (i) + ")'>" + i + "</a>";
                                 }
                             }else if (data.page.pageNo==2) {//当pageNO 为2的时候 直接显示5页
                                 for (var i = 1; i <= 5; i++) {
+                                    if (i==2){//style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' 被选中变灰色
+                                        s2 += "<a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascript:;' onclick='getData(" + (i) + ")'>" + i + "</a>";
+                                        continue;
+                                    }
                                     s2 += "<a href='javascript:;' onclick='getData(" + (i) + ")'>" + (i) + "</a>";
                                 }
                             }else{//其他情况 直接显示5页
                                 for (var i = 1; i <= 5; i++) {
+                                    if (i==3){//style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' 被选中变灰色
+                                        s2 += "<a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascript:;' onclick='getData(" + (i+data.page.pageNo-3) + ")'>" + (i+data.page.pageNo-3) + "</a>";
+                                        continue;
+                                    }
                                     s2 += "<a href='javascript:;' onclick='getData(" + (i+data.page.pageNo-3) + ")'>" + (i+data.page.pageNo-3) + "</a>";
                                 }
 
