@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnection;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -35,7 +35,7 @@ public class RedisCache implements Cache {
 
     @Override
     public void clear() {
-        JedisConnection connection = null;
+        RedisConnection connection = null;
         try {
             connection = jedisConnectionFactory.getConnection();
             connection.flushDb();
@@ -57,7 +57,7 @@ public class RedisCache implements Cache {
     @Override
     public Object getObject(Object key) {
         Object result = null;
-        JedisConnection connection = null;
+        RedisConnection connection = null;
         try {
             connection = jedisConnectionFactory.getConnection();
             RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer();
@@ -80,7 +80,7 @@ public class RedisCache implements Cache {
     @Override
     public int getSize() {
         int result = 0;
-        JedisConnection connection = null;
+        RedisConnection connection = null;
         try {
             connection = jedisConnectionFactory.getConnection();
             result = Integer.valueOf(connection.dbSize().toString());
@@ -96,7 +96,7 @@ public class RedisCache implements Cache {
 
     @Override
     public void putObject(Object key, Object value) {
-        JedisConnection connection = null;
+        RedisConnection connection = null;
         try {
             connection = jedisConnectionFactory.getConnection();
             RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer();
@@ -112,7 +112,7 @@ public class RedisCache implements Cache {
 
     @Override
     public Object removeObject(Object key) {
-        JedisConnection connection = null;
+        RedisConnection connection = null;
         Object result = null;
         try {
             connection = jedisConnectionFactory.getConnection();

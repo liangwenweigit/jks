@@ -10,26 +10,21 @@ import java.util.Date;
  *
  */
 public class Factory implements Serializable{
-    /**
-     * 主键uuid
-     */
-    private String factory_id;
-    private String full_name;
-    private String factory_name;
-    private String contacts;
-    private String phone;
-    private String mobile;
-    private String fax;
-    private String cnote;
-    private String inspector;
-    private Integer order_no;//这个是integer,使用字符串类型传进来会爆错，页面输入位置设置只能输入数字
-    private String order_by;
-    private String create_dept;
-    private java.util.Date create_time;
-    /**
-     * 1表示启动，0表示停用
-     */
-    private String state;
+
+    private String factory_id;//生产厂家uuid
+    private String full_name;//生产厂家全称
+    private String factory_name;//生产厂家简称
+    private String contacts;//联系人
+    private String phone;//手机
+    private String mobile;//电话
+    private String fax;//传真
+    private String cnote;//备注
+    private String inspector;//验货员
+    private Integer order_no;//排序号 这个是integer,使用字符串类型传进来会爆错，页面输入位置设置只能输入数字
+    private String order_by;//创建人
+    private String create_dept;//创建部门
+    private java.util.Date create_time;//创建时间
+    private String state;//状态 1表示启动，0表示停用
 
     public String getState() {
         return state;

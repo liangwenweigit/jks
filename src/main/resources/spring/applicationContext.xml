@@ -101,6 +101,8 @@
 		<!--7.配置事务的属性 -->
 		<tx:attributes>
 			<tx:method name="*" propagation="REQUIRED" read-only="false" /><!--读写 -->
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" /><!--只读 -->
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" /><!--只读 -->
 			<tx:method name="find*" propagation="SUPPORTS" read-only="true" /><!--只读 -->
 		</tx:attributes>
 	</tx:advice>
@@ -146,9 +148,14 @@
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxIdle" value="${redis.pool.maxIdle}"/>
 		<property name="maxTotal" value="${redis.pool.maxActive}"/>
+		<property name="minIdle" value="${redis.pool.minIdle}"/>
 		<property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
 		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
 		<property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+		<property name="testWhileIdle" value="${redis.pool.testWhileIdle}"/>
+		<property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetweenEvictionRunsMillis}"/>
+		<property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPerEvictionRun}"/>
+		<property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdleTimeMillis}"/>
 	</bean>
 	<!--redis连接池管理工厂-->
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
@@ -156,14 +163,11 @@
 		<property name="port" value="${redis.master.port}"/>
 		<property name="poolConfig" ref="jedisPoolConfig"/>
 	</bean>
-	<!-- 使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存 -->
-	<!-- 这个类必须自己写-->
+	 <!--使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存-->
+	 <!--这个类必须自己写-->
 	<bean id="redisCacheTransfer" class="com.fly.jks.cache.RedisCacheTransfer">
 		<property name="jedisConnectionFactory" ref="jedisConnectionFactory" />
 	</bean>
-
-
-
 </beans>
 
 
