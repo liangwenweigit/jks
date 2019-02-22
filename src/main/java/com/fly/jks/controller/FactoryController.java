@@ -118,10 +118,9 @@ public class FactoryController {
     @RequestMapping("/update_page")
     public String updatePage(String factory_id,Model model)throws Exception{
         logger.info("转向修改页面接口被调用了");
-        System.out.println(factory_id);//如果前端选择多个ID会直接拼接成字符串，到数据库查找是没有数据的Parameters: 1,11(String)
+        //System.out.println(factory_id);//如果前端选择多个ID会直接拼接成字符串，到数据库查找是没有数据的Parameters: 1,11(String)
         Factory factory = factoryService.get(factory_id);
         model.addAttribute("factory",factory);
-        System.out.println(factory);
         return "/WEB-INF/pages/base/factory/j_factory_update.jsp";
     }
     /**
@@ -202,7 +201,7 @@ public class FactoryController {
     }
 
     /**
-     * 批量/单个 启用
+     * 批量/单个 更新
      * @return
      */
     @RequestMapping("/update_state")
@@ -217,9 +216,6 @@ public class FactoryController {
         return "redirect:/api/factory/find_page";
     }
 
-
-
-
     /**
      * 分页查询 json数据
      * http://localhost:8080/jks/api/factory/find_page_html?pageNo=1&pageSize=10
@@ -231,15 +227,12 @@ public class FactoryController {
     @ResponseBody
     public Object findPageHtml(Page<Factory> page) throws Exception {
         Map<String, Object> data = new HashMap<String, Object>(0);
-
         //分页资料
         Integer totalRecord = factoryService.selectCount();
         //设置总记录数
         page.setTotalRecord(totalRecord);
-        System.out.println(totalRecord);
         //设置总页数
         page.setTotalPage(page.getTotalRecord()%page.getPageSize()==0?page.getTotalRecord()/page.getPageSize():page.getTotalRecord()/page.getPageSize()+1);
-        System.out.println(page.getTotalPage());
         //处理分页bug，当数据少于10  或者没有数据的时候 或者等于10(每页大小)
         if (page.getTotalRecord()<=page.getPageSize()){
             page.setTotalPage(1);
@@ -251,10 +244,8 @@ public class FactoryController {
         if (page.getPageNo()>page.getTotalPage()){
             page.setPageNo(page.getTotalPage());
         }
-
         //设置查询数据库的下标 limit pageIndex,pageSize
         page.setPageIndex((page.getPageNo()-1)*page.getPageSize());
-        System.out.println(page.getPageIndex());
 
         //其他资料
         logger.info("查询分页接口被调用了");
