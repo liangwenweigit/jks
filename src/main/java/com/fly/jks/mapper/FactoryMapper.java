@@ -4,7 +4,7 @@ import com.fly.jks.mapper.provider.FactoryMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 /**
  * 生产厂家mapper接口类
@@ -28,9 +28,8 @@ public interface FactoryMapper{
      * @param paraMap
      * @return
      */
-
-    public List<Factory> find(HashMap<String, Object> paraMap)throws Exception;
-
+    public List<Factory> find(Map<String, Object> paraMap)throws Exception;
+    //TODO
     /**
      *只查询一个，常用于修改
      * @param factory_id

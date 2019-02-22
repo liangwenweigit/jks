@@ -2,11 +2,10 @@ package com.fly.jks.mapper;
 
 import com.fly.jks.domain.Contract;
 import com.fly.jks.mapper.provider.ContractMapperDynaSQLCreater;
-import org.apache.ibatis.annotations.CacheNamespace;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-
+import com.fly.jks.pagination.Page;
+import org.apache.ibatis.annotations.*;
+import java.io.Serializable;
+import java.util.Map;
 import java.util.List;
 
 /**
@@ -18,6 +17,23 @@ import java.util.List;
 //redis缓存
 @CacheNamespace(implementation=com.fly.jks.cache.RedisCache.class)
 public interface ContractMapper {
+
+    /**
+     * 分页查询
+     * @param page
+     * @return
+     */
+    @Select("select * from contract limit #{pageIndex},#{pageSize}")
+    public List<Contract> findPage(Page page)throws Exception;
+
+    /**
+     * 带条件查询，条件可以为null，既没有条件；返回list对象集合
+     * @param paraMap
+     * @return
+     */
+    public List<Contract> find(Map<String, Object> paraMap)throws Exception;
+    //TODO
+
     /**
      * 查询全部
      * @return
@@ -40,14 +56,21 @@ public interface ContractMapper {
      * @throws Exception
      */
     @Select("select * from contract where contract_id= #{contract_id}")
-    public Contract getContract(String contract_id)throws Exception;
+    public Contract getContract(Serializable contract_id)throws Exception;
+
+    /**
+     * 按id删除，删除一条；支持整数型和字符串类型ID
+     * @param factory_id
+     */
+    @Delete("delete from contract where contract_id = #{contract_id}")
+    public void deleteById(Serializable factory_id)throws Exception;
 
     /**
      * 删除1条/批量删除
      * @throws Exception
      */
-    public void deleteContract()throws Exception;
-    //TODO
+    @DeleteProvider(type = ContractMapperDynaSQLCreater.class,method = "deleteSQL")
+    public void deleteContract(String sql)throws Exception;
 
     /**
      * 新增一条
@@ -56,4 +79,12 @@ public interface ContractMapper {
      */
     @InsertProvider(type = ContractMapperDynaSQLCreater.class,method = "insertContractSQL")
     public void insertContract(Contract contract)throws Exception;
+
+    /**
+     * 更新
+     * @param contract
+     * @throws Exception
+     */
+    @UpdateProvider(type = ContractMapperDynaSQLCreater.class,method = "updateContractSQL")
+    public void updateContract(Contract contract)throws Exception;
 }

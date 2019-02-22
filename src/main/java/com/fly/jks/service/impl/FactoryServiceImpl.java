@@ -1,7 +1,7 @@
 package com.fly.jks.service.impl;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 import com.fly.jks.domain.Factory;
@@ -34,7 +34,7 @@ public class FactoryServiceImpl implements FactoryService {
 	}
 
 	@Override
-	public List<Factory> find(HashMap<String, Object> paraMap)throws Exception{
+	public List<Factory> find(Map<String, Object> paraMap)throws Exception{
 		return factoryMapper.find(paraMap);
 	}
 	@Override
