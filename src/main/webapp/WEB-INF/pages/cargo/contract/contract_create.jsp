@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/clock/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/clock/jquery.datepick.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/clock/jquery.datepick.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/clock/jquery.datepick-zh-CN.js" charset="UTF-8"></script>
 </head>
 <body>
 <form id="insertForm" method="post" action="${pageContext.request.contextPath}/api/contract/insert">
@@ -30,41 +34,80 @@
     </div>
 <div>
     <div>
-		<table class="commonTable" cellspacing="1">
+        <table class="commonTable" cellspacing="1">
             <tr>
-                <td class="columnTitle_mustbe">厂家名称：</td>
-                <td class="tableContent"><input type="text" name="full_name"/></td>
-                <td class="columnTitle_mustbe">简称：</td>
-                <td class="tableContent"><input type="text" name="contract_name"/></td>
+                <td class="columnTitle_mustbe">客户名称：</td>
+                <td class="tableContent"><input type="text" name="customer_name"/></td>
+                <td class="columnTitle_mustbe">收购方：</td>
+                <td class="tableContent"><input type="text" name="offeror" value="杰信商贸有限公司"/></td>
             </tr>
             <tr>
-                <td class="columnTitle_mustbe">联系人：</td>
-                <td class="tableContent"><input type="text" name="contacts"/></td>
-                <td class="columnTitle_mustbe">电话：</td>
-                <td class="tableContent"><input type="text" name="phone"/></td>
+                <td class="columnTitle_mustbe">合同号：</td>
+                <td class="tableContent"><input type="text" name="contract_no"/></td>
+                <td class="columnTitle_mustbe">打印版式：</td>
+                <td class="tableContentAuto">
+                    <input type="radio" name="print_style" value="2" class="input" checked>两款
+                    <input type="radio" name="print_style" value="1" class="input">一款
+                </td>
             </tr>
             <tr>
-                <td class="columnTitle_mustbe">手机：</td>
-                <td class="tableContent"><input type="text" name="mobile"/></td>
-                <td class="columnTitle_mustbe">传真：</td>
-                <td class="tableContent"><input type="text" name="fax"/></td>
+                <%--<td class="columnTitle_mustbe">签单日期：</td>
+                <td class="tableContent">
+                    <input type="text" style="width:90px;" name="signing_date"
+                           onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
+                </td>--%>
+                <td class="columnTitle_mustbe">签单日期：</td>
+                <td class="tableContent">
+                    <input type="text" style="width:90px;" name="signing_date" id="signing_date" readonly="readonly"/>
+                </td>
+                <td class="columnTitle_mustbe">重要程度：</td>
+                <td class="tableContentAuto">
+                    <input type="radio" name="import_num" value="3" class="input" checked>★★★
+                    <input type="radio" name="import_num" value="2" class="input">★★
+                    <input type="radio" name="import_num" value="1" class="input">★
+                </td>
             </tr>
             <tr>
+                <td class="columnTitle_mustbe">交货期限：</td>
+                <td class="tableContent">
+                    <input type="text" style="width:90px;" name="delivery_date" id="delivery_date" readonly="readonly"/>
+                </td>
+                <td class="columnTitle_mustbe">船期：</td>
+                <td class="tableContent">
+                    <input type="text" style="width:90px;" name="ship_time" id="ship_time" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <td class="columnTitle_mustbe">贸易条款：</td>
+                <td class="tableContent"><input type="text" name="trade_clause"/></td>
                 <td class="columnTitle_mustbe">验货员：</td>
                 <td class="tableContent"><input type="text" name="inspector"/></td>
-                <td class="columnTitle_mustbe">排序号：</td>
-                <td class="tableContent"><input type="text" maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" name="order_no"/></td>
             </tr>
             <tr>
-                <td class="columnTitle_mustbe">备注：</td>
-                <td class="tableContent"><textarea name="cnote" style="height:120px;"></textarea></td>
+                <td class="columnTitle_mustbe">制单人：</td>
+                <td class="tableContent"><input type="text" name="input_by"/></td>
+                <td class="columnTitle_mustbe">审单人：</td>
+                <td class="tableContent"><input type="text" name="check_by"/></td>
             </tr>
-		</table>
+            <tr>
+                <td class="columnTitle_mustbe">要求：</td>
+                <td class="tableContent"><textarea name="crequest" style="height:120px;"></textarea></td>
+                <td class="columnTitle_mustbe">说明：</td>
+                <td class="tableContent"><textarea name="instructions" style="height:120px;"></textarea></td>
+            </tr>
+        </table>
 	</div>
 </div>
  
  
 </form>
+<script>
+    $(function() {
+        $("#signing_date").datepick({dateFormat:"yy-mm-dd"});
+        $("#delivery_date").datepick({dateFormat:"yy-mm-dd"});
+        $("#ship_time").datepick({dateFormat:"yy-mm-dd"});
+    });
+</script>
 </body>
 </html>
 
