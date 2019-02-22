@@ -81,49 +81,5 @@ public class Page<T> {
         this.params = params;
     }
 
-    /* 页面链接 */
-	public String pageLinks(String url) {
-		int endPage = this.totalRecord/pageSize +1;
-		
-		StringBuffer sBuf = new StringBuffer();
-		
-		sBuf.append("<input type=\"hidden\" name=\"pageNo\" value=\"").append(this.pageNo).append("\">");		//分页参数：当前页隐藏域
-		
-		sBuf.append("<span class=\"noprint\" style=\"padding:5px;\">");
-
-		sBuf.append("&nbsp;第").append(this.pageNo).append("页 / 共").append(endPage).append("页&nbsp;");
-		sBuf.append("&nbsp;总共").append(this.totalRecord).append("条记录 每页").append(this.pageSize).append("条记录&nbsp;");
-		
-		sBuf.append("<a href=\"").append(url).append("?pageNo=1");
-		sBuf.append("\">[首页]");
-		sBuf.append("</a>&nbsp;");
-		
-		sBuf.append("<a href=\"").append(url).append("?pageNo=");
-		if(pageNo<=1){
-			sBuf.append(1);
-		}else{
-			sBuf.append(pageNo-1);
-		}	
-		sBuf.append("\">[上一页]");
-		sBuf.append("</a>&nbsp;");
-			
-		
-		sBuf.append("<a href=\"").append(url).append("?pageNo=");
-		if(pageNo>=endPage){
-			sBuf.append(endPage);
-		}else{
-			sBuf.append(pageNo+1);
-		}	
-		sBuf.append("\">[下一页]");
-		sBuf.append("</a>&nbsp;");
-			
-		sBuf.append("<a href=\"").append(url).append("?pageNo=").append(endPage);
-		sBuf.append("\">[末页]");
-		sBuf.append("</a>&nbsp;");
-
-		sBuf.append("</span>");
-		
-		return sBuf.toString();
-	}
 
 }

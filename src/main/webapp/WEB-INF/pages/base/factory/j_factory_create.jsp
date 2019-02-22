@@ -53,7 +53,7 @@
                 <td class="columnTitle_mustbe">验货员：</td>
                 <td class="tableContent"><input type="text" name="inspector"/></td>
                 <td class="columnTitle_mustbe">排序号：</td>
-                <td class="tableContent"><input type="text" name="order_no"/></td>
+                <td class="tableContent"><input type="text" maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" name="order_no"/></td>
             </tr>
             <tr>
                 <td class="columnTitle_mustbe">备注：</td>
