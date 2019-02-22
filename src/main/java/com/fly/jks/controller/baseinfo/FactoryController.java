@@ -1,4 +1,4 @@
-package com.fly.jks.controller;
+package com.fly.jks.controller.baseinfo;
 
 import com.fly.jks.domain.Factory;
 import com.fly.jks.pagination.Page;
@@ -79,7 +79,7 @@ public class FactoryController {
         logger.info("查询分页接口被调用了");
         List<Factory> factorys = factoryService.findPage(page);
         model.addAttribute("dataList",factorys);
-        return "/WEB-INF/pages/base/factory/j_factory_list.jsp";
+        return "/WEB-INF/pages/baseinfo/factory/factory_list.jsp";
     }
 
     /**
@@ -90,7 +90,7 @@ public class FactoryController {
     @RequestMapping("/insert_page")
     public String insertPage() throws Exception {
         logger.info("转向新增页面接口被调用了");
-        return "/WEB-INF/pages/base/factory/j_factory_create.jsp";
+        return "/WEB-INF/pages/baseinfo/factory/factory_create.jsp";
     }
 
     /**
@@ -121,7 +121,7 @@ public class FactoryController {
         //System.out.println(factory_id);//如果前端选择多个ID会直接拼接成字符串，到数据库查找是没有数据的Parameters: 1,11(String)
         Factory factory = factoryService.get(factory_id);
         model.addAttribute("factory",factory);
-        return "/WEB-INF/pages/base/factory/j_factory_update.jsp";
+        return "/WEB-INF/pages/baseinfo/factory/factory_update.jsp";
     }
     /**
      * http://localhost:8080/jks/api/factory/update?factory_id=111&phone=88888888
@@ -167,7 +167,7 @@ public class FactoryController {
     public String showView(@RequestParam("factory_id") String factory_id,Model model) throws Exception {
         Factory factory = factoryService.get(factory_id);
         model.addAttribute("factory",factory);
-        return "/WEB-INF/pages/base/factory/j_factory_view.jsp";
+        return "/WEB-INF/pages/baseinfo/factory/factory_view.jsp";
     }
 
     /**
@@ -255,6 +255,6 @@ public class FactoryController {
         data.put("page",page);
         data.put("factorys",factorys);
         return data;//json格式返回出去
-        //return "/WEB-INF/pages/base/factory/j_factory_list.jsp";
+        //return "/WEB-INF/pages/baseinfo/factory/factory_list.jsp";
     }
 }

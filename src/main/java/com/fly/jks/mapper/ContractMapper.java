@@ -1,9 +1,7 @@
 package com.fly.jks.mapper;
 
 import com.fly.jks.domain.Contract;
-import com.fly.jks.domain.Factory;
 import com.fly.jks.mapper.provider.ContractMapperDynaSQLCreater;
-import com.fly.jks.mapper.provider.FactoryMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
 import java.io.Serializable;
