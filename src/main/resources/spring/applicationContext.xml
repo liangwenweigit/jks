@@ -155,6 +155,8 @@
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 		<property name="hostName" value="${redis.master.ip}"/>
 		<property name="port" value="${redis.master.port}"/>
+        <property name="timeout" value="${redis.master.timeout}"/>
+        <property name="usePool" value="${redis.master.usePool}"/>
 		<property name="poolConfig" ref="jedisPoolConfig"/>
 	</bean>
 	 <!--使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存-->
