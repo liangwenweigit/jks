@@ -150,10 +150,6 @@
 		<property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
 		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
 		<property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
-		<property name="testWhileIdle" value="${redis.pool.testWhileIdle}"/>
-		<property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetweenEvictionRunsMillis}"/>
-		<property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPerEvictionRun}"/>
-		<property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdleTimeMillis}"/>
 	</bean>
 	<!--redis连接池管理工厂-->
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">

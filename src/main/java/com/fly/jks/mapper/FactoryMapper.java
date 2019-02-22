@@ -12,6 +12,7 @@ import java.util.List;
  * @date 2019/2/17 - 20:54
  */
 @Mapper
+//redis缓存
 @CacheNamespace(implementation=com.fly.jks.cache.RedisCache.class)
 public interface FactoryMapper{
     /**
