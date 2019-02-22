@@ -4,9 +4,9 @@
 	<title>陕西杰信商务综合管理平台</title>
 </head>
 <frameset rows="125,*" name="topFrameset" border="0">
-	<frame name="top_frame" scrolling="no"  target="middleFrameSet" src="${pageContext.request.contextPath}/title">
+	<frame name="top_frame" scrolling="no" src="${pageContext.request.contextPath}/title">
 	<frameset cols="202,*" height="100%" name="middle" frameborder="no" border="0" framespacing="0">
-		<frame name="leftFrame" class="leftFrame" target="main" scrolling="no" src="${pageContext.request.contextPath}/left" />
+		<frame name="leftFrame" class="leftFrame" scrolling="no" src="${pageContext.request.contextPath}/left" />
 		<frame name="main" class="rightFrame" src="${pageContext.request.contextPath}/main" />
 	</frameset>
 </frameset>

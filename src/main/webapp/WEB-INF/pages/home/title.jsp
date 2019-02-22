@@ -202,11 +202,13 @@
 		    		<span id="leftKey"  onmouseover="periodOffset(this, 'left')"><img src="${ctx}/skin/default/images/title/left_arrow.png"/></span>
 			    	<div class="mavMeau_top"></div>
 			    	<div id="mask">
-			    		<div id="menuContent"><span id="topmenu"
-onclick="top.location.href='fmain.action';linkHighlightMenu(this);">系统首页</span><span id="tm_separator"></span><span id="topmenu" 
-onclick="top.leftFrame.location.href='cargoLeft.action';top.main.location.href='cargoMain.action';linkHighlightMenu(this);">货运管理</span><span id="tm_separator"></span><span id="topmenu"
-onclick="top.leftFrame.location.href='baseinfoLeft.action';top.main.location.href='baseinfoMain.action';linkHighlightMenu(this);">基础信息</span><span id="tm_separator"></span><span id="topmenu" 
-onclick="top.leftFrame.location.href='sysadminLeft.action';top.main.location.href='sysadminMain.action';linkHighlightMenu(this);">系统管理</span></div>
+			    		<div id="menuContent">
+                            <span id="topmenu" onclick="top.location.href='${ctx}/fmain';linkHighlightMenu(this);">系统首页</span>
+                            <span id="topmenu" onclick="top.leftFrame.location.href='${ctx}/cargoLeft';top.main.location.href='${ctx}/cargoMain';linkHighlightMenu(this);">货运管理</span>
+                            <span id="topmenu" onclick="top.leftFrame.location.href='${ctx}/baseinfoLeft';top.main.location.href='${ctx}/baseinfoMain';linkHighlightMenu(this);">基础信息</span>
+                            <span id="topmenu" onclick="top.leftFrame.location.href='${ctx}/sysadminLeft';top.main.location.href='${ctx}/sysadminMain';linkHighlightMenu(this);">系统管理</span>
+							<span id="topmenu">自己加功能</span>
+						</div>
 					</div>
 					<span id="rightKey" onmouseover="periodOffset(this, 'right')"><img src="${ctx}/skin/default/images/title/right_arrow.png"/></span>
 				</div>

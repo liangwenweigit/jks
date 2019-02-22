@@ -116,7 +116,7 @@
     <c:forEach var="i" begin="${begin}" end="${end}">
         <c:choose>
             <c:when test="${i eq page.pageNo}">
-                <a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascrip:void(0);'>${i}</a>
+                <a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascrip:void(0)'>${i}</a>
             </c:when>
             <c:otherwise>
                 <a href="${pageContext.request.contextPath}/api/factory/find_page?pageNo=${i}">${i}</a>
