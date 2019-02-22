@@ -64,22 +64,57 @@ public class ContractServiceImpl  implements ContractService{
             sb.append("'"+ids[i]+"'").append(", ");
         }
         contractMapper.deleteContract(sb.toString());
-
     }
 
+    /**
+     *  private String contract_state;//状态1未完成  0完成
+     * @param ids
+     * @throws Exception
+     */
     @Override
     public void updateStopState(Serializable[] ids) throws Exception {
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < ids.length; i++) {
+            if (i==(ids.length-1)){
+                sb.append("'"+ids[i]+"'");
+                break;//并且跳出当前循环
+            }
+            sb.append("'"+ids[i]+"'").append(", ");
+        }
+        contractMapper.updateStopState(sb.toString());
     }
 
+    /**
+     *  private String contract_state;//状态1未完成  0完成
+     * @param ids
+     * @throws Exception
+     */
     @Override
     public void updateStartState(Serializable[] ids) throws Exception {
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < ids.length; i++) {
+            if (i==(ids.length-1)){
+                sb.append("'"+ids[i]+"'");
+                break;//并且跳出当前循环
+            }
+            sb.append("'"+ids[i]+"'").append(", ");
+        }
+        contractMapper.updateStartState(sb.toString());
     }
 
+    /**
+     *  private String contract_state;//状态1未完成  0完成
+     * @param contract
+     * @throws Exception
+     */
     @Override
-    public void updateState(Contract entity) throws Exception {
-        //TODO
+    public void updateState(Contract contract) throws Exception {
+        if ("1".equals(contract.getContract_state())){
+            contract.setContract_state("0");;//完成
+        }else{
+            contract.setContract_state("1");;//未完成
+        }
+        contractMapper.updateState(contract);
     }
 
     @Override

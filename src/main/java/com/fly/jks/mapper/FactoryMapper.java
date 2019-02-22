@@ -53,14 +53,14 @@ public interface FactoryMapper{
     public void update(Factory factory)throws Exception;
 
     /**
-     * 按id删除，删除一条；支持整数型和字符串类型ID
+     * 真删除，删除一条，支持整数型和字符串类型ID
      * @param factory_id
      */
     @Delete("delete from factory where factory_id = #{factory_id}")
     public void deleteById(Serializable factory_id)throws Exception;
 
     /**
-     * 批量删除；支持整数型和字符串类型ID
+     * 真批量删除/删除一个。支持整数型和字符串类型ID
      * @param sql
      */
     @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "deleteSQL")
@@ -70,14 +70,14 @@ public interface FactoryMapper{
      *批量/单个停用，类似假删除，业务删除
      * @throws Exception
      */
-    @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStopStateSQL")
+    @UpdateProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStopStateSQL")
     public void updateStopState(String sql)throws Exception;
 
     /**
      *批量/单个启用
      * @throws Exception
      */
-    @DeleteProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStartStateSQL")
+    @UpdateProvider(type = FactoryMapperDynaSQLCreater.class,method = "updateStartStateSQL")
     public void updateStartState(String sql)throws Exception;
 
     /**

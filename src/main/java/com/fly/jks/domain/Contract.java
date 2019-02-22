@@ -25,7 +25,7 @@ public class Contract implements Serializable{
   private String instructions;//说明
   private String print_style;//打印版式，一个页面打印一款 还是几款商品，根据客户要求而定
   private String old_state;//归档前状态
-  private String contract_state;//状态
+  private String contract_state;//状态1未完成  0完成
   private String out_state;//走货状态
   private java.util.Date delivery_date;//交货日期
   private String trade_clause;//贸易条款

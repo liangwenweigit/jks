@@ -1,7 +1,9 @@
 package com.fly.jks.mapper;
 
 import com.fly.jks.domain.Contract;
+import com.fly.jks.domain.Factory;
 import com.fly.jks.mapper.provider.ContractMapperDynaSQLCreater;
+import com.fly.jks.mapper.provider.FactoryMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
 import java.io.Serializable;
@@ -59,14 +61,14 @@ public interface ContractMapper {
     public Contract getContract(Serializable contract_id)throws Exception;
 
     /**
-     * 按id删除，删除一条；支持整数型和字符串类型ID
+     * 真删除，删除一条，支持整数型和字符串类型ID
      * @param factory_id
      */
     @Delete("delete from contract where contract_id = #{contract_id}")
     public void deleteById(Serializable factory_id)throws Exception;
 
     /**
-     * 删除1条/批量删除
+     * 批量删除/删除1条
      * @throws Exception
      */
     @DeleteProvider(type = ContractMapperDynaSQLCreater.class,method = "deleteSQL")
@@ -87,4 +89,28 @@ public interface ContractMapper {
      */
     @UpdateProvider(type = ContractMapperDynaSQLCreater.class,method = "updateContractSQL")
     public void updateContract(Contract contract)throws Exception;
+
+    /**
+     * 更新1条合同状态  private String contract_state;//状态1未完成  0完成
+     * @param contract
+     * @throws Exception
+     */
+    @Update("UPDATE contract SET contract_state = #{contract_state} WHERE contract_id = #{contract_id}")
+    public void updateState(Contract contract) throws Exception;
+
+    /**
+     *批量/单 合同状态  private String contract_state;//状态1未完成  0完成
+     * 设置成0==完成停止
+     * @throws Exception
+     */
+    @UpdateProvider(type = ContractMapperDynaSQLCreater.class,method = "updateStopStateSQL")
+    public void updateStopState(String sql)throws Exception;
+
+    /**
+     *批量/单个 合同状态  private String contract_state;//状态1未完成  0完成
+     * 设置成1==未完成继续
+     * @throws Exception
+     */
+    @UpdateProvider(type = ContractMapperDynaSQLCreater.class,method = "updateStartStateSQL")
+    public void updateStartState(String sql)throws Exception;
 }

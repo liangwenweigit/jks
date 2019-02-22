@@ -61,7 +61,7 @@ public class FactoryMapperDynaSQLCreater {
     }
 
     /**
-     * 批量删除/删除一个 sql 是在业务层通过数组拼接好的
+     * 真批量删除/删除一个 sql 是在业务层通过数组拼接好的
      * @return
      */
     public String deleteSQL(String sql){

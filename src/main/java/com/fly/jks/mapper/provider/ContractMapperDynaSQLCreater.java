@@ -9,12 +9,29 @@ import org.apache.ibatis.jdbc.SQL;
  */
 public class ContractMapperDynaSQLCreater {
     /**
-     * 删除1条/批量删除
+     * 真删除1条/批量删除
      */
     public String deleteSQL(String sql){
         return new String("DELETE FROM contract WHERE contract_id IN ("+sql+")");
     }
 
+    /**
+     *批量/单 合同状态  private String contract_state;//状态1未完成  0完成
+     * @param sql
+     * @return
+     */
+    public String updateStopStateSQL(String sql){
+        return new String("UPDATE contract SET contract_state = '0' WHERE contract_id IN ("+sql+")");
+    }
+
+    /**
+     *批量/单 合同状态  private String contract_state;//状态1未完成  0完成
+     * @param sql
+     * @return
+     */
+    public String updateStartStateSQL(String sql){
+        return new String("UPDATE contract SET contract_state = '1' WHERE contract_id IN ("+sql+")");
+    }
     /**
      * 新增一条动态sql
      * @return
