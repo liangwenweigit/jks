@@ -15,33 +15,33 @@ public class ContractProduct implements Serializable{
   //private Contract contract;//这里不用面向对象的思想,直接用下面的String 这样可以单表操作
   private String contract_id;//外键 合同UUID（因为这里使用的是mybatis,这样单表操作速度更加）
   private String factory_name;//厂家简称 冗余字段
-  private String product_ame;//产品名称
+  private String product_name;//产品名称
   private String product_num;//产品编号
   private String product_image;//产品图片
   private String product_desc;//产品描述
   private Integer cnumber;//产品数量
   private String loading_rate;//装率
   private String packing_unit;//包装单位 只pcs/套sets
-  private double price;//单价/分 也可能不是分
-  private double amount;//总额
+  private Double price;//单价/分 也可能不是分
+  private Double amount;//总额
   private Integer out_num;//实际出货数量
   private String finshed;//是否出货完毕1完毕 0未完
-  private double gross_weigh;//毛重
-  private double net_weight;//净重
+  private Double gross_weigh;//毛重
+  private Double net_weight;//净重
   private String csize;//体积
-  private double size_length;//尺寸长
-  private double size_width;//尺寸宽
-  private double size_weight;//尺寸高
+  private Double size_length;//尺寸长
+  private Double size_width;//尺寸宽
+  private Double size_higt;//尺寸高high
   private String product_request;//要求
   private String cunit;//EL单位
   private Integer box_num;//件数
-  private double ex_price;//出口单价
-  private double ex_amount;//出口合计
+  private Double ex_price;//出口单价
+  private Double ex_amount;//出口合计
   private String ex_unit;//出口价格单位
-  private double no_tax;//不含税
-  private double tax;//含税
-  private double cost_price;//收购成本金额
-  private double cost_tax;//收购成本税金
+  private Double no_tax;//不含税
+  private Double tax;//含税
+  private Double cost_price;//收购成本金额
+  private Double cost_tax;//收购成本税金
   private String accessories;//是否有附件1有 0没
   //一个合同下有多个货物，用户可以修改排序号 来排顺序
   private Integer orderNo;//排序号，测试驼峰命名 是否OK
@@ -49,12 +49,12 @@ public class ContractProduct implements Serializable{
   public ContractProduct() {
   }
 
-  public ContractProduct(String contract_product_id, String factory_id, String contract_id, String factory_name, String product_ame, String product_num, String product_image, String product_desc, Integer cnumber, String loading_rate, String packing_unit, double price, double amount, Integer out_num, String finshed, double gross_weigh, double net_weight, String csize, double size_length, double size_width, double size_weight, String product_request, String cunit, Integer box_num, double ex_price, double ex_amount, String ex_unit, double no_tax, double tax, double cost_price, double cost_tax, String accessories, Integer orderNo) {
+  public ContractProduct(String contract_product_id, String factory_id, String contract_id, String factory_name, String product_name, String product_num, String product_image, String product_desc, Integer cnumber, String loading_rate, String packing_unit, Double price, Double amount, Integer out_num, String finshed, Double gross_weigh, Double net_weight, String csize, Double size_length, Double size_width, Double size_higt, String product_request, String cunit, Integer box_num, Double ex_price, Double ex_amount, String ex_unit, Double no_tax, Double tax, Double cost_price, Double cost_tax, String accessories, Integer orderNo) {
     this.contract_product_id = contract_product_id;
     this.factory_id = factory_id;
     this.contract_id = contract_id;
     this.factory_name = factory_name;
-    this.product_ame = product_ame;
+    this.product_name = product_name;
     this.product_num = product_num;
     this.product_image = product_image;
     this.product_desc = product_desc;
@@ -70,7 +70,7 @@ public class ContractProduct implements Serializable{
     this.csize = csize;
     this.size_length = size_length;
     this.size_width = size_width;
-    this.size_weight = size_weight;
+    this.size_higt = size_higt;
     this.product_request = product_request;
     this.cunit = cunit;
     this.box_num = box_num;
@@ -92,7 +92,7 @@ public class ContractProduct implements Serializable{
             ", factory_id='" + factory_id + '\'' +
             ", contract_id='" + contract_id + '\'' +
             ", factory_name='" + factory_name + '\'' +
-            ", product_ame='" + product_ame + '\'' +
+            ", product_name='" + product_name + '\'' +
             ", product_num='" + product_num + '\'' +
             ", product_image='" + product_image + '\'' +
             ", product_desc='" + product_desc + '\'' +
@@ -108,7 +108,7 @@ public class ContractProduct implements Serializable{
             ", csize='" + csize + '\'' +
             ", size_length=" + size_length +
             ", size_width=" + size_width +
-            ", size_weight=" + size_weight +
+            ", size_higt=" + size_higt +
             ", product_request='" + product_request + '\'' +
             ", cunit='" + cunit + '\'' +
             ", box_num=" + box_num +
@@ -156,12 +156,12 @@ public class ContractProduct implements Serializable{
     this.factory_name = factory_name;
   }
 
-  public String getProduct_ame() {
-    return product_ame;
+  public String getProduct_name() {
+    return product_name;
   }
 
-  public void setProduct_ame(String product_ame) {
-    this.product_ame = product_ame;
+  public void setProduct_name(String product_name) {
+    this.product_name = product_name;
   }
 
   public String getProduct_num() {
@@ -212,19 +212,19 @@ public class ContractProduct implements Serializable{
     this.packing_unit = packing_unit;
   }
 
-  public double getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 
-  public double getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(double amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 
@@ -244,19 +244,19 @@ public class ContractProduct implements Serializable{
     this.finshed = finshed;
   }
 
-  public double getGross_weigh() {
+  public Double getGross_weigh() {
     return gross_weigh;
   }
 
-  public void setGross_weigh(double gross_weigh) {
+  public void setGross_weigh(Double gross_weigh) {
     this.gross_weigh = gross_weigh;
   }
 
-  public double getNet_weight() {
+  public Double getNet_weight() {
     return net_weight;
   }
 
-  public void setNet_weight(double net_weight) {
+  public void setNet_weight(Double net_weight) {
     this.net_weight = net_weight;
   }
 
@@ -268,28 +268,28 @@ public class ContractProduct implements Serializable{
     this.csize = csize;
   }
 
-  public double getSize_length() {
+  public Double getSize_length() {
     return size_length;
   }
 
-  public void setSize_length(double size_length) {
+  public void setSize_length(Double size_length) {
     this.size_length = size_length;
   }
 
-  public double getSize_width() {
+  public Double getSize_width() {
     return size_width;
   }
 
-  public void setSize_width(double size_width) {
+  public void setSize_width(Double size_width) {
     this.size_width = size_width;
   }
 
-  public double getSize_weight() {
-    return size_weight;
+  public Double getSize_high() {
+    return size_higt;
   }
 
-  public void setSize_weight(double size_weight) {
-    this.size_weight = size_weight;
+  public void setSize_high(Double size_high) {
+    this.size_higt = size_higt;
   }
 
   public String getProduct_request() {
@@ -316,19 +316,19 @@ public class ContractProduct implements Serializable{
     this.box_num = box_num;
   }
 
-  public double getEx_price() {
+  public Double getEx_price() {
     return ex_price;
   }
 
-  public void setEx_price(double ex_price) {
+  public void setEx_price(Double ex_price) {
     this.ex_price = ex_price;
   }
 
-  public double getEx_amount() {
+  public Double getEx_amount() {
     return ex_amount;
   }
 
-  public void setEx_amount(double ex_amount) {
+  public void setEx_amount(Double ex_amount) {
     this.ex_amount = ex_amount;
   }
 
@@ -340,35 +340,35 @@ public class ContractProduct implements Serializable{
     this.ex_unit = ex_unit;
   }
 
-  public double getNo_tax() {
+  public Double getNo_tax() {
     return no_tax;
   }
 
-  public void setNo_tax(double no_tax) {
+  public void setNo_tax(Double no_tax) {
     this.no_tax = no_tax;
   }
 
-  public double getTax() {
+  public Double getTax() {
     return tax;
   }
 
-  public void setTax(double tax) {
+  public void setTax(Double tax) {
     this.tax = tax;
   }
 
-  public double getCost_price() {
+  public Double getCost_price() {
     return cost_price;
   }
 
-  public void setCost_price(double cost_price) {
+  public void setCost_price(Double cost_price) {
     this.cost_price = cost_price;
   }
 
-  public double getCost_tax() {
+  public Double getCost_tax() {
     return cost_tax;
   }
 
-  public void setCost_tax(double cost_tax) {
+  public void setCost_tax(Double cost_tax) {
     this.cost_tax = cost_tax;
   }
 

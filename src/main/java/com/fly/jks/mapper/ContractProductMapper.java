@@ -85,7 +85,7 @@ public interface ContractProductMapper {
      * @param contractProduct
      * @throws Exception
      */
-    //@UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateSQL")
+    @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateSQL")
     public void updateContract(ContractProduct contractProduct)throws Exception;
 
     /**
