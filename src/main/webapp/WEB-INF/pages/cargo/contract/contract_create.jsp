@@ -36,10 +36,10 @@
     <div>
         <table class="commonTable" cellspacing="1">
             <tr>
-                <td class="columnTitle_mustbe">客户名称：</td>
-                <td class="tableContent"><input type="text" name="customer_name"/></td>
                 <td class="columnTitle_mustbe">收购方：</td>
                 <td class="tableContent"><input type="text" name="offeror" value="杰信商贸有限公司"/></td>
+                <td class="columnTitle_mustbe">客户名称：</td>
+                <td class="tableContent"><input type="text" name="customer_name"/></td>
             </tr>
             <tr>
                 <td class="columnTitle_mustbe">合同号：</td>
@@ -74,7 +74,7 @@
                 </td>
                 <td class="columnTitle_mustbe">船期：</td>
                 <td class="tableContent">
-                    <input type="text" style="width:90px;" name="ship_time" id="ship_time" readonly="readonly" />
+                    <input type="text" style="width:90px;" name="ship_date" id="ship_date" readonly="readonly" />
                 </td>
             </tr>
             <tr>
@@ -98,14 +98,12 @@
         </table>
 	</div>
 </div>
- 
- 
 </form>
 <script>
     $(function() {
         $("#signing_date").datepick({dateFormat:"yy-mm-dd"});
         $("#delivery_date").datepick({dateFormat:"yy-mm-dd"});
-        $("#ship_time").datepick({dateFormat:"yy-mm-dd"});
+        $("#ship_date").datepick({dateFormat:"yy-mm-dd"});
     });
 </script>
 </body>

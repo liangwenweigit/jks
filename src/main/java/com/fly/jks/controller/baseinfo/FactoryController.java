@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,8 @@ public class FactoryController {
             factory.setFactory_id(CommonUtils.getUUID());
             //设置可用状态为1
             factory.setState("1");
+            //设置创建时间
+           factory.setCreate_time(new Date());
             factoryService.insert(factory);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/factory/find_page";
@@ -201,7 +204,7 @@ public class FactoryController {
     }
 
     /**
-     * 批量/单个 更新
+     * 单个更新状态
      * @return
      */
     @RequestMapping("/update_state")

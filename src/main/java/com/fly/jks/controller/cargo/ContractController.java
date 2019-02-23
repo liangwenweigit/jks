@@ -1,5 +1,6 @@
 package com.fly.jks.controller.cargo;
 
+import com.fly.jks.controller.BaseController;
 import com.fly.jks.controller.baseinfo.FactoryController;
 import com.fly.jks.domain.Contract;
 import com.fly.jks.domain.Factory;
@@ -12,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/api/contract")
-public class ContractController {
+public class ContractController extends BaseController{
     private static final Logger logger = LoggerFactory.getLogger(FactoryController.class);
     @Autowired
     private ContractService contractService;
@@ -84,9 +89,106 @@ public class ContractController {
         logger.info("新增厂家接口被调用了");
         //设置UUID（通常这些是业务，应该写在业务层）
         contract.setContract_id(CommonUtils.getUUID());
-        //设置可用状态为1 草稿/
+        //设置可用状态为1 草稿/未上报
         contract.setContract_state("1");
+        //设置创建时间
+        contract.setCreate_time(new Date());
         contractService.insert(contract);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/contract/find_page";
+    }
+
+    /**
+     * 转向修改页面,需要传一个id参数进来,到数据库查出来，然后放到页面
+     * @return
+     */
+    @RequestMapping("/update_page")
+    public String updatePage(String contract_id,Model model)throws Exception{
+        logger.info("转向修改页面接口被调用了");
+        //System.out.println(contract_id);//如果前端选择多个ID会直接拼接成字符串，到数据库查找是没有数据的Parameters: 1,11(String)
+        Contract contract = contractService.get(contract_id);
+        model.addAttribute("contract",contract);
+        return "/WEB-INF/pages/cargo/contract/contract_update.jsp";
+    }
+
+    /**
+     * 修改保存合同信息
+     * @param contract
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/update")
+    public String update(Contract contract)throws Exception{
+        logger.info("更新厂家接口被调用了");
+        //id为空 转跳主列表页面
+        if (contract.getContract_id()==null || "".equals(contract.getContract_id())){
+            logger.info("更新厂家失败，id为空");
+            return "redirect:/api/contract/find_page";
+        }
+        contractService.update(contract);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/contract/find_page";
+    }
+
+    /**
+     * 删除1个/或者批量删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/delete")
+    public String delete(@RequestParam(value = "contract_id",required=false) Serializable[] ids)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "contract_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        if (ids==null || ids.length==0){
+            return "redirect:/api/contract/find_page";
+        }
+        contractService.delete(ids);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/contract/find_page";
+    }
+
+
+    /**
+     * 批量/单个 上报
+     * @return
+     */
+    @RequestMapping("/stop")
+    public String stop(@RequestParam(value = "contract_id",required=false) Serializable[] ids)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "contract_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        if (ids==null || ids.length==0){
+            return "redirect:/api/contract/find_page";
+        }
+        contractService.updateStopState(ids);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/contract/find_page";
+    }
+
+    /**
+     * 批量/单个 取消上报
+     * @return
+     */
+    @RequestMapping("/start")
+    public String start(@RequestParam(value = "contract_id",required=false) Serializable[] ids)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "contract_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        if (ids==null || ids.length==0){
+            return "redirect:/api/contract/find_page";
+        }
+        contractService.updateStartState(ids);
+        //重定向到另一个action ,新增后重定向到列表页面
+        return "redirect:/api/contract/find_page";
+    }
+
+    /**
+     * 单个更新上报状态
+     * @return
+     */
+    @RequestMapping("/update_state")
+    public String updateState(@RequestParam(value = "contract_id",required=false)String contract_id)throws Exception{
+        //长度为0 转跳主列表页面  @RequestParam(value = "contract_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
+        Contract contract = contractService.get(contract_id);
+        if (contract==null){
+            return "redirect:/api/contract/find_page";
+        }
+        contractService.updateState(contract);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/contract/find_page";
     }

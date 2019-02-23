@@ -1,6 +1,8 @@
 package com.fly.jks.utils;
 
 import javax.xml.bind.SchemaOutputResolver;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author liang
@@ -31,5 +33,9 @@ public class Test {
          加法price.add(counts).doubleValue();
          减法price.subtract(counts).doubleValue();
          */
+        //yyyy-MM-dd HH:mm:ss
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String s = sdf.format(new Date());
+        System.out.println(s);//2019-02-23
     }
 }
