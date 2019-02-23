@@ -4,6 +4,7 @@ import com.fly.jks.domain.Contract;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
+ * 合同动态sql生产类
  * @author liang
  * @date 2019/2/22 - 15:20
  */
@@ -36,7 +37,7 @@ public class ContractMapperDynaSQLCreater {
      * 新增一条动态sql
      * @return
      */
-    public String insertContractSQL(){
+    public String insertSQL(){
         return new SQL(){{
             INSERT_INTO("contract");
             VALUES("contract_id, offeror, contract_no, signing_date, input_by, check_by, inspector, total_price, crequest, customer_name, ship_date, import_num, instructions, print_style, old_state, contract_state, out_state, delivery_date, trade_clause, create_by, create_bept, create_time",
@@ -48,7 +49,7 @@ public class ContractMapperDynaSQLCreater {
      * 更新
      * @return
      */
-    public String updateContractSQL(Contract contract){
+    public String updateSQL(Contract contract){
         return new SQL(){{
             UPDATE("contract");
             if (contract.getOfferor()!=null){

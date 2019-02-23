@@ -162,16 +162,6 @@ public class FactoryController {
         return "redirect:/api/factory/find_page";
     }
 
-    /**
-     * 查看详情
-     * @return
-     */
-    @RequestMapping("/showview")
-    public String showView(@RequestParam("factory_id") String factory_id,Model model) throws Exception {
-        Factory factory = factoryService.get(factory_id);
-        model.addAttribute("factory",factory);
-        return "/WEB-INF/pages/baseinfo/factory/factory_view.jsp";
-    }
 
     /**
      * 批量/单个 停用
@@ -217,6 +207,19 @@ public class FactoryController {
         factoryService.updateState(factory);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/factory/find_page";
+    }
+
+
+
+    /**
+     * 查看详情
+     * @return
+     */
+    @RequestMapping("/showview")
+    public String showView(@RequestParam("factory_id") String factory_id,Model model) throws Exception {
+        Factory factory = factoryService.get(factory_id);
+        model.addAttribute("factory",factory);
+        return "/WEB-INF/pages/baseinfo/factory/factory_view.jsp";
     }
 
     /**

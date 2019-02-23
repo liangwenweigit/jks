@@ -71,7 +71,7 @@
 			        <c:if test="${o.state eq 0}"><span>停用</span></c:if>
 				</a>
 		</td>
-        <td><a href='${pageContext.request.contextPath}/api/factory/showview?factory_id=${o.factory_id}'style="text-decoration: underline" ><p style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:26px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">查看</p></a></td>
+        <td><a href='${pageContext.request.contextPath}/api/factory/showview?factory_id=${o.factory_id}'style="text-decoration: underline" ><p style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:26px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">详细</p></a></td>
 	</tr>
 	</c:forEach>
 	

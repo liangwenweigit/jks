@@ -72,11 +72,11 @@
         <td>${o.total_price}</td>
 		<td>
 				<a href="${pageContext.request.contextPath}/api/contract/update_state?contract_id=${o.contract_id}">
-					<c:if test="${o.contract_state eq 1}"><span style="color:green;">上报</span></c:if>
-			        <c:if test="${o.contract_state eq 0}"><span>已上报</span></c:if>
+					<c:if test="${o.contract_state eq 1}"><span>上报</span></c:if>
+			        <c:if test="${o.contract_state eq 0}"><span style="color:green;">已上报</span></c:if>
 				</a>
 		</td>
-        <td><a href='${pageContext.request.contextPath}/api/contract/showview?contract_id=${o.contract_id}'style="text-decoration: underline" ><p style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:26px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">查看</p></a></td>
+        <td><a href='${pageContext.request.contextPath}/api/contract/showview?contract_id=${o.contract_id}'style="text-decoration: underline" ><p style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:26px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">详细</p></a></td>
 	</tr>
 	</c:forEach>
 	

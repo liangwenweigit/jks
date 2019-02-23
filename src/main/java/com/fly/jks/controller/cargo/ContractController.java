@@ -192,4 +192,16 @@ public class ContractController extends BaseController{
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/contract/find_page";
     }
+
+
+    /**
+     * 查看详情
+     * @return
+     */
+    @RequestMapping("/showview")
+    public String showView(@RequestParam("contract_id") String contract_id,Model model) throws Exception {
+        Contract contract = contractService.get(contract_id);
+        model.addAttribute("contract",contract);
+        return "/WEB-INF/pages/cargo/contract/contract_view.jsp";
+    }
 }
