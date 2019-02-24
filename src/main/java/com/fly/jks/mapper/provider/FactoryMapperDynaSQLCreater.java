@@ -2,6 +2,7 @@ package com.fly.jks.mapper.provider;
 
 import com.fly.jks.domain.Factory;
 import org.apache.ibatis.jdbc.SQL;
+import java.util.Map;
 
 /**
  * 生产厂家Mapper接口 动态sql生产器
@@ -84,5 +85,15 @@ public class FactoryMapperDynaSQLCreater {
      */
     public String updateStartStateSQL(String sql){
         return new String("UPDATE factory SET state = '1' WHERE factory_id IN ("+sql+")");
+    }
+
+    public String findByCondition(Map<String, Object> paraMap){
+        return new SQL(){{
+            SELECT("*");
+            FROM("factory");
+            if (paraMap.get("state")!=null){
+                WHERE("state = #{state}");
+            }
+        }}.toString();
     }
 }

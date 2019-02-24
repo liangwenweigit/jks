@@ -51,7 +51,8 @@
         <td class="tableHeader">船期</td>
         <td class="tableHeader">总金额</td>
         <td class="tableHeader">状态</td>
-        <td class="tableHeader">其他操作</td>
+        <td class="tableHeader">详细</td>
+        <td class="tableHeader">货物</td>
 	</tr>
 	</thead>
 	<tbody class="tableBody" >
@@ -76,7 +77,8 @@
 			        <c:if test="${o.contract_state eq 0}"><span style="color:green;">已上报</span></c:if>
 				</a>
 		</td>
-        <td><a href='${pageContext.request.contextPath}/api/contract/showview?contract_id=${o.contract_id}'style="text-decoration: underline" ><p style="margin:0 3px;width:70px;height:25px;color:#00554a;padding-left:26px;padding-top:5px; letter-spacing:1.2px;background:url('${pageContext.request.contextPath}/skin/default/images/button/view.gif') no-repeat;">详细</p></a></td>
+        <td><a href='${pageContext.request.contextPath}/api/contract/showview?contract_id=${o.contract_id}'style="text-decoration: underline;color:green;">查看</a></td>
+        <td><a href='${pageContext.request.contextPath}/api/product/insert_page?contract_id=${o.contract_id}'style="text-decoration: underline;color:green;">货物</a></td>
 	</tr>
 	</c:forEach>
 	

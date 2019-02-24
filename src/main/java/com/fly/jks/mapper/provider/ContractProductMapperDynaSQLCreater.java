@@ -11,6 +11,29 @@ import org.apache.ibatis.jdbc.SQL;
 public class ContractProductMapperDynaSQLCreater {
 
     /**
+     * 真删除1条/批量删除
+     */
+    public String deleteSQL(String sql){
+        return new String("DELETE FROM contract_product WHERE contract_product_id IN ("+sql+")");
+    }
+
+    /**
+     * 批量/单 出货状态 private String finshed;//是否出货完毕1未完 0完毕
+     * 设置成0==完毕
+     */
+    public String updateStopStateSQL(String sql){
+        return new String("UPDATE contract_product SET finshed = '0' WHERE contract_product_id IN ("+sql+")");
+    }
+
+    /**
+     * 批量/单 出货状态 private String finshed;//是否出货完毕1未完 0完毕
+     * 设置成1==未完
+     */
+    public String updateStartStateSQL(String sql){
+        return new String("UPDATE contract_product SET finshed = '1' WHERE contract_product_id IN ("+sql+")");
+    }
+
+    /**
      * 新增一条动态sql
      * @return
      */
@@ -67,7 +90,7 @@ public class ContractProductMapperDynaSQLCreater {
             if (contractProduct.getFinshed()!=null){
                 SET("finshed = #{finshed}");
             }
-            if (contractProduct.getGross_weigh()!=null){
+            if (contractProduct.getGross_weight()!=null){
                 SET("gross_weight = {gross_weight}");
             }
             if (contractProduct.getNet_weight()!=null){
@@ -82,7 +105,7 @@ public class ContractProductMapperDynaSQLCreater {
             if (contractProduct.getSize_width() !=null){
                 SET("size_width = #{size_width}");
             }
-            if (contractProduct.getSize_high()!=null){
+            if (contractProduct.getSize_higt()!=null){
                 SET("size_higt = ${size_higt}");
             }
             if (contractProduct.getProduct_request()!=null){
@@ -118,8 +141,8 @@ public class ContractProductMapperDynaSQLCreater {
             if (contractProduct.getAccessories()!=null){
                 SET("{accessories},  = #{{accessories}, }");
             }
-            if (contractProduct.getOrderNo()!=null){
-                SET("order_no = #{orderNo}");//测试驼峰命名字段
+            if (contractProduct.getOrder_no()!=null){
+                SET("order_no = #{order_no}");//测试驼峰命名字段
             }
             WHERE("contract_product_id = #{contract_product_id}");
         }}.toString();

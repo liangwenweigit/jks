@@ -28,8 +28,9 @@ public interface FactoryMapper{
      * @param paraMap
      * @return
      */
-    public List<Factory> find(Map<String, Object> paraMap)throws Exception;
-    //TODO
+    @SelectProvider(type = FactoryMapperDynaSQLCreater.class,method = "findByCondition")
+    public List<Factory> findByCondition(Map<String, Object> paraMap)throws Exception;
+
     /**
      *只查询一个，常用于修改
      * @param factory_id
@@ -95,4 +96,5 @@ public interface FactoryMapper{
      */
     @Select("select count(*) from factory")
     public Integer selectCount() throws Exception;
+
 }

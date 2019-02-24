@@ -28,29 +28,29 @@ public class ContractServiceImpl  implements ContractService{
     }
 
     @Override
-    public List<Contract> find(Map<String, Object> paraMap) throws Exception {
-        return contractMapper.find(paraMap);
+    public List<Contract> findByCondition(Map<String, Object> paraMap) throws Exception {
+        return contractMapper.findByCondition(paraMap);
     }
 
     @Override
-    public Contract get(Serializable id) throws Exception {
-        return contractMapper.getContract(id);
+    public Contract get(Serializable contract_id) throws Exception {
+        return contractMapper.get(contract_id);
     }
 
     @Override
     public void insert(Contract contract) throws Exception {
-        contractMapper.insertContract(contract);
+        contractMapper.insert(contract);
     }
 
     @Override
     public void update(Contract contract) throws Exception {
-        contractMapper.updateContract(contract);
+        contractMapper.update(contract);
 
     }
 
     @Override
-    public void deleteById(Serializable id) throws Exception {
-        contractMapper.deleteById(id);
+    public void deleteById(Serializable contract_id) throws Exception {
+        contractMapper.deleteById(contract_id);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ContractServiceImpl  implements ContractService{
             }
             sb.append("'"+ids[i]+"'").append(", ");
         }
-        contractMapper.deleteContract(sb.toString());
+        contractMapper.delete(sb.toString());
     }
 
     /**

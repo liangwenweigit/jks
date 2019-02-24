@@ -25,8 +25,8 @@ public class ContractProduct implements Serializable{
   private Double price;//单价/分 也可能不是分
   private Double amount;//总额
   private Integer out_num;//实际出货数量
-  private String finshed;//是否出货完毕1完毕 0未完
-  private Double gross_weigh;//毛重
+  private String finshed;//是否出货完毕1未完 0完毕
+  private Double gross_weight;//毛重
   private Double net_weight;//净重
   private String csize;//体积
   private Double size_length;//尺寸长
@@ -44,45 +44,9 @@ public class ContractProduct implements Serializable{
   private Double cost_tax;//收购成本税金
   private String accessories;//是否有附件1有 0没
   //一个合同下有多个货物，用户可以修改排序号 来排顺序
-  private Integer orderNo;//排序号，测试驼峰命名 是否OK
+  private Integer order_no;//排序号，测试驼峰命名 是否OK
 
   public ContractProduct() {
-  }
-
-  public ContractProduct(String contract_product_id, String factory_id, String contract_id, String factory_name, String product_name, String product_num, String product_image, String product_desc, Integer cnumber, String loading_rate, String packing_unit, Double price, Double amount, Integer out_num, String finshed, Double gross_weigh, Double net_weight, String csize, Double size_length, Double size_width, Double size_higt, String product_request, String cunit, Integer box_num, Double ex_price, Double ex_amount, String ex_unit, Double no_tax, Double tax, Double cost_price, Double cost_tax, String accessories, Integer orderNo) {
-    this.contract_product_id = contract_product_id;
-    this.factory_id = factory_id;
-    this.contract_id = contract_id;
-    this.factory_name = factory_name;
-    this.product_name = product_name;
-    this.product_num = product_num;
-    this.product_image = product_image;
-    this.product_desc = product_desc;
-    this.cnumber = cnumber;
-    this.loading_rate = loading_rate;
-    this.packing_unit = packing_unit;
-    this.price = price;
-    this.amount = amount;
-    this.out_num = out_num;
-    this.finshed = finshed;
-    this.gross_weigh = gross_weigh;
-    this.net_weight = net_weight;
-    this.csize = csize;
-    this.size_length = size_length;
-    this.size_width = size_width;
-    this.size_higt = size_higt;
-    this.product_request = product_request;
-    this.cunit = cunit;
-    this.box_num = box_num;
-    this.ex_price = ex_price;
-    this.ex_amount = ex_amount;
-    this.ex_unit = ex_unit;
-    this.no_tax = no_tax;
-    this.tax = tax;
-    this.cost_price = cost_price;
-    this.cost_tax = cost_tax;
-    this.accessories = accessories;
-    this.orderNo = orderNo;
   }
 
   @Override
@@ -103,7 +67,7 @@ public class ContractProduct implements Serializable{
             ", amount=" + amount +
             ", out_num=" + out_num +
             ", finshed='" + finshed + '\'' +
-            ", gross_weigh=" + gross_weigh +
+            ", gross_weight=" + gross_weight +
             ", net_weight=" + net_weight +
             ", csize='" + csize + '\'' +
             ", size_length=" + size_length +
@@ -120,8 +84,44 @@ public class ContractProduct implements Serializable{
             ", cost_price=" + cost_price +
             ", cost_tax=" + cost_tax +
             ", accessories='" + accessories + '\'' +
-            ", orderNo=" + orderNo +
+            ", order_no=" + order_no +
             '}';
+  }
+
+  public ContractProduct(String contract_product_id, String factory_id, String contract_id, String factory_name, String product_name, String product_num, String product_image, String product_desc, Integer cnumber, String loading_rate, String packing_unit, Double price, Double amount, Integer out_num, String finshed, Double gross_weight, Double net_weight, String csize, Double size_length, Double size_width, Double size_higt, String product_request, String cunit, Integer box_num, Double ex_price, Double ex_amount, String ex_unit, Double no_tax, Double tax, Double cost_price, Double cost_tax, String accessories, Integer order_no) {
+    this.contract_product_id = contract_product_id;
+    this.factory_id = factory_id;
+    this.contract_id = contract_id;
+    this.factory_name = factory_name;
+    this.product_name = product_name;
+    this.product_num = product_num;
+    this.product_image = product_image;
+    this.product_desc = product_desc;
+    this.cnumber = cnumber;
+    this.loading_rate = loading_rate;
+    this.packing_unit = packing_unit;
+    this.price = price;
+    this.amount = amount;
+    this.out_num = out_num;
+    this.finshed = finshed;
+    this.gross_weight = gross_weight;
+    this.net_weight = net_weight;
+    this.csize = csize;
+    this.size_length = size_length;
+    this.size_width = size_width;
+    this.size_higt = size_higt;
+    this.product_request = product_request;
+    this.cunit = cunit;
+    this.box_num = box_num;
+    this.ex_price = ex_price;
+    this.ex_amount = ex_amount;
+    this.ex_unit = ex_unit;
+    this.no_tax = no_tax;
+    this.tax = tax;
+    this.cost_price = cost_price;
+    this.cost_tax = cost_tax;
+    this.accessories = accessories;
+    this.order_no = order_no;
   }
 
   public String getContract_product_id() {
@@ -244,12 +244,12 @@ public class ContractProduct implements Serializable{
     this.finshed = finshed;
   }
 
-  public Double getGross_weigh() {
-    return gross_weigh;
+  public Double getGross_weight() {
+    return gross_weight;
   }
 
-  public void setGross_weigh(Double gross_weigh) {
-    this.gross_weigh = gross_weigh;
+  public void setGross_weight(Double gross_weight) {
+    this.gross_weight = gross_weight;
   }
 
   public Double getNet_weight() {
@@ -284,11 +284,11 @@ public class ContractProduct implements Serializable{
     this.size_width = size_width;
   }
 
-  public Double getSize_high() {
+  public Double getSize_higt() {
     return size_higt;
   }
 
-  public void setSize_high(Double size_high) {
+  public void setSize_higt(Double size_higt) {
     this.size_higt = size_higt;
   }
 
@@ -380,11 +380,11 @@ public class ContractProduct implements Serializable{
     this.accessories = accessories;
   }
 
-  public Integer getOrderNo() {
-    return orderNo;
+  public Integer getOrder_no() {
+    return order_no;
   }
 
-  public void setOrderNo(Integer orderNo) {
-    this.orderNo = orderNo;
+  public void setOrder_no(Integer order_no) {
+    this.order_no = order_no;
   }
 }

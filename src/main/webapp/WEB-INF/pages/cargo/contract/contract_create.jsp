@@ -51,11 +51,6 @@
                 </td>
             </tr>
             <tr>
-                <%--<td class="columnTitle_mustbe">签单日期：</td>
-                <td class="tableContent">
-                    <input type="text" style="width:90px;" name="signing_date"
-                           onclick="WdatePicker({el:this,isShowOthers:true,dateFmt:'yyyy-MM-dd'});"/>
-                </td>--%>
                 <td class="columnTitle_mustbe">签单日期：</td>
                 <td class="tableContent">
                     <input type="text" style="width:90px;" name="signing_date" id="signing_date" readonly="readonly"/>

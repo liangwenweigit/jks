@@ -16,6 +16,9 @@ import java.util.Map;
  * @author liang
  * @date 2019/2/24 - 0:31
  */
+@Mapper
+//redis缓存
+@CacheNamespace(implementation=com.fly.jks.cache.RedisCache.class)
 public interface ContractProductMapper {
 
     /**
@@ -31,8 +34,7 @@ public interface ContractProductMapper {
      * @param paraMap
      * @return
      */
-    public List<ContractProduct> find(Map<String, Object> paraMap)throws Exception;
-
+    public List<ContractProduct> findByCondition(Map<String, Object> paraMap)throws Exception;
 
     /**
      * 查询全部
@@ -55,8 +57,8 @@ public interface ContractProductMapper {
      * @return
      * @throws Exception
      */
-    @Select("select * from contract_product where contract_product_id= #{contract_id}")
-    public Contract getContract(Serializable contract_product_id)throws Exception;
+    @Select("select * from contract_product where contract_product_id= #{contract_product_id}")
+    public ContractProduct get(Serializable contract_product_id)throws Exception;
 
     /**
      * 真删除，删除一条，支持整数型和字符串类型ID
@@ -69,8 +71,8 @@ public interface ContractProductMapper {
      * 批量删除/删除1条
      * @throws Exception
      */
-    //@DeleteProvider(type = ContractProductMapperDynaSQLCreater.class,method = "deleteSQL")
-    public void deleteContract(String sql)throws Exception;
+    @DeleteProvider(type = ContractProductMapperDynaSQLCreater.class,method = "deleteSQL")
+    public void delete(String sql)throws Exception;
 
     /**
      * 新增一条
@@ -78,7 +80,7 @@ public interface ContractProductMapper {
      * @throws Exception
      */
     @InsertProvider(type = ContractProductMapperDynaSQLCreater.class,method = "insertSQL")
-    public void insertContract(ContractProduct contractProduct)throws Exception;
+    public void insert(ContractProduct contractProduct)throws Exception;
 
     /**
      * 更新
@@ -86,29 +88,29 @@ public interface ContractProductMapper {
      * @throws Exception
      */
     @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateSQL")
-    public void updateContract(ContractProduct contractProduct)throws Exception;
+    public void update(ContractProduct contractProduct)throws Exception;
 
     /**
-     * 更新1条合同状态  private String contract_state;//状态1未完成  0完成
+     * 更新1条出货状态 private String finshed;//是否出货完毕1未完 0完毕
      * @param contractProduct
      * @throws Exception
      */
-    @Update("UPDATE contract SET contract_state = #{contract_state} WHERE contract_id = #{contract_id}")
+    @Update("UPDATE contract SET finshed = #{finshed} WHERE contract_product_id = #{contract_product_id}")
     public void updateState(ContractProduct contractProduct) throws Exception;
 
     /**
-     *批量/单 合同状态  private String contract_state;//状态1未完成  0完成
-     * 设置成0==完成停止
+     * 批量/单 出货状态 private String finshed;//是否出货完毕1未完 0完毕
+     * 设置成0==完毕
      * @throws Exception
      */
-    //@UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStopStateSQL")
+    @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStopStateSQL")
     public void updateStopState(String sql)throws Exception;
 
     /**
-     *批量/单个 合同状态  private String contract_state;//状态1未完成  0完成
-     * 设置成1==未完成继续
+     * 批量/单 出货状态 private String finshed;//是否出货完毕1未完 0完毕
+     * 设置成1==未完
      * @throws Exception
      */
-    //@UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStartStateSQL")
+    @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStartStateSQL")
     public void updateStartState(String sql)throws Exception;
 }

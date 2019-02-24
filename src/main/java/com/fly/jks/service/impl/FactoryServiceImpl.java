@@ -22,20 +22,14 @@ public class FactoryServiceImpl implements FactoryService {
 	@Autowired
 	private FactoryMapper factoryMapper;
 
-
-
-    public void setFactoryMapper(FactoryMapper factoryMapper) {
-        this.factoryMapper = factoryMapper;
-    }
-
     @Override
 	public List<Factory> findPage(Page page)throws Exception{
 		return factoryMapper.findPage(page);
 	}
 
 	@Override
-	public List<Factory> find(Map<String, Object> paraMap)throws Exception{
-		return factoryMapper.find(paraMap);
+	public List<Factory> findByCondition(Map<String, Object> paraMap)throws Exception{
+		return factoryMapper.findByCondition(paraMap);
 	}
 	@Override
 	public Factory get(Serializable factory_id)throws Exception {
@@ -125,4 +119,5 @@ public class FactoryServiceImpl implements FactoryService {
     public Integer selectCount() throws Exception {
         return factoryMapper.selectCount();
     }
+
 }

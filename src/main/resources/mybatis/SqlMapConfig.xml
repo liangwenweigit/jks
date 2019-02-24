@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	<!--1.全局参数settings开启缓存 延迟加载等 根据需要加 -->
 	<settings>
-		<!--开启驼峰命名-->
+		<!--开启驼峰命名 驼峰命名 和非 驼峰命名只能存在一种-->
 		<!--<setting name="mapUnderscoreToCamelCase" value="true" />-->
 		<!-- 全局映射器启用缓存 *主要将此属性设置完成即可 -->
 		<setting name="cacheEnabled" value="true" />

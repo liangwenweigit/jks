@@ -31,9 +31,7 @@ public interface ContractMapper {
      * @param paraMap
      * @return
      */
-    public List<Contract> find(Map<String, Object> paraMap)throws Exception;
-    //TODO
-
+    public List<Contract> findByCondition(Map<String, Object> paraMap)throws Exception;
     /**
      * 查询全部
      * @return
@@ -56,7 +54,7 @@ public interface ContractMapper {
      * @throws Exception
      */
     @Select("select * from contract where contract_id= #{contract_id}")
-    public Contract getContract(Serializable contract_id)throws Exception;
+    public Contract get(Serializable contract_id)throws Exception;
 
     /**
      * 真删除，删除一条，支持整数型和字符串类型ID
@@ -70,7 +68,7 @@ public interface ContractMapper {
      * @throws Exception
      */
     @DeleteProvider(type = ContractMapperDynaSQLCreater.class,method = "deleteSQL")
-    public void deleteContract(String sql)throws Exception;
+    public void delete(String sql)throws Exception;
 
     /**
      * 新增一条
@@ -78,7 +76,7 @@ public interface ContractMapper {
      * @throws Exception
      */
     @InsertProvider(type = ContractMapperDynaSQLCreater.class,method = "insertSQL")
-    public void insertContract(Contract contract)throws Exception;
+    public void insert(Contract contract)throws Exception;
 
     /**
      * 更新
@@ -86,7 +84,7 @@ public interface ContractMapper {
      * @throws Exception
      */
     @UpdateProvider(type = ContractMapperDynaSQLCreater.class,method = "updateSQL")
-    public void updateContract(Contract contract)throws Exception;
+    public void update(Contract contract)throws Exception;
 
     /**
      * 更新1条合同状态  private String contract_state;//状态1未完成  0完成
