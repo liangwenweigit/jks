@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-
-	//系统首页模块
-	
+	/**
+	 * 系统首页模块
+	 * @return
+	 */
 	@RequestMapping(value={"/home"})		//配合web下<url-pattern>/</url-pattern>
 	public String login(){
 		

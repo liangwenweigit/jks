@@ -19,7 +19,7 @@
 </div>
 </div>
 </div>
-     
+
 <div class="textbox" id="centerTextbox">
     
     <div class="textbox-header">
@@ -81,6 +81,7 @@
 	</div>
 </div>
 </form>
+<span style="color: red">${msg}</span>
 </body>
 </html>
 

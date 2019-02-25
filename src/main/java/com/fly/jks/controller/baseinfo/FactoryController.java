@@ -31,14 +31,15 @@ public class FactoryController {
     private FactoryService factoryService;
 
     /**
-     * 查询一个
+     * 查询一个 测试方法
      * http://localhost:8080/jks/api/factory/get_by_id?factory_id=111
+     * Serializable 可以接收String也可以，Integer也可以
      * @param factory_id
      * @return
      * @throws Exception
      */
     @RequestMapping("/get_by_id")
-    @ResponseBody                         //这里改成String也可以，Integer也可以
+    @ResponseBody
     public Factory getById(@RequestParam("factory_id")Serializable factory_id) throws Exception {
         logger.info("查询一个接口被调用了");
         Factory factory = factoryService.get(factory_id);
@@ -223,7 +224,7 @@ public class FactoryController {
     }
 
     /**
-     * 分页查询 json数据
+     * 分页查询 返回的是json数据 适合用ajax
      * http://localhost:8080/jks/api/factory/find_page_html?pageNo=1&pageSize=10
      * @param page
      * @return

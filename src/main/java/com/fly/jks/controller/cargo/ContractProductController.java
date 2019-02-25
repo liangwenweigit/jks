@@ -45,13 +45,17 @@ public class ContractProductController {
      * @throws Exception
      */
     @RequestMapping("/insert_page")
-    public String insertPage(@RequestParam("contract_id") String contract_id, Model model) throws Exception {
+    public String insertPage(@RequestParam("contract_id") String contract_id, Model model,String again) throws Exception {
         logger.info("转向新增页面接口被调用了");
         Map<String,Object> paraMap = new HashMap<>(0);
         paraMap.put("state","1");
         List<Factory> factoryList = factoryService.findByCondition(paraMap);
         model.addAttribute("factoryList",factoryList);
         model.addAttribute("contract_id",contract_id);
+        //判断again参数是否为空，不为空说明是添加货物成功来到这里的，提示添加成功
+        if (again!=null){ //提示客户添加货物成功,如果是第一次来转态的，不会进入
+            model.addAttribute("msg","添加货物成功!");
+        }
         return "/WEB-INF/pages/cargo/product/product_create.jsp";
     }
 
@@ -68,10 +72,17 @@ public class ContractProductController {
     public String insert(ContractProduct contractProduct,String factory_id,@RequestParam("contract_id") String contract_id,Model model)throws Exception{
         logger.info("新增合同货物接口被调用了");
         if (factory_id==null || "".equals(factory_id)){
-            return "redirect:/api/contract/find_page";
+            //说明用户没有选择厂家，重新查询一次启用的厂家 +合同id 再一次传送回到页面
+            Map<String,Object> paraMap = new HashMap<>(0);
+            paraMap.put("state","1");
+            List<Factory> factoryList = factoryService.findByCondition(paraMap);
+            model.addAttribute("factoryList",factoryList);
+            model.addAttribute("contract_id",contract_id);
+            //并且提示用户没有选择厂家，添加货物失败，请重新添加
+            model.addAttribute("msg","没有选择厂家,添加货物失败,请重新添加!");
+            return "/WEB-INF/pages/cargo/product/product_create.jsp";
         }
         //根据传过来的factory_id查询一个厂家处理
-System.out.println(factory_id);
         Factory factory = factoryService.get(factory_id);
         //设置厂家信息
         contractProduct.setFactory_id(factory.getFactory_id());
@@ -82,12 +93,13 @@ System.out.println(factory_id);
         contractProduct.setContract_product_id(CommonUtils.getUUID());
         //设置出货状态1未完，0完成
         contractProduct.setFinshed("1");
-System.out.println(contractProduct);
         contractProductService.insert(contractProduct);
         //重定向到另一个action ,新增后重定向到新增页面，用户可以继续新增，方便操作，因为货物有很多
         //这里还需要把合同id传到重定向的方法(因为方法上必须传这个参数)，由方法转发到页面,
         // 要是没有参数：下面的重定向后方法会爆错：Required String parameter 'contract_id' is not present
         model.addAttribute("contract_id",contract_id);// 或者在url后添加?contract_id="+contract_id
+        //添加again标记,说明添加了货物
+        model.addAttribute("again","again");
         return "redirect:/api/product/insert_page";
     }
 }
