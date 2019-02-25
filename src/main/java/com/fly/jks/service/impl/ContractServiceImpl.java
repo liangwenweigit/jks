@@ -118,7 +118,7 @@ public class ContractServiceImpl  implements ContractService{
     }
 
     @Override
-    public Integer selectCount() throws Exception {
-        return contractMapper.selectCount();
+    public Integer selectCount(Map<String, Object> paraMap) throws Exception {
+        return contractMapper.selectCount(paraMap);
     }
 }

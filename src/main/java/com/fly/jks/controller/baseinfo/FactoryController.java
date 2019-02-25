@@ -57,7 +57,7 @@ public class FactoryController {
     @RequestMapping("/find_page")
     public String findPage(Page<Factory> page, Model model) throws Exception {
         //分页资料
-        Integer totalRecord = factoryService.selectCount();
+        Integer totalRecord = factoryService.selectCount(null);//没有查询条件直接传null
         //设置总记录数
         page.setTotalRecord(totalRecord);
         //设置总页数
@@ -233,9 +233,9 @@ public class FactoryController {
     @RequestMapping("/find_page_html")
     @ResponseBody
     public Object findPageHtml(Page<Factory> page) throws Exception {
-        Map<String, Object> data = new HashMap<String, Object>(0);
+        Map<String, Object> data = new HashMap<String, Object>(0);//没有查询条件直接传null
         //分页资料
-        Integer totalRecord = factoryService.selectCount();
+        Integer totalRecord = factoryService.selectCount(null);
         //设置总记录数
         page.setTotalRecord(totalRecord);
         //设置总页数

@@ -116,8 +116,8 @@ public class FactoryServiceImpl implements FactoryService {
     }
 
     @Override
-    public Integer selectCount() throws Exception {
-        return factoryMapper.selectCount();
+    public Integer selectCount(Map<String, Object> paraMap) throws Exception {
+        return factoryMapper.selectCount(paraMap);
     }
 
 }

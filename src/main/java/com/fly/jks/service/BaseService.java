@@ -22,5 +22,5 @@ public interface BaseService<T> {
     public void updateStopState(Serializable[] ids)throws Exception;     //批量/单个停用，类似假删除，业务删除
     public void updateStartState(Serializable[] ids)throws Exception;    //批量/单个启用
     public void updateState(T entity)throws Exception;                   //单个更新状态 启用/停用，需要在业务层判断
-    public Integer selectCount()throws Exception;                        //查询总条数
+    public Integer selectCount(Map<String, Object> paraMap)throws Exception;                        //查询总条数,有条件可以放条件，没有放null
 }

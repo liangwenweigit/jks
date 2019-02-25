@@ -46,7 +46,7 @@ public interface ContractMapper {
      * @throws Exception
      */
     @Select("select count(*) from contract")
-    public Integer selectCount()throws Exception;
+    public Integer selectCount(Map<String, Object> paraMap)throws Exception;
 
     /**
      * 查询一条

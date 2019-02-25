@@ -15,11 +15,11 @@ public class ContractProduct implements Serializable{
   //private Contract contract;//这里不用面向对象的思想,直接用下面的String 这样可以单表操作
   private String contract_id;//外键 合同UUID（因为这里使用的是mybatis,这样单表操作速度更加）
   private String factory_name;//厂家简称 冗余字段
-  private String product_name;//产品名称
-  private String product_num;//产品编号
-  private String product_image;//产品图片
-  private String product_desc;//产品描述
-  private Integer cnumber;//产品数量
+  private String product_name;//货物名称
+  private String product_num;//货物编号
+  private String product_image;//货物图片
+  private String product_desc;//货物描述
+  private Integer cnumber;//货物数量
   private String loading_rate;//装率
   private String packing_unit;//包装单位 只pcs/套sets
   private Double price;//单价/分 也可能不是分

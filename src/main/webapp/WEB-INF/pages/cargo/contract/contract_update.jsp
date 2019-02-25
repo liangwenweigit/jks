@@ -36,7 +36,6 @@
     </div>
 <div>
     <div>
-		<table class="commonTable" cellspacing="1">
 			<table class="commonTable" cellspacing="1">
 				<tr>
 					<td class="columnTitle_mustbe">收购方：</td>
@@ -94,7 +93,6 @@
 					<td class="tableContent"><textarea name="instructions" style="height:120px;">${contract.instructions}</textarea></td>
 				</tr>
 			</table>
-		</table>
 	</div>
 </div>
  

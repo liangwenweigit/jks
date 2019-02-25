@@ -40,7 +40,7 @@ public class ContractController extends BaseController{
     @RequestMapping("/find_page")
     public String findPage(Page<Contract> page, Model model) throws Exception {
         //分页资料
-        Integer totalRecord = contractService.selectCount();
+        Integer totalRecord = contractService.selectCount(null);//没有查询条件直接传null
         //设置总记录数
         page.setTotalRecord(totalRecord);
         //设置总页数

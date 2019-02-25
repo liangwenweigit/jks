@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -38,11 +39,45 @@ public class ContractProductServiceImpl implements ContractProductService{
 
     @Override
     public void insert(ContractProduct contractProduct) throws Exception {
+        //计算总金额 先判断传过来的 数量 和单价 是不是不为空,为空不计算
+        if(contractProduct.getCnumber()!=null && !"".equals(contractProduct.getCnumber()) &&contractProduct.getPrice()!=null && !"".equals(contractProduct.getPrice())){
+            //计算，因为误差问题需要转换计算
+            /**
+             Double计算BigDecimal
+             BigDecimal price = new BigDecimal(book.getPrice()+"");
+             BigDecimal counts = new BigDecimal(count+"");
+             乘法price.multiply(counts).doubleValue();
+             加法price.add(counts).doubleValue();
+             减法price.subtract(counts).doubleValue();
+             时间存字符串
+             */
+            BigDecimal price = new BigDecimal(contractProduct.getPrice()+"");
+            BigDecimal cnunmber = new BigDecimal(contractProduct.getCnumber()+"");
+            contractProduct.setAmount(price.multiply(cnunmber).doubleValue());
+        }
         contractProductMapper.insert(contractProduct);
     }
 
     @Override
     public void update(ContractProduct contractProduct) throws Exception {
+        //计算总金额 先判断传过来的 数量 和单价 是不是不为空,为空不计算
+        if(contractProduct.getCnumber()!=null && !"".equals(contractProduct.getCnumber()) &&contractProduct.getPrice()!=null && !"".equals(contractProduct.getPrice())){
+            //计算，因为误差问题需要转换计算
+            /**
+             Double计算BigDecimal
+             BigDecimal price = new BigDecimal(book.getPrice()+"");
+             BigDecimal counts = new BigDecimal(count+"");
+             乘法price.multiply(counts).doubleValue();
+             加法price.add(counts).doubleValue();
+             减法price.subtract(counts).doubleValue();
+             时间存字符串
+             */
+            BigDecimal price = new BigDecimal(contractProduct.getPrice()+"");
+            BigDecimal cnunmber = new BigDecimal(contractProduct.getCnumber()+"");
+            contractProduct.setAmount(price.multiply(cnunmber).doubleValue());
+        }else{//说明上面2样有空，处理BUG，把总价也改成0.0,因为用的是mybatis，更新的时候不能设置成null，设置成null，动态sql不会更新这个字段，作用直接赋值0.0/0长度的字符串
+            contractProduct.setAmount(0.0);
+        }
         contractProductMapper.update(contractProduct);
     }
 
@@ -102,7 +137,7 @@ public class ContractProductServiceImpl implements ContractProductService{
     }
 
     @Override
-    public Integer selectCount() throws Exception {
-        return contractProductMapper.selectCount();
+    public Integer selectCount(Map<String, Object> paraMap) throws Exception {
+        return contractProductMapper.selectCount(paraMap);
     }
 }

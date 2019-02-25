@@ -95,6 +95,6 @@ public interface FactoryMapper{
      * @throws Exception
      */
     @Select("select count(*) from factory")
-    public Integer selectCount() throws Exception;
+    public Integer selectCount(Map<String, Object> paraMap) throws Exception;
 
 }

@@ -2,7 +2,7 @@ package com.fly.jks.mapper.provider;
 
 import com.fly.jks.domain.ContractProduct;
 import org.apache.ibatis.jdbc.SQL;
-
+import java.util.Map;
 /**
  *货物动态sql生成类
  * @author liang
@@ -55,7 +55,7 @@ public class ContractProductMapperDynaSQLCreater {
                 SET("contract_id = #{contract_id}");
             }
             if (contractProduct.getFactory_name()!=null){
-                SET("factory_name #{factory_name}");
+                SET("factory_name = #{factory_name}");
             }
             if (contractProduct.getProduct_name()!=null){
                 SET("product_name = #{product_name}");
@@ -139,14 +139,13 @@ public class ContractProductMapperDynaSQLCreater {
                 SET("cost_tax = #{cost_tax}");
             }
             if (contractProduct.getAccessories()!=null){
-                SET("{accessories},  = #{{accessories}, }");
+                SET("accessories = #{accessories}");
             }
             if (contractProduct.getOrder_no()!=null){
                 SET("order_no = #{order_no}");//测试驼峰命名字段
             }
             WHERE("contract_product_id = #{contract_product_id}");
         }}.toString();
-
     }
 
 }

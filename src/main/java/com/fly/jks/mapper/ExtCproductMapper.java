@@ -2,23 +2,22 @@ package com.fly.jks.mapper;
 
 import com.fly.jks.domain.ContractProduct;
 import com.fly.jks.mapper.provider.ContractProductMapperDynaSQLCreater;
+import com.fly.jks.mapper.provider.ExtCproductMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 货物
  * @author liang
- * @date 2019/2/24 - 0:31
+ * @date 2019/2/26 - 2:46
  */
 @Mapper
 //redis缓存
 @CacheNamespace(implementation=com.fly.jks.cache.RedisCache.class)
-public interface ContractProductMapper {
+public interface ExtCproductMapper {
 
     /**
      * 分页查询
@@ -71,7 +70,7 @@ public interface ContractProductMapper {
      * 批量删除/删除1条
      * @throws Exception
      */
-    @DeleteProvider(type = ContractProductMapperDynaSQLCreater.class,method = "deleteSQL")
+    @DeleteProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "deleteSQL")
     public void delete(String sql)throws Exception;
 
     /**
@@ -79,7 +78,7 @@ public interface ContractProductMapper {
      * @param contractProduct
      * @throws Exception
      */
-    @InsertProvider(type = ContractProductMapperDynaSQLCreater.class,method = "insertSQL")
+    @InsertProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "insertSQL")
     public void insert(ContractProduct contractProduct)throws Exception;
 
     /**
@@ -87,7 +86,7 @@ public interface ContractProductMapper {
      * @param contractProduct
      * @throws Exception
      */
-    @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateSQL")
+    @UpdateProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "updateSQL")
     public void update(ContractProduct contractProduct)throws Exception;
 
     /**
@@ -103,7 +102,7 @@ public interface ContractProductMapper {
      * 设置成0==完毕
      * @throws Exception
      */
-    @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStopStateSQL")
+    @UpdateProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "updateStopStateSQL")
     public void updateStopState(String sql)throws Exception;
 
     /**
@@ -111,6 +110,7 @@ public interface ContractProductMapper {
      * 设置成1==未完
      * @throws Exception
      */
-    @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStartStateSQL")
+    @UpdateProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "updateStartStateSQL")
     public void updateStartState(String sql)throws Exception;
+
 }
