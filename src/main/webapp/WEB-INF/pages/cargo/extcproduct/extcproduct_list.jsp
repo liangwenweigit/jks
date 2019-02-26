@@ -12,7 +12,7 @@
         <div id="innerMenubar">
             <div id="navMenubar">
                 <ul>
-                    <li id="new"><a href="${pageContext.request.contextPath}/api/product/insert_page?contract_id=${contract_id}">新增</a></li>
+                    <li id="new"><a href="${pageContext.request.contextPath}/api/extcproduct/insert_page?contract_product_id=${contract_product_id}">新增</a></li>
                     <li id="new"><a href="${pageContext.request.contextPath}/api/contract/find_page">返回</a></li>
                 </ul>
             </div>
@@ -24,7 +24,7 @@
     <div class="textbox-header">
         <div class="textbox-inner-header">
             <div class="textbox-title">
-                货物列表
+                货物附件列表
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 <td class="tableHeader">总金额</td>
                 <td class="tableHeader">修改</td>
                 <td class="tableHeader">删除</td>
-                <td class="tableHeader">附件</td>
+                <td class="tableHeader">删除2</td>
             </tr>
             </thead>
             <tbody class="tableBody" >
@@ -62,10 +62,9 @@
                     <td>${o.box_num}</td>
                     <td>${o.price}</td>
                     <td>${o.amount}</td>
-                    <td><a href='${pageContext.request.contextPath}/api/product/update_page?contract_product_id=${o.contract_product_id}'style="text-decoration: underline;color:green;">修改</a></td>
-                    <td><a href='javascript:;' onclick="isdelete('${o.contract_product_id}','${o.contract_id}');" style="text-decoration: underline;color:green;">删除</a></td>
-                    <%--<td><a onclick="return confirm('确定删除吗?')" href="${pageContext.request.contextPath}/api/product/delete?contract_product_id=${o.contract_product_id}&contract_id=${o.contract_id}">删除2</a><td>--%>
-                    <td><a href='${pageContext.request.contextPath}/api/extcproduct/list?contract_product_id=${o.contract_product_id}'style="text-decoration: underline;color:green;">附件</a></td>
+                    <td><a href='${pageContext.request.contextPath}/api/extcproduct/update_page?ext_cproduct_id=${o.ext_cproduct_id}'style="text-decoration: underline;color:green;">修改</a></td>
+                    <td><a href='javascript:;' onclick="isdelete('${o.ext_cproduct_id}','${o.contract_product_id}');" style="text-decoration: underline;color:green;">删除</a></td>
+                    <td><a onclick="return confirm('确定删除吗?')"style="text-decoration: underline;color:green;" href="${pageContext.request.contextPath}/api/extcproduct/delete?ext_cproduct_id=${o.ext_cproduct_id}&contract_product_id=${o.contract_product_id}">删除2</a><td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -77,9 +76,9 @@
 <center>
     <div class="digg">
         第${page.pageNo}页/共${page.totalPage}页
-        <a href="${pageContext.request.contextPath}/api/product/list?pageNo=1&contract_id=${contract_id}">首页</a>
+        <a href="${pageContext.request.contextPath}/api/extcproduct/list?pageNo=1&contract_product_id=${contract_product_id}">首页</a>
         <c:if test="${page.pageNo>1}">
-            <a href="${pageContext.request.contextPath}/api/product/list?pageNo=${page.pageNo-1}&contract_id=${contract_id}">上一页</a>
+            <a href="${pageContext.request.contextPath}/api/extcproduct/list?pageNo=${page.pageNo-1}&contract_product_id=${contract_product_id}">上一页</a>
         </c:if>
 
         <c:choose>
@@ -112,22 +111,22 @@
                     <a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascrip:void(0);'>${i}</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/api/product/list?pageNo=${i}&contract_id=${contract_id}">${i}</a>
+                    <a href="${pageContext.request.contextPath}/api/extcproduct/list?pageNo=${i}&contract_product_id=${contract_product_id}">${i}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
 
         <c:if test="${page.pageNo<page.totalPage}">
-            <a href="${pageContext.request.contextPath}/api/product/list?pageNo=${page.pageNo+1}&contract_id=${contract_id}">下一页</a>
+            <a href="${pageContext.request.contextPath}/api/extcproduct/list?pageNo=${page.pageNo+1}&contract_product_id=${contract_product_id}">下一页</a>
         </c:if>
-        <a href="${pageContext.request.contextPath}/api/product/list?pageNo=${page.totalPage}&contract_id=${contract_id}">尾页</a>
+        <a href="${pageContext.request.contextPath}/api/extcproduct/list?pageNo=${page.totalPage}&contract_product_id=${contract_product_id}">尾页</a>
     </div>
 </center>
 <script>
     function isdelete(id1,id2){
         var sure = window.confirm("确定删除吗？");
         if(sure){
-            window.location.href="${pageContext.request.contextPath}/api/product/delete?contract_product_id="+id1+"&contract_id="+id2;
+            window.location.href="${pageContext.request.contextPath}/api/extcproduct/delete?ext_cproduct_id="+id1+"&contract_product_id="+id2;
         }
     }
 </script>

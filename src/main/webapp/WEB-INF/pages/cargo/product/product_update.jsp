@@ -1,21 +1,22 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="../../baselist.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
 </head>
 <body>
 <form method="post" action="${pageContext.request.contextPath}/api/product/update">
-	<input type="hidden" name="contract_id" value="${contract_id}"/>
-	<input type="hidden" name="contract_product_id" value="${contractProduct.contract_product_id}"/>
+    <input type="hidden" name="contract_id" value="${contractProduct.contract_id}">
+	<input type="hidden" name="contract_product_id" value="${contractProduct.contract_product_id}">
 <div id="menubar">
 <div id="middleMenubar">
 <div id="innerMenubar">
     <div id="navMenubar">
 <ul>
 <li id="save"><a href="#" onclick="updateSubmit();">确定</a></li>
-	<li id="back"><a href="${pageContext.request.contextPath}/api/product/insert_page?contract_id=${contract_id}">返回</a></li>
+	<li id="back"><a href="${pageContext.request.contextPath}/api/product/list?contract_id=${contractProduct.contract_id}">返回</a></li>
 </ul>
     </div>
 </div>

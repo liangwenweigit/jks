@@ -31,7 +31,7 @@ public interface ExtCproductMapper {
      * @param paraMap
      * @return
      */
-    @Select("select * from ext_cproduct where contract_id = #{contract_id} limit #{page.pageIndex},#{page.pageSize}")
+    @Select("select * from ext_cproduct where contract_product_id = #{contract_product_id} limit #{page.pageIndex},#{page.pageSize}")
     public List<ExtCproduct> findByCondition(Map<String, Object> paraMap)throws Exception;
 
     /**
@@ -47,7 +47,7 @@ public interface ExtCproductMapper {
      * @return
      * @throws Exception
      */
-    @Select("select count(*) from ext_cproduct where contract_id = #{contract_id}")
+    @Select("select count(*) from ext_cproduct where contract_product_id = #{contract_product_id}")
     public Integer selectCount(Map<String, Object> paraMap)throws Exception;
 
     /**
