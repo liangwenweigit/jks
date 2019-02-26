@@ -3,9 +3,12 @@ package com.fly.jks.controller.cargo;
 import com.fly.jks.controller.BaseController;
 import com.fly.jks.controller.baseinfo.FactoryController;
 import com.fly.jks.domain.Contract;
+import com.fly.jks.domain.ContractProduct;
 import com.fly.jks.domain.Factory;
 import com.fly.jks.pagination.Page;
+import com.fly.jks.service.ContractProductService;
 import com.fly.jks.service.ContractService;
+import com.fly.jks.service.ExtCproductService;
 import com.fly.jks.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,14 @@ public class ContractController extends BaseController{
     private static final Logger logger = LoggerFactory.getLogger(FactoryController.class);
     @Autowired
     private ContractService contractService;
+
+    @Autowired
+    private ContractProductService contractProductService;
+
+    @Autowired
+    private ExtCproductService extCproductService;
+
+
     /**
      * 分页查询
      * http://localhost:8080/jks/api/factory/find_page?pageNo=1&pageSize=10
@@ -131,16 +142,29 @@ public class ContractController extends BaseController{
     }
 
     /**
-     * 删除1个/或者批量删除
+     * 删除1个/或者批量删除 合同
      * @param ids
      * @return
      */
-    @RequestMapping("/delete")
+    @RequestMapping("/delete") //这个参数不传的话就什么要不删 直接回到合同列表页面
     public String delete(@RequestParam(value = "contract_id",required=false) Serializable[] ids)throws Exception{
         //长度为0 转跳主列表页面  @RequestParam(value = "contract_id",required=false) 注意：这里一定要加这个false 这样页面才可以不传id,下面才可以判断，处理BUG
         if (ids==null || ids.length==0){
             return "redirect:/api/contract/find_page";
         }
+        //级联删除 循环1个/多个合同
+        for (int i = 0; i <ids.length ; i++) {
+            //先查询出这个合同下的全部货物
+            List<ContractProduct> contractProducts = contractProductService.selectContractProductByContractId(ids[i]);
+            //查出一个合同下的全部货物，通过循环删除某个货物下的全部附件，再删除这个货物
+            for (int j = 0; j <contractProducts.size() ; j++) {//重点：这里注意i/j 不要弄错了
+                //删除一个货物下的全部附件
+                extCproductService.deleteByContractProductId(contractProducts.get(j).getContract_product_id());
+                //最后把这个货物也删除
+                contractProductService.deleteById(contractProducts.get(j).getContract_product_id());
+            }
+        }
+        //删除1个/多个合同
         contractService.delete(ids);
         //重定向到另一个action ,新增后重定向到列表页面
         return "redirect:/api/contract/find_page";

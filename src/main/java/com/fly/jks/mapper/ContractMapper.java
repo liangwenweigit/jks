@@ -109,4 +109,13 @@ public interface ContractMapper {
      */
     @UpdateProvider(type = ContractMapperDynaSQLCreater.class,method = "updateStartStateSQL")
     public void updateStartState(String sql)throws Exception;
+
+    /**
+     * 根据合同uuid查出来 货物+附件 总金额=有子查询
+     * @param contract_id
+     * @return
+     * @throws Exception
+     */
+    @Select("select (select sum(amount) from contract_product where contract_id = #{contract_id}) + (select sum(amount) from ext_cproduct where contract_product_id IN(select contract_product_id from contract_product where contract_id = #{contract_id}));")
+    public Double selectTotal(Serializable contract_id)throws Exception;
 }

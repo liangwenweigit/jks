@@ -95,7 +95,7 @@ public interface ContractProductMapper {
      * @param contractProduct
      * @throws Exception
      */
-    @Update("UPDATE contract SET finshed = #{finshed} WHERE contract_product_id = #{contract_product_id}")
+    @Update("UPDATE contract_product SET finshed = #{finshed} WHERE contract_product_id = #{contract_product_id}")
     public void updateState(ContractProduct contractProduct) throws Exception;
 
     /**
@@ -113,4 +113,12 @@ public interface ContractProductMapper {
      */
     @UpdateProvider(type = ContractProductMapperDynaSQLCreater.class,method = "updateStartStateSQL")
     public void updateStartState(String sql)throws Exception;
+
+    /**
+     * 根据合同号查询货物
+     * @param id
+     * @return
+     */
+    @Select("select * from contract_product where contract_id = #{id}")
+    public List<ContractProduct> selectContractProductByContractId(Serializable id);
 }

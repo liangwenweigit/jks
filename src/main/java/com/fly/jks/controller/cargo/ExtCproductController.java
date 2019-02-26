@@ -1,9 +1,12 @@
 package com.fly.jks.controller.cargo;
 
 import com.fly.jks.controller.baseinfo.FactoryController;
+import com.fly.jks.domain.ContractProduct;
 import com.fly.jks.domain.ExtCproduct;
 import com.fly.jks.domain.Factory;
 import com.fly.jks.pagination.Page;
+import com.fly.jks.service.ContractProductService;
+import com.fly.jks.service.ContractService;
 import com.fly.jks.service.ExtCproductService;
 import com.fly.jks.service.FactoryService;
 import com.fly.jks.utils.CommonUtils;
@@ -32,6 +35,10 @@ public class ExtCproductController {
     private ExtCproductService extCproductService;
     @Autowired
     private FactoryService factoryService;
+    @Autowired
+    private ContractService contractService;
+    @Autowired
+    private ContractProductService contractProductService;
 
     @RequestMapping("/list")
     public String listPage(@RequestParam("contract_product_id") String contract_product_id, Model model, Page page) throws Exception {
@@ -126,8 +133,17 @@ public class ExtCproductController {
         ExtCproduct.setExt_cproduct_id(CommonUtils.getUUID());
         //设置出货状态1未完，0完成
         ExtCproduct.setFinshed("1");
+
         //保存数据库
         extCproductService.insert(ExtCproduct);
+
+        /**
+         * 更新合同总金额
+         */
+        //1经过附件UUID 把合同UUID查询出来
+        ContractProduct contractProduct = contractProductService.get(contract_product_id);
+        //2更新总金额
+        contractService.updateTotal(contractProduct.getContract_id());
 
         //重定向到另一个action ,新增后重定向到新增页面，用户可以继续新增，方便操作，因为货物有很多
         //这里还需要把合同id传到重定向的方法(因为方法上必须传这个参数)，由方法转发到页面,
@@ -156,11 +172,21 @@ public class ExtCproductController {
     @RequestMapping("/update")
     public String update(ExtCproduct extCproduct,Model model) throws Exception {
         //这个参数是传给下一个方法的
-        model.addAttribute("contract_product_id", extCproduct.getContract_product_id());
+        String contract_product_id = extCproduct.getContract_product_id();
+        model.addAttribute("contract_product_id",contract_product_id);
         //放在用户修改了厂家，所以在这里要把厂家名字也修改了
         Factory factory = factoryService.get(extCproduct.getFactory_id());
         extCproduct.setFactory_name(factory.getFactory_name());
         extCproductService.update(extCproduct);
+
+        /**
+         * 更新合同总金额
+         */
+        //1经过附件UUID 把合同UUID查询出来
+        ContractProduct contractProduct = contractProductService.get(contract_product_id);
+        //2更新总金额
+        contractService.updateTotal(contractProduct.getContract_id());
+
         //修改完回到货物列表，记得合同UUID也要传回去
         return "redirect:/api/extcproduct/list";
     }
@@ -171,6 +197,15 @@ public class ExtCproductController {
         model.addAttribute("contract_product_id", contract_product_id);
         //删除一条
         extCproductService.deleteById(ext_cproduct_id);
+
+        /**
+         * 更新合同总金额
+         */
+        //1经过附件UUID 把合同UUID查询出来
+        ContractProduct contractProduct = contractProductService.get(contract_product_id);
+        //2更新总金额
+        contractService.updateTotal(contractProduct.getContract_id());
+
         //修改完回到新增页面，记得合同UUID也要传回去
         return "redirect:/api/extcproduct/list";
     }

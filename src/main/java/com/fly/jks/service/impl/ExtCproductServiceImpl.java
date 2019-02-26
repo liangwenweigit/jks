@@ -140,4 +140,13 @@ public class ExtCproductServiceImpl implements ExtCproductService{
     public Integer selectCount(Map<String, Object> paraMap) throws Exception {
         return ExtCproductMapper.selectCount(paraMap);
     }
+
+    /**
+     * 级联删除 根据货物ID删除所属附件
+     * @param contract_product_id
+     */
+    @Override
+    public void deleteByContractProductId(Serializable contract_product_id)throws Exception {
+        ExtCproductMapper.deleteByContractProductId(contract_product_id);
+    }
 }

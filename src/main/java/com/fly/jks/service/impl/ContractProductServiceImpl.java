@@ -140,4 +140,14 @@ public class ContractProductServiceImpl implements ContractProductService{
     public Integer selectCount(Map<String, Object> paraMap) throws Exception {
         return contractProductMapper.selectCount(paraMap);
     }
+
+    /**
+     * 根据合同号查询货物
+     * @param id
+     * @return
+     */
+    @Override
+    public List<ContractProduct> selectContractProductByContractId(Serializable id)throws Exception {
+        return contractProductMapper.selectContractProductByContractId(id);
+    }
 }

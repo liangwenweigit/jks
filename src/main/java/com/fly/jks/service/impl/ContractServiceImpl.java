@@ -121,4 +121,19 @@ public class ContractServiceImpl  implements ContractService{
     public Integer selectCount(Map<String, Object> paraMap) throws Exception {
         return contractMapper.selectCount(paraMap);
     }
+
+    /**
+     * 设置合同总金额
+     * 1先查出来 货物+附件 总金额=有子查询
+     * 2再设置进去，更新合同总金额
+     * @param contract_id
+     */
+    @Override
+    public void updateTotal(Serializable contract_id)throws Exception {
+        Double total = contractMapper.selectTotal(contract_id);
+        Contract contract = new Contract();
+        contract.setContract_id(contract_id.toString());
+        contract.setTotal_price(total);
+        update(contract);
+    }
 }

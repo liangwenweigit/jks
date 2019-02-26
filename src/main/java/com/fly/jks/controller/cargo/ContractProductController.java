@@ -5,6 +5,8 @@ import com.fly.jks.domain.ContractProduct;
 import com.fly.jks.domain.Factory;
 import com.fly.jks.pagination.Page;
 import com.fly.jks.service.ContractProductService;
+import com.fly.jks.service.ContractService;
+import com.fly.jks.service.ExtCproductService;
 import com.fly.jks.service.FactoryService;
 import com.fly.jks.utils.CommonUtils;
 import org.slf4j.Logger;
@@ -34,6 +36,10 @@ public class ContractProductController {
     private ContractProductService contractProductService;
     @Autowired
     private FactoryService factoryService;
+    @Autowired
+    private ExtCproductService extCproductService;
+    @Autowired
+    private ContractService contractService;
 
     @RequestMapping("/list")
     public String listPage(@RequestParam("contract_id") String contract_id,Model model,Page page) throws Exception {
@@ -137,6 +143,11 @@ public class ContractProductController {
         model.addAttribute("contract_id",contract_id);// 或者在url后添加?contract_id="+contract_id
         //添加again标记,说明添加了货物
         model.addAttribute("again","again");
+        /**
+         * 更新合同总金额
+         */
+        contractService.updateTotal(contract_id);
+        //修改完回到新增页面，记得合同UUID也要传回去
         return "redirect:/api/product/insert_page";
     }
 
@@ -157,12 +168,17 @@ public class ContractProductController {
     @RequestMapping("/update")
     public String update(ContractProduct contractProduct,Model model) throws Exception {
         //这个参数是传给下一个方法的
-        model.addAttribute("contract_id", contractProduct.getContract_id());
+        String contract_id = contractProduct.getContract_id();
+        model.addAttribute("contract_id", contract_id);//修改完回到货物列表，记得合同UUID也要传回去
         //放在用户修改了厂家，所以在这里要把厂家名字也修改了
         Factory factory = factoryService.get(contractProduct.getFactory_id());
         contractProduct.setFactory_name(factory.getFactory_name());
         contractProductService.update(contractProduct);
-        //修改完回到货物列表，记得合同UUID也要传回去
+        /**
+         * 更新合同总金额
+         */
+        contractService.updateTotal(contract_id);
+        //修改完回到新增页面，记得合同UUID也要传回去
         return "redirect:/api/product/list";
     }
 
@@ -170,8 +186,15 @@ public class ContractProductController {
     public String delete(@RequestParam("contract_id") String contract_id,@RequestParam("contract_product_id") String contract_product_id,Model model) throws Exception {
         //这个参数是传给下一个方法的
         model.addAttribute("contract_id", contract_id);
-        //删除一条
+        //级联删除：先删除货物下的附件
+        extCproductService.deleteByContractProductId(contract_product_id);
+        //再删除一条货物
         contractProductService.deleteById(contract_product_id);
+
+        /**
+         * 更新合同总金额
+         */
+        contractService.updateTotal(contract_id);
         //修改完回到新增页面，记得合同UUID也要传回去
         return "redirect:/api/product/list";
     }
