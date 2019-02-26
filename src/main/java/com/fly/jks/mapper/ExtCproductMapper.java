@@ -1,7 +1,6 @@
 package com.fly.jks.mapper;
 
-import com.fly.jks.domain.ContractProduct;
-import com.fly.jks.mapper.provider.ContractProductMapperDynaSQLCreater;
+import com.fly.jks.domain.ExtCproduct;
 import com.fly.jks.mapper.provider.ExtCproductMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
@@ -24,31 +23,31 @@ public interface ExtCproductMapper {
      * @param page
      * @return
      */
-    @Select("select * from contract_product limit #{pageIndex},#{pageSize}")
-    public List<ContractProduct> findPage(Page page)throws Exception;
+    @Select("select * from ext_cproduct limit #{pageIndex},#{pageSize}")
+    public List<ExtCproduct> findPage(Page page)throws Exception;
 
     /**
      * 带条件查询，并且分页，下面三个参数必传
      * @param paraMap
      * @return
      */
-    @Select("select * from contract_product where contract_id = #{contract_id} limit #{page.pageIndex},#{page.pageSize}")
-    public List<ContractProduct> findByCondition(Map<String, Object> paraMap)throws Exception;
+    @Select("select * from ext_cproduct where contract_id = #{contract_id} limit #{page.pageIndex},#{page.pageSize}")
+    public List<ExtCproduct> findByCondition(Map<String, Object> paraMap)throws Exception;
 
     /**
      * 查询全部
      * @return
      * @throws Exception
      */
-    @Select("select * from contract_product")
-    public List<ContractProduct> findList()throws Exception;
+    @Select("select * from ext_cproduct")
+    public List<ExtCproduct> findList()throws Exception;
 
     /**
      * 查询全部记录数 带条件查询
      * @return
      * @throws Exception
      */
-    @Select("select count(*) from contract_product where contract_id = #{contract_id}")
+    @Select("select count(*) from ext_cproduct where contract_id = #{contract_id}")
     public Integer selectCount(Map<String, Object> paraMap)throws Exception;
 
     /**
@@ -56,14 +55,14 @@ public interface ExtCproductMapper {
      * @return
      * @throws Exception
      */
-    @Select("select * from contract_product where contract_product_id= #{contract_product_id}")
-    public ContractProduct get(Serializable contract_product_id)throws Exception;
+    @Select("select * from ext_cproduct where ext_cproduct_id= #{ext_cproduct_id}")
+    public ExtCproduct get(Serializable contract_product_id)throws Exception;
 
     /**
      * 真删除，删除一条，支持整数型和字符串类型ID
      * @param contract_product_id
      */
-    @Delete("delete from contract_product where contract_product_id = #{contract_product_id}")
+    @Delete("delete from ext_cproduct where ext_cproduct_id = #{ext_cproduct_id}")
     public void deleteById(Serializable contract_product_id)throws Exception;
 
     /**
@@ -75,27 +74,27 @@ public interface ExtCproductMapper {
 
     /**
      * 新增一条
-     * @param contractProduct
+     * @param extCproduct
      * @throws Exception
      */
     @InsertProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "insertSQL")
-    public void insert(ContractProduct contractProduct)throws Exception;
+    public void insert(ExtCproduct extCproduct)throws Exception;
 
     /**
      * 更新
-     * @param contractProduct
+     * @param extCproduct
      * @throws Exception
      */
     @UpdateProvider(type = ExtCproductMapperDynaSQLCreater.class,method = "updateSQL")
-    public void update(ContractProduct contractProduct)throws Exception;
+    public void update(ExtCproduct extCproduct)throws Exception;
 
     /**
      * 更新1条出货状态 private String finshed;//是否出货完毕1未完 0完毕
-     * @param contractProduct
+     * @param extCproduct
      * @throws Exception
      */
-    @Update("UPDATE contract SET finshed = #{finshed} WHERE contract_product_id = #{contract_product_id}")
-    public void updateState(ContractProduct contractProduct) throws Exception;
+    @Update("UPDATE ext_cproduct SET finshed = #{finshed} WHERE ext_cproduct_id = #{ext_cproduct_id}")
+    public void updateState(ExtCproduct extCproduct) throws Exception;
 
     /**
      * 批量/单 出货状态 private String finshed;//是否出货完毕1未完 0完毕

@@ -35,23 +35,10 @@ public class ContractProductController {
     @Autowired
     private FactoryService factoryService;
 
-    /**
-     * 转向新增页面 factoryList
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/insert_page")
-    public String insertPage(@RequestParam("contract_id") String contract_id,Model model,String again,Page page) throws Exception {
-        logger.info("转向新增页面接口被调用了");
+    @RequestMapping("/list")
+    public String listPage(@RequestParam("contract_id") String contract_id,Model model,Page page) throws Exception {
         Map<String,Object> paraMap = new HashMap<>(0);
-        paraMap.put("state","1");
-        List<Factory> factoryList = factoryService.findByCondition(paraMap);
-        model.addAttribute("factoryList",factoryList);
-        model.addAttribute("contract_id",contract_id);
-        //判断again参数是否为空，不为空说明是添加货物成功来到这里的，提示添加成功
-        if (again!=null){ //提示客户添加货物成功,如果是第一次来转态的，不会进入
-            model.addAttribute("msg","添加货物成功!可以继续添加!");
-        }
+
         //每次进来都去数据库查对应的合同下的全部货物=dataList，并且是分页的，需要带分页条件
         //分页资料
         paraMap.put("contract_id",contract_id);
@@ -74,11 +61,35 @@ public class ContractProductController {
         //设置查询数据库的下标 limit pageIndex,pageSize
         page.setPageIndex((page.getPageNo()-1)*page.getPageSize());
         model.addAttribute("page",page);
-        //塞查询条件
+        //塞查询分页条件
         paraMap.put("page",page);
         paraMap.put("contract_id",contract_id);
-        List<ContractProduct> dataList = contractProductService.findByCondition(paraMap);
+        List<ContractProduct> dataList = contractProductService.findByCondition(paraMap);//分页查询
+        model.addAttribute("contract_id",contract_id);
         model.addAttribute("dataList",dataList);
+        if (dataList.size()==0){
+            model.addAttribute("msg","暂时没有货物,可以点击新增添加!");
+        }
+        return "/WEB-INF/pages/cargo/product/product_list.jsp";
+    }
+
+    /**
+     * 转向新增页面 factoryList
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/insert_page")
+    public String insertPage(@RequestParam("contract_id") String contract_id,Model model,String again) throws Exception {
+        logger.info("转向新增页面接口被调用了");
+        //判断again参数是否为空，不为空说明是添加货物成功来到这里的，提示添加成功
+        if (again!=null){ //提示客户添加货物成功,如果是第一次来转态的，不会进入
+            model.addAttribute("msg","添加货物成功!可以继续添加!");
+        }
+        Map<String,Object> paraMap = new HashMap<>(0);
+        paraMap.put("state","1");
+        List<Factory> factoryList = factoryService.findByCondition(paraMap);
+        model.addAttribute("factoryList",factoryList);
+        model.addAttribute("contract_id",contract_id);
         return "/WEB-INF/pages/cargo/product/product_create.jsp";
     }
 
@@ -104,35 +115,6 @@ public class ContractProductController {
             model.addAttribute("contract_id",contract_id);
             //并且提示用户没有选择厂家，添加货物失败，请重新添加
             model.addAttribute("msg","没有选择厂家,添加货物失败,请重新添加!");
-
-            //每次进来都去数据库查对应的合同下的全部货物=dataList，并且是分页的，需要带分页条件
-            //分页资料
-            paraMap.put("contract_id",contract_id);
-            Integer totalRecord = contractProductService.selectCount(paraMap);//分页查询总是条件
-            //设置总记录数
-            page.setTotalRecord(totalRecord);
-            //设置总页数
-            page.setTotalPage(page.getTotalRecord()%page.getPageSize()==0?page.getTotalRecord()/page.getPageSize():page.getTotalRecord()/page.getPageSize()+1);
-            //处理分页bug，当数据少于10  或者没有数据的时候 或者等于10(每页大小)
-            if (page.getTotalRecord()<=page.getPageSize()){
-                page.setTotalPage(1);
-            }
-            //处理传过来的 页数 BUG 当页数小于0时设置成1，当页数大于 总页数时 设置为总页数
-            if (page.getPageNo()<=0){
-                page.setPageNo(1);
-            }
-            if (page.getPageNo()>page.getTotalPage()){
-                page.setPageNo(page.getTotalPage());
-            }
-            //设置查询数据库的下标 limit pageIndex,pageSize
-            page.setPageIndex((page.getPageNo()-1)*page.getPageSize());
-            model.addAttribute("page",page);
-            //塞查询条件
-            paraMap.put("page",page);
-            //paraMap.put("contract_id",contract_id); 这个上面查分页条数的时候放了，这里不用放了
-            List<ContractProduct> dataList = contractProductService.findByCondition(paraMap);
-            model.addAttribute("dataList",dataList);
-
             return "/WEB-INF/pages/cargo/product/product_create.jsp";
         }
         //根据传过来的factory_id查询一个厂家处理
@@ -146,7 +128,6 @@ public class ContractProductController {
         contractProduct.setContract_product_id(CommonUtils.getUUID());
         //设置出货状态1未完，0完成
         contractProduct.setFinshed("1");
-
         //保存数据库
         contractProductService.insert(contractProduct);
 
@@ -163,6 +144,7 @@ public class ContractProductController {
     @RequestMapping("/update_page")
     public String updatePage(String contract_product_id,String contract_id, Model model) throws Exception {
         ContractProduct contractProduct = contractProductService.get(contract_product_id);
+        //记得合同UUID也要传回去
         model.addAttribute("contract_id", contract_id);
         model.addAttribute("contractProduct", contractProduct);
         //准备生产厂家的下拉列表,并且是启用状态1的
@@ -182,17 +164,17 @@ public class ContractProductController {
         Factory factory = factoryService.get(contractProduct.getFactory_id());
         contractProduct.setFactory_name(factory.getFactory_name());
         contractProductService.update(contractProduct);
-        //修改完回到新增页面
-        return "redirect:/api/product/insert_page";
+        //修改完回到货物列表，记得合同UUID也要传回去
+        return "redirect:/api/product/list";
     }
 
     @RequestMapping("/delete")
     public String delete(String contract_id,String contract_product_id,Model model) throws Exception {
         //这个参数是传给下一个方法的
         model.addAttribute("contract_id", contract_id);
-        //删除一天
+        //删除一条
         contractProductService.deleteById(contract_product_id);
-        //修改完回到新增页面
-        return "redirect:/api/product/insert_page";
+        //修改完回到新增页面，记得合同UUID也要传回去
+        return "redirect:/api/product/list";
     }
 }

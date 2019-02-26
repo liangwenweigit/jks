@@ -18,34 +18,34 @@ public class ExtCproduct implements Serializable{
   private String product_desc;//产品描述
   private String loading_rate;//装率
   private String packing_unit;//包装单位 只pcs/套sets
-  private double price;//单价
-  private double amount;//总额
+  private Double price;//单价
+  private Double amount;//总额
   private Integer cnumber;//产品数量
   private Integer out_num;//实际出货数量
   private String finshed;//出货状态0完毕 1未完
-  private double gross_weight;//毛重
-  private double net_weight;//净重
-  private double size_length;//尺寸长
-  private double size_width;//尺寸宽
-  private double size_higt;//尺寸高
+  private Double gross_weight;//毛重
+  private Double net_weight;//净重
+  private Double size_length;//尺寸长
+  private Double size_width;//尺寸宽
+  private Double size_higt;//尺寸高
   private String crequest;//要求
   private String factory_name;//厂家名称 冗余字段
   private String cunit;//EL单位
   private Integer box_num;//件数
-  private double ex_price;//出口单价
-  private double ex_amount;//出口合计
+  private Double ex_price;//出口单价
+  private Double ex_amount;//出口合计
   private String ex_unit;//出口价格单位
-  private double no_tax;//不含税
-  private double tax;//含税
-  private double cost_price;//收购成本金额
-  private double cost_tax;//收购成本税金
+  private Double no_tax;//不含税
+  private Double tax;//含税
+  private Double cost_price;//收购成本金额
+  private Double cost_tax;//收购成本税金
   private String accessories;//是否有附件1有 0没
   private Integer order_no;//排序号
 
   public ExtCproduct() {
   }
 
-  public ExtCproduct(String ext_cproduct_id, String factory_id, String contract_product_id, Integer ctype, String product_name, String product_num, String product_image, String product_desc, String loading_rate, String packing_unit, double price, double amount, Integer cnumber, Integer out_num, String finshed, double gross_weight, double net_weight, double size_length, double size_width, double size_higt, String crequest, String factory_name, String cunit, Integer box_num, double ex_price, double ex_amount, String ex_unit, double no_tax, double tax, double cost_price, double cost_tax, String accessories, Integer order_no) {
+  public ExtCproduct(String ext_cproduct_id, String factory_id, String contract_product_id, Integer ctype, String product_name, String product_num, String product_image, String product_desc, String loading_rate, String packing_unit, Double price, Double amount, Integer cnumber, Integer out_num, String finshed, Double gross_weight, Double net_weight, Double size_length, Double size_width, Double size_higt, String crequest, String factory_name, String cunit, Integer box_num, Double ex_price, Double ex_amount, String ex_unit, Double no_tax, Double tax, Double cost_price, Double cost_tax, String accessories, Integer order_no) {
     this.ext_cproduct_id = ext_cproduct_id;
     this.factory_id = factory_id;
     this.contract_product_id = contract_product_id;
@@ -200,19 +200,19 @@ public class ExtCproduct implements Serializable{
     this.packing_unit = packing_unit;
   }
 
-  public double getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 
-  public double getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(double amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 
@@ -240,43 +240,43 @@ public class ExtCproduct implements Serializable{
     this.finshed = finshed;
   }
 
-  public double getGross_weight() {
+  public Double getGross_weight() {
     return gross_weight;
   }
 
-  public void setGross_weight(double gross_weight) {
+  public void setGross_weight(Double gross_weight) {
     this.gross_weight = gross_weight;
   }
 
-  public double getNet_weight() {
+  public Double getNet_weight() {
     return net_weight;
   }
 
-  public void setNet_weight(double net_weight) {
+  public void setNet_weight(Double net_weight) {
     this.net_weight = net_weight;
   }
 
-  public double getSize_length() {
+  public Double getSize_length() {
     return size_length;
   }
 
-  public void setSize_length(double size_length) {
+  public void setSize_length(Double size_length) {
     this.size_length = size_length;
   }
 
-  public double getSize_width() {
+  public Double getSize_width() {
     return size_width;
   }
 
-  public void setSize_width(double size_width) {
+  public void setSize_width(Double size_width) {
     this.size_width = size_width;
   }
 
-  public double getSize_higt() {
+  public Double getSize_higt() {
     return size_higt;
   }
 
-  public void setSize_higt(double size_higt) {
+  public void setSize_higt(Double size_higt) {
     this.size_higt = size_higt;
   }
 
@@ -312,19 +312,19 @@ public class ExtCproduct implements Serializable{
     this.box_num = box_num;
   }
 
-  public double getEx_price() {
+  public Double getEx_price() {
     return ex_price;
   }
 
-  public void setEx_price(double ex_price) {
+  public void setEx_price(Double ex_price) {
     this.ex_price = ex_price;
   }
 
-  public double getEx_amount() {
+  public Double getEx_amount() {
     return ex_amount;
   }
 
-  public void setEx_amount(double ex_amount) {
+  public void setEx_amount(Double ex_amount) {
     this.ex_amount = ex_amount;
   }
 
@@ -336,35 +336,35 @@ public class ExtCproduct implements Serializable{
     this.ex_unit = ex_unit;
   }
 
-  public double getNo_tax() {
+  public Double getNo_tax() {
     return no_tax;
   }
 
-  public void setNo_tax(double no_tax) {
+  public void setNo_tax(Double no_tax) {
     this.no_tax = no_tax;
   }
 
-  public double getTax() {
+  public Double getTax() {
     return tax;
   }
 
-  public void setTax(double tax) {
+  public void setTax(Double tax) {
     this.tax = tax;
   }
 
-  public double getCost_price() {
+  public Double getCost_price() {
     return cost_price;
   }
 
-  public void setCost_price(double cost_price) {
+  public void setCost_price(Double cost_price) {
     this.cost_price = cost_price;
   }
 
-  public double getCost_tax() {
+  public Double getCost_tax() {
     return cost_tax;
   }
 
-  public void setCost_tax(double cost_tax) {
+  public void setCost_tax(Double cost_tax) {
     this.cost_tax = cost_tax;
   }
 

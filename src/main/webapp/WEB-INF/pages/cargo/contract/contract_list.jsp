@@ -78,7 +78,7 @@
 				</a>
 		</td>
         <td><a href='${pageContext.request.contextPath}/api/contract/showview?contract_id=${o.contract_id}'style="text-decoration: underline;color:green;">查看</a></td>
-        <td><a href='${pageContext.request.contextPath}/api/product/insert_page?contract_id=${o.contract_id}'style="text-decoration: underline;color:green;">货物</a></td>
+        <td><a href='${pageContext.request.contextPath}/api/product/list?contract_id=${o.contract_id}'style="text-decoration: underline;color:green;">货物</a></td>
 	</tr>
 	</c:forEach>
 	

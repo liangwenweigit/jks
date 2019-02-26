@@ -142,7 +142,7 @@ public class ContractProductMapperDynaSQLCreater {
                 SET("accessories = #{accessories}");
             }
             if (contractProduct.getOrder_no()!=null){
-                SET("order_no = #{order_no}");//测试驼峰命名字段
+                SET("order_no = #{order_no}");
             }
             WHERE("contract_product_id = #{contract_product_id}");
         }}.toString();
