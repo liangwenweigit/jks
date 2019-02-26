@@ -25,7 +25,7 @@
         <div class="textbox-header">
             <div class="textbox-inner-header">
                 <div class="textbox-title">
-                    新增货物附件
+                    新增货物的附件
                 </div>
             </div>
         </div>

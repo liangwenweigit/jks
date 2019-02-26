@@ -27,7 +27,7 @@
     <div class="textbox-header">
     <div class="textbox-inner-header">
     <div class="textbox-title">
-		修改货物信息
+		修改货物的附件信息
     </div> 
     </div>
     </div>
