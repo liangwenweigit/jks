@@ -123,6 +123,7 @@
     </dependency>
 
     <!-- 第三方常用jar包 -->
+    <!--poi操作xls/xlsx 文件把内容输出的jar 具体看testPOI-->
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
@@ -134,10 +135,12 @@
       <version>3.9</version>
     </dependency>
     <dependency>
+      <!--JFreeChart是JAVA平台上的一个开放的图表绘制类库-->
       <groupId>jfree</groupId>
       <artifactId>jfreechart</artifactId>
       <version>1.0.13</version>
     </dependency>
+
     <!--文件上传-->
     <dependency>
       <groupId>commons-fileupload</groupId>

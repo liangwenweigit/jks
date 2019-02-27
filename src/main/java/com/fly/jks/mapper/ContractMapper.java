@@ -1,6 +1,7 @@
 package com.fly.jks.mapper;
 
 import com.fly.jks.domain.Contract;
+import com.fly.jks.domain.vo.ContractVO;
 import com.fly.jks.mapper.provider.ContractMapperDynaSQLCreater;
 import com.fly.jks.pagination.Page;
 import org.apache.ibatis.annotations.*;
@@ -116,6 +117,15 @@ public interface ContractMapper {
      * @return
      * @throws Exception
      */
-    @Select("select (select sum(amount) from contract_product where contract_id = #{contract_id}) + (select sum(amount) from ext_cproduct where contract_product_id IN(select contract_product_id from contract_product where contract_id = #{contract_id}));")
+    @Select("select (IFNULL((select sum(amount) from contract_product where contract_id = #{contract_id}),0) + IFNULL((select sum(amount) from ext_cproduct where contract_product_id IN(select contract_product_id from contract_product where contract_id = #{contract_id})),0));")
     public Double selectTotal(Serializable contract_id)throws Exception;
+
+    /**
+     * 出货统计表方法
+     * @param inputDate
+     * @return
+     * @throws Exception
+     */
+    @Select("select c.customer_name,c.contract_no,p.product_num,p.cnumber,p.packing_unit,p.factory_name,p.accessories,c.delivery_date,c.ship_date,c.trade_clause from contract c,contract_product p where c.contract_id=p.contract_id and DATE_FORMAT(c.ship_date,'%Y-%m')=#{inputDate};")
+    public List<ContractVO> selectOutProductByDate(String inputDate)throws Exception;
 }

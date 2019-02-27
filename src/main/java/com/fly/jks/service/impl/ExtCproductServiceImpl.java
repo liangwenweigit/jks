@@ -20,21 +20,21 @@ import java.util.Map;
 public class ExtCproductServiceImpl implements ExtCproductService{
 
     @Autowired
-    private ExtCproductMapper ExtCproductMapper;
+    private ExtCproductMapper extCproductMapper;
 
     @Override
     public List<ExtCproduct> findPage(Page page) throws Exception {
-        return ExtCproductMapper.findPage(page);
+        return extCproductMapper.findPage(page);
     }
 
     @Override
     public List<ExtCproduct> findByCondition(Map<String, Object> paraMap) throws Exception {
-        return ExtCproductMapper.findByCondition(paraMap);
+        return extCproductMapper.findByCondition(paraMap);
     }
 
     @Override
     public ExtCproduct get(Serializable ext_cproduct_id) throws Exception {
-        return ExtCproductMapper.get(ext_cproduct_id);
+        return extCproductMapper.get(ext_cproduct_id);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ExtCproductServiceImpl implements ExtCproductService{
             BigDecimal cnunmber = new BigDecimal(ExtCproduct.getCnumber()+"");
             ExtCproduct.setAmount(price.multiply(cnunmber).doubleValue());
         }
-        ExtCproductMapper.insert(ExtCproduct);
+        extCproductMapper.insert(ExtCproduct);
     }
 
     @Override
@@ -78,12 +78,12 @@ public class ExtCproductServiceImpl implements ExtCproductService{
         }else{//说明上面2样有空，处理BUG，把总价也改成0.0,因为用的是mybatis，更新的时候不能设置成null，设置成null，动态sql不会更新这个字段，作用直接赋值0.0/0长度的字符串
             ExtCproduct.setAmount(0.0);
         }
-        ExtCproductMapper.update(ExtCproduct);
+        extCproductMapper.update(ExtCproduct);
     }
 
     @Override
     public void deleteById(Serializable ext_cproduct_id) throws Exception {
-        ExtCproductMapper.deleteById(ext_cproduct_id);
+        extCproductMapper.deleteById(ext_cproduct_id);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ExtCproductServiceImpl implements ExtCproductService{
             }
             sb.append("'"+ids[i]+"'").append(", ");
         }
-        ExtCproductMapper.delete(sb.toString());
+        extCproductMapper.delete(sb.toString());
     }
 
     @Override
@@ -109,7 +109,7 @@ public class ExtCproductServiceImpl implements ExtCproductService{
             }
             sb.append("'"+ids[i]+"'").append(", ");
         }
-        ExtCproductMapper.updateStopState(sb.toString());
+        extCproductMapper.updateStopState(sb.toString());
     }
 
     @Override
@@ -122,7 +122,7 @@ public class ExtCproductServiceImpl implements ExtCproductService{
             }
             sb.append("'"+ids[i]+"'").append(", ");
         }
-        ExtCproductMapper.updateStartState(sb.toString());
+        extCproductMapper.updateStartState(sb.toString());
     }
 
     @Override
@@ -133,12 +133,12 @@ public class ExtCproductServiceImpl implements ExtCproductService{
         }else{
             ExtCproduct.setFinshed("1");//出货未完
         }
-        ExtCproductMapper.updateState(ExtCproduct);
+        extCproductMapper.updateState(ExtCproduct);
     }
 
     @Override
     public Integer selectCount(Map<String, Object> paraMap) throws Exception {
-        return ExtCproductMapper.selectCount(paraMap);
+        return extCproductMapper.selectCount(paraMap);
     }
 
     /**
@@ -147,6 +147,6 @@ public class ExtCproductServiceImpl implements ExtCproductService{
      */
     @Override
     public void deleteByContractProductId(Serializable contract_product_id)throws Exception {
-        ExtCproductMapper.deleteByContractProductId(contract_product_id);
+        extCproductMapper.deleteByContractProductId(contract_product_id);
     }
 }

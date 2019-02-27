@@ -23,8 +23,8 @@
 				</td>
         	</tr>
         	<tr>
-        		<td class="subModelTitle">出货表</td>
-        		<td class="model_intro_right">根据合同和指定的船期月份，统计当月的出货情况。<br></td>
+        		<td class="subModelTitle">出货信息</td>
+        		<td class="model_intro_right">根据合同和指定的船期月份，统计当月的出货情况，并且打印出来(打印就是下载XX.xls文件)。<br></td>
         	</tr>
         	<tr>
         		<td class="subModelTitle">出口报运单</td>

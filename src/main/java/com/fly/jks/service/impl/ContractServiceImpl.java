@@ -1,6 +1,7 @@
 package com.fly.jks.service.impl;
 
 import com.fly.jks.domain.Contract;
+import com.fly.jks.domain.vo.ContractVO;
 import com.fly.jks.mapper.ContractMapper;
 import com.fly.jks.pagination.Page;
 import com.fly.jks.service.ContractService;
@@ -130,10 +131,22 @@ public class ContractServiceImpl  implements ContractService{
      */
     @Override
     public void updateTotal(Serializable contract_id)throws Exception {
+        //这里必须不是包装类
         Double total = contractMapper.selectTotal(contract_id);
         Contract contract = new Contract();
-        contract.setContract_id(contract_id.toString());
+        contract.setContract_id(contract_id+"");
         contract.setTotal_price(total);
         update(contract);
+    }
+
+    /**
+     * 出货统计表方法
+     * @param inputDate
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ContractVO> selectOutProductByDate(String inputDate) throws Exception {
+        return contractMapper.selectOutProductByDate(inputDate);
     }
 }

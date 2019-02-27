@@ -1,4 +1,4 @@
-package com.fly.jks.utils;
+package com.fly.jks;
 
 import javax.xml.bind.SchemaOutputResolver;
 import java.text.SimpleDateFormat;
