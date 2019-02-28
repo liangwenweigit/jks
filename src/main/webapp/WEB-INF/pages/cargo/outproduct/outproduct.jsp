@@ -16,7 +16,7 @@
 <div id="innerMenubar">
     <div id="navMenubar">
 <ul>
-<li id="save"><a href="#" onclick="formSubmit('${pageContext.request.contextPath}/api/outproduct/print','_self');">打印</a></li>
+<li id="save"><a href="#" onclick="formSubmit('${pageContext.request.contextPath}/api/outproduct/printx','_self');">打印</a></li>
 </ul>
     </div>
 </div>
