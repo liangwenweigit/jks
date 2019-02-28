@@ -2,6 +2,7 @@ package com.fly.jks.controller.cargo;
 
 import com.fly.jks.domain.vo.ContractVO;
 import com.fly.jks.service.ContractService;
+import com.fly.jks.utils.DownloadUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -37,7 +40,7 @@ public class OutProductController {
     }
 
     @RequestMapping("/print")
-    public void print(String inputDate) throws Exception {//inputDate 格式：yyyy-MM
+    public void print(String inputDate, HttpServletResponse response) throws Exception {//inputDate 格式：yyyy-MM
 
         //创建一个处理时间的对象。时间转成字符串
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -155,13 +158,15 @@ public class OutProductController {
             //循环一次，必须把列号变回1，否则，就成楼梯形状
             colNo = 1;
         }
-
-        //用IO保存
-        OutputStream os = new FileOutputStream("c:\\出货报表.xls");//excel 2003
+        //先写到流里面
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         wb.write(os);
+        //下载：用到工具类
+        DownloadUtil downloadUtil = new DownloadUtil();//直接弹出下载框，用户可以打开，可以保存
+        downloadUtil.download(os, response, "出货报表.xlsx");
+        //关闭
         os.flush();
         os.close();
-
 
     }
 
