@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -47,13 +48,16 @@ public class OutProductController {
      * @throws Exception
      */
     @RequestMapping("/print")
-    public void print(String inputDate, HttpServletResponse response) throws Exception {//inputDate 格式：yyyy-MM
+    public void print(String inputDate, HttpServletResponse response, HttpServletRequest request) throws Exception {//inputDate 格式：yyyy-MM
 
-        //创建一个处理时间的对象。时间转成字符串
+        //创建一个处理时间的对象。时间转成字符串 txOutProduct.xls
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+        //数据库获取信息
         List<ContractVO> lists = contractService.selectOutProductByDate(inputDate);
-        InputStream is = new FileInputStream(new File("c:\\出货表.xls"));
+        //获取xls模板
+        //linux下jdk1.8 方法获取时，不会拼接自己写的目录,所以兼容windows/linux写下面这个种，获取根路径在人为添加/make/xlsprint/
+        String path = request.getSession().getServletContext().getRealPath("/") + "/make/xlsprint/";
+        InputStream is = new FileInputStream(new File(path+"tOUTPRODUCT.xls"));
         Workbook wb = new HSSFWorkbook(is);//打开一个模板文件=工作簿
         Sheet sheet = wb.getSheetAt(0);//获取第一个工作表
         Row nRow = null;//行对象

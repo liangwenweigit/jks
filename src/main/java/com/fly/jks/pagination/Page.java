@@ -1,4 +1,5 @@
 package com.fly.jks.pagination;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
  * 对分页的基本数据进行一个简单的封装
  * 用来传递分页参数和查询参数params
  */
-public class Page<T> {
+public class Page<T> implements Serializable{
     private int pageNo = 1;			//页码，默认是第一页
     private int pageIndex;          //查询数据库的下标 limit pageIndex,pageSize
     private int pageSize = 10;		//每页显示的记录数，默认是10
@@ -21,10 +22,6 @@ public class Page<T> {
         return pageIndex;
     }
 
-    /**
-     * 计算pageIndex:用于查询数据库的下标 limit pageIndex,pageSize
-     * @param
-     */
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
     }
@@ -57,10 +54,6 @@ public class Page<T> {
         return totalPage;
     }
 
-    /**
-     * 计算总页数
-     * @return
-     */
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
     }
@@ -80,6 +73,5 @@ public class Page<T> {
     public void setParams(Map<String, Object> params) {
         this.params = params;
     }
-
 
 }
