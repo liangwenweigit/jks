@@ -67,7 +67,6 @@ public class OutProductController {
         //变量定义行/列
         int rowNo = 0;//行号
         int colNo = 1;//列号
-
         /**
          * 第一行的大标题，是合并的单元格，在软件上是选中一个区域，然后合并的，程序合并如下
          */
