@@ -16,7 +16,7 @@ public class ContractProduct implements Serializable{
   private String contract_id;//外键 合同UUID（因为这里使用的是mybatis,这样单表操作速度更加）
   private String factory_name;//厂家简称 冗余字段
   private String product_name;//货物名称
-  private String product_num;//货物编号
+  private String product_num;//货物编号  这个应该是private String product_no;//货物编号
   private String product_image;//货物图片
   private String product_desc;//货物描述
   private Integer cnumber;//货物数量

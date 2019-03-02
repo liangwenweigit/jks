@@ -114,4 +114,10 @@ public interface ExtCproductMapper {
 
     @Delete("delete from ext_cproduct where contract_product_id = #{contract_product_id}")
     public void deleteByContractProductId(Serializable contract_product_id)throws Exception;
+
+    /**
+     *这个方法是为了报运数据搬家写的，因为前面的方法查询是根据分页查询的，这个方法是查询全部，然后循环数据搬家
+     */
+    @Select("select * from ext_cproduct where contract_product_id = #{contract_product_id}")
+    public List<ExtCproduct> selectByContractProductId(String contract_product_id)throws Exception;
 }

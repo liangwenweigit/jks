@@ -11,8 +11,8 @@ public class ExportProduct implements Serializable{
   private String export_product_id;//报运的货物UUID
   private String factory_id;//工厂UUID外键
   private String export_id;//报运的UUID外键
-  private String contract_product_id;//这个合同UUID 没有用到
-  private String contract_id;
+  private String contract_product_id;//这个货物UUID 没有用到,想到的业务 可能也是后期的更新 像更新合同下的货物一样
+  private String contract_id;//合同UUID，这个只是当普通字段被设置进来，后期业务，更新合同走货状态，更新合同下的货物实际出货数量/是否出货完毕 要使用
   private String contract_no;
   private String product_name;
   private String product_no;

@@ -10,8 +10,8 @@ public class ExportExtEproduct implements Serializable{
 
   private String ext_eproduct_id;//报运下的货物的附件UUID主键
   private String factory_id;//工厂UUID外键
-  private String export_product_id;//报运单UUID外键
-  private String contract_product_id;//这个合同UUID 没有用到
+  private String export_product_id;//报运单UUID外键/报运货物明细UUID
+  private String contract_product_id;//这个货物UUID 没有用到
   private String product_name;
   private String product_no;
   private String product_image;
@@ -27,7 +27,7 @@ public class ExportExtEproduct implements Serializable{
   private Double size_width;
   private Double size_height;
   private String product_request;
-  private String factory_name;
+  private String factory_name;//厂家名称 冗余字段
   private Double price;
   private Double amount;
   private String cunit;

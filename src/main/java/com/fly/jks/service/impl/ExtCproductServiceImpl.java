@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 货物下的附件业务层实现类
  * @author liang
  * @date 2019/2/26 - 12:10
  */
@@ -148,5 +149,16 @@ public class ExtCproductServiceImpl implements ExtCproductService{
     @Override
     public void deleteByContractProductId(Serializable contract_product_id)throws Exception {
         extCproductMapper.deleteByContractProductId(contract_product_id);
+    }
+
+    /**
+     * 这个方法是为了报运数据搬家写的，因为前面的方法查询是根据分页查询的，这个方法是查询全部，然后循环数据搬家
+     * @param contract_product_id
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ExtCproduct> selectByContractProductId(String contract_product_id) throws Exception {
+        return extCproductMapper.selectByContractProductId(contract_product_id);
     }
 }
