@@ -4,7 +4,6 @@ import com.fly.jks.controller.BaseController;
 import com.fly.jks.controller.baseinfo.FactoryController;
 import com.fly.jks.domain.Contract;
 import com.fly.jks.domain.ContractProduct;
-import com.fly.jks.domain.Factory;
 import com.fly.jks.pagination.Page;
 import com.fly.jks.service.ContractProductService;
 import com.fly.jks.service.ContractService;
@@ -20,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 合同controller层
@@ -42,16 +43,26 @@ public class ContractController extends BaseController{
 
 
     /**
-     * 分页查询
+     * 这个接口作用1：分页查询合同总条数。作用2：当state参数不为空就是为报运人员查询已经上报的合同
+     *                                      注意，作用2分页的时候需要把 state参数也传过来
      * http://localhost:8080/jks/api/factory/find_page?pageNo=1&pageSize=10
      * @param page
      * @return
      * @throws Exception
      */
     @RequestMapping("/find_page")
-    public String findPage(Page<Contract> page, Model model) throws Exception {
+    public String findPage(Page<Contract> page, Model model,@RequestParam(value = "state",required=false) String state) throws Exception {
+        boolean isState = false;//定义一个变量 判断是什么人员操作
+        Map<String,Object> paraMap = new HashMap<>();
+        //如果不等于空，证明这是需要查询已经上报的合同，是报运人员的操作
+        if (state!=null && !"".equals(state)){
+            paraMap.put("state",state);//查询页数的信息条件
+            page.getParams().put("state",state);//查询数据的信息条件
+            //下面到sql下去判断 修改sql
+            isState = true;//证明是报运人员
+        }
         //分页资料
-        Integer totalRecord = contractService.selectCount(null);//没有查询条件直接传null
+        Integer totalRecord = contractService.selectCount(paraMap);//没有查询条件直接传null...因为这里复用报运人员查询 所以有条件了，并且传了才会使用，下面sql判断
         //设置总记录数
         page.setTotalRecord(totalRecord);
         //设置总页数
@@ -75,6 +86,13 @@ public class ContractController extends BaseController{
         logger.info("查询分页接口被调用了");
         List<Contract> contracts = contractService.findPage(page);
         model.addAttribute("dataList",contracts);
+
+        //状跳页面也不一样，需要判断，当state不是null，证明是报运人员操作的，需要转到报运人员页面。否则转到原来页面
+        if (isState){//这个变量上面定义的 判断状态
+            //状态到报运人员的列表页面
+            return "/WEB-INF/pages/cargo/export/export_contract_list.jsp";
+        }
+        //转跳到原来的页面的位置
         return "/WEB-INF/pages/cargo/contract/contract_list.jsp";
     }
 

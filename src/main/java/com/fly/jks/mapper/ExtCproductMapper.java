@@ -113,5 +113,5 @@ public interface ExtCproductMapper {
     public void updateStartState(String sql)throws Exception;
 
     @Delete("delete from ext_cproduct where contract_product_id = #{contract_product_id}")
-    public void deleteByContractProductId(Serializable contract_product_id);
+    public void deleteByContractProductId(Serializable contract_product_id)throws Exception;
 }

@@ -25,6 +25,8 @@
 			<ul>
 				<li><a href="${ctx}/api/contract/find_page" onclick="linkHighlighted(this)" target="main" id="aa_1">购销合同</a></li>
 				<li><a href="${ctx}/api/outproduct/toedit" onclick="linkHighlighted(this)" target="main" id="aa_1">出货信息</a></li>
+				<li><a href="${pageContext.request.contextPath}/api/contract/find_page?state=1" onclick="linkHighlighted(this)" target="main" id="aa_1">已上报合同</a></li>
+				<li><a href="${ctx}/api/export/find_page" onclick="linkHighlighted(this)" target="main" id="aa_1">出口报运</a></li>
 			</ul>
         </div>
         </div>

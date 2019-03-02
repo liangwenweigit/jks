@@ -24,7 +24,8 @@ public interface ContractMapper {
      * @param page
      * @return
      */
-    @Select("select * from contract limit #{pageIndex},#{pageSize}")
+    //@Select("select * from contract limit #{pageIndex},#{pageSize}")
+    @SelectProvider(type = ContractMapperDynaSQLCreater.class,method = "findPage")
     public List<Contract> findPage(Page page)throws Exception;
 
     /**
@@ -46,7 +47,8 @@ public interface ContractMapper {
      * @return
      * @throws Exception
      */
-    @Select("select count(*) from contract")
+    //@Select("select count(*) from contract")
+    @SelectProvider(type = ContractMapperDynaSQLCreater.class,method = "selectCount")
     public Integer selectCount(Map<String, Object> paraMap)throws Exception;
 
     /**

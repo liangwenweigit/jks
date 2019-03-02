@@ -15,11 +15,7 @@
 <div id="innerMenubar">
   <div id="navMenubar">
 <ul>
-    <li id="new"><a href="${pageContext.request.contextPath}/api/contract/insert_page">新增</a></li>
-    <li id="update"><a href="#" onclick="formSubmit('${pageContext.request.contextPath}/api/contract/update_page','_self');this.blur();">修改</a></li>
-    <li id="delete"><a href="#" onclick="formSubmitDelete('${pageContext.request.contextPath}/api/contract/delete','_self');this.blur();">删除</a></li>
-	<li id="new"><a href="#" onclick="formSubmitcontractStartState('${pageContext.request.contextPath}/api/contract/start','_self');this.blur();">取消</a></li>
-	<li id="new"><a href="#" onclick="formSubmitcontractStopState('${pageContext.request.contextPath}/api/contract/stop','_self');this.blur();">上报</a></li>
+    <li id="update"><a href="#" onclick="formSubmit('${pageContext.request.contextPath}/api/export/insert','_self');this.blur();">报运</a></li>等于新增选中购销合同把ID传下去
 </ul>
   </div>
 </div>
@@ -31,7 +27,7 @@
   <div class="textbox-header">
   <div class="textbox-inner-header">
   <div class="textbox-title">
-    购销合同列表
+    已上报的购销合同列表
   </div> 
   </div>
   </div>
@@ -91,9 +87,9 @@
 <center>
     <div class="digg">
     第${page.pageNo}页/共${page.totalPage}页
-    <a href="${pageContext.request.contextPath}/api/contract/find_page?pageNo=1">首页</a>
+    <a href="${pageContext.request.contextPath}/api/contract/find_page?state=1&pageNo=1">首页</a>
     <c:if test="${page.pageNo>1}">
-        <a href="${pageContext.request.contextPath}/api/contract/find_page?pageNo=${page.pageNo-1}">上一页</a>
+        <a href="${pageContext.request.contextPath}/api/contract/find_page?state=1&pageNo=${page.pageNo-1}">上一页</a>
     </c:if>
 
     <c:choose>
@@ -126,15 +122,15 @@
                 <a style='border:#eee 1px solid;padding:2px 5px;margin:2px;color:#ddd;' href='javascrip:void(0);'>${i}</a>
             </c:when>
             <c:otherwise>
-                <a href="${pageContext.request.contextPath}/api/contract/find_page?pageNo=${i}">${i}</a>
+                <a href="${pageContext.request.contextPath}/api/contract/find_page?state=1&pageNo=${i}">${i}</a>
             </c:otherwise>
         </c:choose>
     </c:forEach>
 
     <c:if test="${page.pageNo<page.totalPage}">
-        <a href="${pageContext.request.contextPath}/api/contract/find_page?pageNo=${page.pageNo+1}">下一页</a>
+        <a href="${pageContext.request.contextPath}/api/contract/find_page?state=1&pageNo=${page.pageNo+1}">下一页</a>
     </c:if>
-    <a href="${pageContext.request.contextPath}/api/contract/find_page?pageNo=${page.totalPage}">尾页</a>
+    <a href="${pageContext.request.contextPath}/api/contract/find_page?state=1&pageNo=${page.totalPage}">尾页</a>
     </div>
 </center>
 <script>

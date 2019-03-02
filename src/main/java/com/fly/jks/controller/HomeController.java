@@ -9,10 +9,10 @@ public class HomeController {
 	 * 系统首页模块
 	 * @return
 	 */
-	@RequestMapping(value={"/home"})		//配合web下<url-pattern>/</url-pattern>
+	@RequestMapping(value={"/home"})//配合web下<url-pattern>/</url-pattern>
 	public String login(){
 		
-		return "/WEB-INF/pages/index.jsp";			//首页，删除根目录下index.jsp，否则上面url将被拦截进不来
+		return "/WEB-INF/pages/index.jsp";//首页，删除根目录下index.jsp，否则上面url将被拦截进不来
 	}
 
     /**

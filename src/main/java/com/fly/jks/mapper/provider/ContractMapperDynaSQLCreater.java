@@ -1,7 +1,9 @@
 package com.fly.jks.mapper.provider;
 
 import com.fly.jks.domain.Contract;
+import com.fly.jks.pagination.Page;
 import org.apache.ibatis.jdbc.SQL;
+import java.util.Map;
 
 /**
  * 合同动态sql生产类
@@ -9,6 +11,38 @@ import org.apache.ibatis.jdbc.SQL;
  * @date 2019/2/22 - 15:20
  */
 public class ContractMapperDynaSQLCreater {
+
+    /**
+     * 分页查询全部合同
+     * 有条件就是分页查询已经上报的合同
+     * @param page
+     * @return
+     */
+    public String findPage(Page page){
+        return new SQL(){{
+            SELECT("*");
+            FROM("contract");
+            if (page.getParams().get("state")!=null){
+                WHERE("contract_state = 1");
+            }
+        }}.toString()+" limit #{pageIndex},#{pageSize}";
+    }
+
+    /**
+     * 分页查询全部合同 总条数
+     * 有条件就是分页查询已经上报的合同 总条数
+     * @param paraMap
+     * @return
+     */
+    public String selectCount(Map<String, Object> paraMap){
+        return new SQL(){{
+            SELECT("count(*)");
+            FROM("contract");
+            if (paraMap.get("state")!=null){
+                WHERE("contract_state = 1");
+            }
+        }}.toString();
+    }
     /**
      * 真删除1条/批量删除
      */
