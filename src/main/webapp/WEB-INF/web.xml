@@ -3,7 +3,7 @@
   <display-name>Archetype Created Web Application</display-name>
 
   
-  <!-- 1.spring框架 -->
+  <!-- 1.spring框架配置spring提供的监听器，用于监听servletContext对象创建，同时为我们创建spring的容器 默认情况下：它只能加载位置是在WEB-INF目录中的spring配置文件，同时文件名称必须是applicationContext.xml -->
   <context-param>
   	<param-name>contextConfigLocation</param-name>
   	<param-value>classpath:spring/applicationContext.xml</param-value>
@@ -12,7 +12,7 @@
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
-  <!-- 2.springmvc servlet -->
+  <!-- 2.springmvc servlet spring前端控制器 固定写法-->
   <servlet>
   	<servlet-name>springmvc</servlet-name>
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

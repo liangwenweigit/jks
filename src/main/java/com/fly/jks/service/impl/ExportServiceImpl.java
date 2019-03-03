@@ -182,11 +182,6 @@ public class ExportServiceImpl implements ExportService{
                     exportExtEproductMapper.insert(exportExtEproduct);
                 }
             }
-
-
-
-
         }
-
     }
 }

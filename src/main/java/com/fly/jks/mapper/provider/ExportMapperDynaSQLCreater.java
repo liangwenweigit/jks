@@ -25,8 +25,8 @@ public class ExportMapperDynaSQLCreater {
     public String insertSQL(){
         return new SQL(){{
             INSERT_INTO("export");
-            VALUES("export_id, packing_list_id,input_date, contract_ids,customer_contract,lcno,consignee, marks,shipment_port,destination_port,transport_mode,price_condition,remark,box_num, cnumber,packing_unit,gross_weight,net_weight,size_length,size_width,size_height,csize,amount, no_tax,tax, cost_price,cost_tax, state,create_by,create_dept, create_time",
-                    " #{export_id},#{packing_list_id},#{contract_id},#{input_date},#{contract_ids},#{customer_contract},#{lcno},#{consignee},#{marks},#{shipment_port},#{destination_port},#{transport_mode},#{price_condition},#{remark},#{box_num},#{cnumber},#{packing_unit},#{gross_weight},#{net_weight},#{size_length},#{size_width},#{size_height},#{csize},#{amount},#{no_tax},#{tax},#{cost_price},#{cost_tax},#{state},#{create_by},#{create_dept},#{create_time}");
+            VALUES("export_id,packing_list_id,contract_id,input_date,contract_ids,customer_contract,lcno,consignee,marks,shipment_port,destination_port,transport_mode,price_condition,remark,box_num,cnumber,packing_unit,gross_weight,net_weight,size_length,size_width,size_height,csize,amount,no_tax,tax,cost_price,cost_tax,state,create_by,create_dept,create_time",
+                    "#{export_id},#{packing_list_id},#{contract_id},#{input_date},#{contract_ids},#{customer_contract},#{lcno},#{consignee},#{marks},#{shipment_port},#{destination_port},#{transport_mode},#{price_condition},#{remark},#{box_num},#{cnumber},#{packing_unit},#{gross_weight},#{net_weight},#{size_length},#{size_width},#{size_height},#{csize},#{amount},#{no_tax},#{tax},#{cost_price},#{cost_tax},#{state},#{create_by},#{create_dept},#{create_time}");
         }}.toString();
     }
 

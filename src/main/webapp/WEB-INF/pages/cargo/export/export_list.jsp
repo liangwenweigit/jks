@@ -68,7 +68,7 @@
         <td>${o.price_condition}</td>
         <td><fmt:formatDate value="${o.input_date}" pattern="yyyy-MM-dd"/></td>
 		<td>
-			<c:if test="${o.state eq 0}"><span style="color:green;">上报</span></c:if>
+			<c:if test="${o.state eq 0}"><span style="color:green;">草稿</span></c:if>
 			<c:if test="${o.state eq 1}"><span style="color:green;">已上报</span></c:if>
             <c:if test="${o.state eq 2}"><span style="color:green;">装箱</span></c:if>
             <c:if test="${o.state eq 3}"><span style="color:green;">委托</span></c:if>

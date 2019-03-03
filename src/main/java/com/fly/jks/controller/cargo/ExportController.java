@@ -71,9 +71,9 @@ public class ExportController extends BaseController{
         if (ids==null || ids.length==0){
             return "redirect:/api/contract/find_page?state=1";
         }
-       exportService.inserts(ids);
-
-        return null;
+        exportService.inserts(ids);
+        //数据搬家完直接重定向到上面方法就是下一个模块，出口报运模块
+        return "redirect:/api/export/find_page";
     }
 
 }
