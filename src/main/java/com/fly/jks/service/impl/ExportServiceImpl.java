@@ -172,7 +172,7 @@ public class ExportServiceImpl implements ExportService{
                     BeanUtils.copyProperties(e,exportExtEproduct);//spring工具类，数据的拷贝
                     //下面替换和补一些字段
                     exportExtEproduct.setExt_eproduct_id(CommonUtils.getUUID());//设置自身UUID=主键
-                    //外键字段必须补
+                    //外键字段必须补   private String export_product_id;//报运单UUID外键/报运货物明细UUID//这个是外键 指明是报运下的那个货物下的附件
                     exportExtEproduct.setExport_product_id(exportProduct.getExport_product_id());//绑定报运下的货物UUID=外键
                     //下面俩个字段和其他字段被上面spring的工具类补了
                     //exportExtEproduct.setFactory_id(e.getFactory_id());//工厂UUID=外键

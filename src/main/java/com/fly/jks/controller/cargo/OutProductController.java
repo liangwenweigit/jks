@@ -3,16 +3,22 @@ package com.fly.jks.controller.cargo;
 import com.fly.jks.domain.vo.ContractVO;
 import com.fly.jks.service.ContractService;
 import com.fly.jks.utils.DownloadUtil;
+import com.fly.jks.utils.PoiUtil;
+import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
+import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -176,9 +182,39 @@ public class OutProductController {
             nCell = nRow.createCell(colNo++);
             nCell.setCellValue(cv.getTrade_clause());
             nCell.setCellStyle(extrStyle);//贸易条款样式设置进去
+
             //循环一次，必须把列号变回1，否则，就成楼梯形状
             colNo = 1;//第2列（第1列是空的，所以从第二列开始）
         }
+
+        //添加图片//失败
+//        Drawing<?> patriarch = sheet.createDrawingPatriarch();//add picture    //这里的路径  图片后面是存储在数据库的，不能添加/在前面
+//        String paths = request.getSession().getServletContext().getRealPath("/")+"make/xlsprint/logo.jpg";
+//        // 图片处理
+//        File imgFile = new File(paths);
+//        System.out.println(paths);
+//        ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+//        BufferedImage bufferImg = ImageIO.read(imgFile);
+//        ImageIO.write(bufferImg, "jpg", byteArrayOut);
+//        XSSFClientAnchor anchor = new XSSFClientAnchor(20, 1, 1018, 0, (short)rowNo, 10, (short) 1, rowNo);
+//        patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), XSSFWorkbook.PICTURE_TYPE_JPEG));
+/**
+ * 	// 指定图片类型为jpgXSSFWorkbook
+ public void setPicture(Workbook wb, Drawing<?> patriarch, String pic, int iRowStart, int iColStart, int iRowStop, int iColStop) throws IOException {
+ // 判断文件是否存在
+ File imgFile = new File(pic);
+ if (imgFile.exists()) {
+ // 图片处理
+ ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+ BufferedImage bufferImg = ImageIO.read(imgFile);
+ ImageIO.write(bufferImg, "jpg", byteArrayOut);
+
+ // 左,上(0-255),右(0-1023),下
+ HSSFClientAnchor anchor = new HSSFClientAnchor(20, 1, 1018, 0, (short) (iColStart), iRowStart, (short) (iColStop), iRowStop);
+ patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_JPEG));
+ }
+ }
+ */
         //先写到流里面
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         wb.write(os);
